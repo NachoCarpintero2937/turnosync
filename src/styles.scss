@@ -1,1 +1,117 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';/* You can add global styles to this file, and also import other style files */
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$md-mcgpalette0: (
+    50 : #fbf6f6,
+    100 : #f6e9e9,
+    200 : #f0dbdb,
+    300 : #eacccc,
+    400 : #e6c1c1,
+    500 : #e1b6b6,
+    600 : #ddafaf,
+    700 : #d9a6a6,
+    800 : #d59e9e,
+    900 : #cd8e8e,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #fffcfc,
+    A700 : #ffe3e3,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$md-mcgpalette1: (
+    50 : #f3e0e0,
+    100 : #e0b3b3,
+    200 : #cc8080,
+    300 : #b84d4d,
+    400 : #a82626,
+    500 : #990000,
+    600 : #910000,
+    700 : #860000,
+    800 : #7c0000,
+    900 : #6b0000,
+    A100 : #ff9a9a,
+    A200 : #ff6767,
+    A400 : #ff3434,
+    A700 : #ff1a1a,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+body {
+    margin: 0px !important;
+    font-family: sans-serif !important;
+    // background: $main-bg;
+    background-color: #f1f1f1;
+    font-family: "CaviarDreams" !important;
+}
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$soyfocus-primary: mat-palette($md-mcgpalette0);
+$soyfocus-accent: mat-palette($md-mcgpalette0);
+
+:root {
+    --high: #e54444;
+    --medium: #e9d213;
+    --low: #1e90ff;
+}
+
+// The warn palette is optional (defaults to red).
+$soyfocus-warn: mat-palette($md-mcgpalette1);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$soyfocus-theme: mat-light-theme((color: (primary: $soyfocus-primary,
+                accent: $soyfocus-accent,
+                warn: $soyfocus-warn,
+            )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($soyfocus-theme);
+
+
+.btn-custom{
+    background: #e1b6b6!important;
+    color:white!important;
+}

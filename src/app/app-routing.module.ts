@@ -9,6 +9,11 @@ const routes: Routes = [
         (m) => m.LandingModule
       ),
   },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/public/login/login.module').then((m) => m.LoginModule),
+  },
   // all routes logged
   {
     path: 'in',

@@ -6,5 +6,6 @@ import { MaterialModule } from 'src/app/common/modules/material/material.module'
 @NgModule({
   declarations: [HeaderComponent],
   imports: [CommonModule, MaterialModule],
+  exports: [HeaderComponent],
 })
 export class HeaderModule {}

@@ -1,1 +1,13 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="toggleSidenav(sidenav)">
+        <!-- <mat-icon>menu</mat-icon> -->
+    </button>
+    <img src="./assets/img/logo_blanco.png" class="img-logo" alt="">
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+        <!-- Contenido de la barra lateral -->
+    </mat-sidenav>
+    <mat-sidenav-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
