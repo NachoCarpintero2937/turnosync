@@ -1,0 +1,51 @@
+{
+    "status": true,
+    "data": {
+        "employees" : [
+            {
+                "id": 1,
+                "name" :"Yanina Aguilar",
+                "shifts": [
+                    {
+                        "id": 1 ,
+                        "name": "Manuela Fernandez",
+                        "date": "2023-11-06 13:00",
+                        "email": "manuelafernandez@hotmail.com",
+                        "phone": "1121772141",
+                        "status": true
+                    },
+                    {
+                        "id": 1 ,
+                        "name": "Lucia Fernandez",
+                        "date": "2023-11-06 13:00",
+                        "email": "luciafernandez@hotmail.com",
+                        "phone": "1121772141",
+                        "status": true
+                    }
+                ]
+            },
+            {
+                "id": 1,
+                "name" :"Daniela Aguilar",
+                "shifts": [
+                    {
+                        "id": 1 ,
+                        "name": "Matias Ramirez",
+                        "date": "2023-11-06 13:00",
+                        "email": "manuelafernandez@hotmail.com",
+                        "phone": "1121772141",
+                        "status": true
+                    },
+                    {
+                        "id": 1 ,
+                        "name": "Florencia Ramirez",
+                        "date": "2023-11-06 13:00",
+                        "email": "luciafernandez@hotmail.com",
+                        "phone": "1121772141",
+                        "status": false
+                    }
+                ]
+            }
+        ]
+    }
+}

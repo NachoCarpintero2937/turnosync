@@ -1,0 +1,74 @@
+@import '../../../../styles.scss';
+
+
+.card-info {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $dyblleaColor;
+
+    .card-description {}
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        >span {
+            color: white;
+            font-size: 70px;
+        }
+    }
+
+    .number {
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 20px;
+        }
+    }
+
+    .description {
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 15px;
+            color: white;
+        }
+    }
+}
+
+.employees {
+    margin: 95px 20px 20px 20px;
+    border-radius: 1px;
+    border: 1px solid #c7c7c7;
+    box-shadow: none !important;
+
+    mat-card-header {
+        background-color: $mostazaDybella;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+
+        >span {
+            font-size: 20px;
+            color: white;
+        }
+    }
+
+    .list-shifts {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .description {
+        >span {
+            font-size: 15px;
+        }
+    }
+}
