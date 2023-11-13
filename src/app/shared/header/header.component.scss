@@ -1,3 +1,50 @@
-.img-logo{
-    width: 100px
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .img-logo {
+        width: 100px
+    }
+
+    .material-icons {
+        color: white !important;
+    }
+
+    .btns-logo-header {
+        width: 70%;
+        margin: 20px;
+        display: flex;
+        align-items: center;
+
+        .div-btns {
+            margin: 20px;
+            display: flex;
+            align-items: center;
+
+            button {
+                color: white !important;
+            }
+        }
+    }
+
+    .div-btn-exit {
+        .incials {
+            margin: 10px;
+        }
+
+        .action-exit {
+            display: flex;
+            align-items: center;
+        }
+
+        justify-content: flex-end;
+        width: 30%;
+
+        .hour {
+            color: white;
+            margin: 30px;
+            font-size: 25px
+        }
+    }
 }

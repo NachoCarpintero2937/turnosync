@@ -5,7 +5,9 @@
 // For more information: https://material.angular.io/guide/theming
 @import '@angular/material/theming';
 // Plus imports for other components in your app.
-$dyblleaColor: #956652;
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/angular-notifier/styles.scss";
+$dyblleaColor: #a58171;
 $mostazaDybella: #b5a53d;
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -121,4 +123,8 @@ $soyfocus-theme: mat-light-theme((color: (primary: $soyfocus-primary,
     right: 0;
     z-index: 100;
     margin: 40px;
+}
+
+mat-card {
+    box-shadow: none !important;
 }

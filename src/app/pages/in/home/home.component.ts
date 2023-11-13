@@ -8,15 +8,20 @@ import { HomeService } from './services/home.service';
 })
 export class HomeComponent implements OnInit {
   constructor(private HomeService: HomeService) {}
+  shifts: any;
 
-  employeesData: any;
   ngOnInit(): void {
-    this.getEmployees();
+    this.getShifts();
   }
 
-  getEmployees() {
-    this.HomeService.getShiftToEmployees().then((data: any) => {
-      this.employeesData = data?.data?.employees;
+  getShifts() {
+    const date = {
+      start_date: '2023-11-12 00:00:00',
+      end_date: '2023-11-13 00:00:00',
+    };
+    this.HomeService.getShifts(date).then((data: any) => {
+      this.shifts = data?.data;
+      console.log(this.shifts);
     });
   }
 }

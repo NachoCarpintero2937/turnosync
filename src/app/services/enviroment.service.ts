@@ -5,14 +5,28 @@ import { Injectable } from '@angular/core';
 })
 export class EnviromentService {
   constructor() {}
+  API_URL = 'http://localhost:8000/api';
 
   getEndpoints() {
     return {
       endpoints: {
-        home: {
-          employeesData: './assets/mocks/home.json',
+        login: {
+          login: this.API_URL + '/login',
+        },
+        shifts: {
+          getShiftToUsers: this.API_URL + '/users/getShiftToUsers',
         },
       },
     };
+  }
+
+  getErrorCodeHttp() {
+    const HttpErrorCodes: Record<number, string> = {
+      500: 'Error en el servidor (500)',
+      401: 'Sesión expirada, ingrese nuevamente',
+      403: 'Sesión expirada, ingrese nuevamente',
+      404: 'Error en el servidor (404)',
+    };
+    return HttpErrorCodes;
   }
 }

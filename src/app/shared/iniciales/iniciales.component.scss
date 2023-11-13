@@ -1,0 +1,13 @@
+@import '../../../styles.scss';
+
+.iniciales {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    letter-spacing: 1px;
+    // color: map-get($md-mcgpalette0, 500);
+    color: #956652;
+    font-weight: 600;
+
+}

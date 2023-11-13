@@ -11,9 +11,10 @@ export class HomeService {
     private ApiService: ApiService
   ) {}
 
-  getShiftToEmployees() {
+  getShifts(data: any) {
     return this.ApiService.get(
-      this.EnviromentService.getEndpoints().endpoints.home.employeesData
+      this.EnviromentService.getEndpoints().endpoints.shifts.getShiftToUsers,
+      data
     );
   }
 }

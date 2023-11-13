@@ -4,7 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './shared/header/header.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt-interceptor.interceptor';
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +16,11 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NotifierModule,
   ],
   bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
 })
 export class AppModule {}

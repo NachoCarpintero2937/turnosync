@@ -1,0 +1,46 @@
+@import '../../../../../styles.scss';
+
+.info-cards {
+    justify-content: space-between;
+}
+
+.card-info {
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $dyblleaColor;
+
+    .card-description {}
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 15px;
+
+        >span {
+            color: white;
+            font-size: 70px;
+        }
+    }
+
+    .number {
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 20px;
+        }
+    }
+
+    .description {
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 15px;
+            color: white;
+        }
+    }
+}

@@ -1,89 +1,80 @@
 <div class="container mt-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-3">
-            <div class="d-flex ">
-                <div class="card-info">
-                    <div class="card-description">
-                        <h3 class="text-white">6 Clientes</h3>
-                        <div class="description">
-                            <span>
-                                Turnos al 04/11/2023
-                            </span>
-                        </div>
+    <app-info-cards [data]="shifts"></app-info-cards>
+    <div class="col-md-12 mt-5">
+        <mat-card>
+            <mat-card-header>
+                <span class="title-service">
+                    Servicios a prestar hoy
+                </span>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-list>
+                    <div *ngFor="let serviceToday of shifts?.today_service">
+                        <mat-list-item lines="">
+                            <div class="d-flex list-shifts">
+                                <div class="description">
+                                    <span class="description-servicetoday">
+                                        {{serviceToday?.name}}
+                                    </span>
+                                </div>
+                                <div class="price">
+                                    {{ serviceToday?.price?.price | currency:'$':'symbol':'1.2-2' }}
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
                     </div>
-                    <div class="icon">
-                        <span class="material-icons">group</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="d-flex ">
-                <div class="card-info">
-                    <div class="card-description">
-                        <h3 class="text-white">6 Clientes</h3>
-                        <div class="description">
-                            <span>
-                                Turnos al 04/11/2023
-                            </span>
-                        </div>
-                    </div>
-                    <div class="icon">
-                        <span class="material-icons">group</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="d-flex ">
-                <div class="card-info">
-                    <div class="card-description">
-                        <h3 class="text-white">6 Clientes</h3>
-                        <div class="description">
-                            <span>
-                                Turnos al 04/11/2023
-                            </span>
-                        </div>
-                    </div>
-                    <div class="icon">
-                        <span class="material-icons">group</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <mat-card></mat-card>
-        </div>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
     </div>
     <!-- employees -->
-    <div class="mt-5 d-flex justify-content-center ">
-        <mat-card class="col-md-6 employees" *ngFor="let employe of employeesData">
+    <div class="mt-1 d-flex justify-content-center">
+        <mat-card class="col-md-6 employees" *ngFor="let employe of shifts?.users">
             <mat-card-header>
                 <span>
                     {{employe?.name}}
                 </span>
             </mat-card-header>
             <mat-card-content>
-                <mat-list role="list">
+                <mat-list role="list" *ngIf="employe?.shifts?.length >0;else notShifts">
                     <div *ngFor="let shift of employe?.shifts">
                         <mat-list-item lines="">
                             <div class="d-flex list-shifts">
                                 <div class="description">
                                     <span>
-                                        {{shift?.name}}
+                                        {{shift?.service?.name}} a
+                                    </span>
+                                    <span>
+                                        <b>{{shift?.client?.name}}</b>
+                                    </span>
+                                    <span>
+                                        a las <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
                                     </span>
                                 </div>
                                 <div class="actions">
-                                    <button mat-button><img src="./assets/img/wsp.png" alt="" width="20"></button>
+                                    <button class="btn-action"><img src="./assets/img/wsp.png" alt=""
+                                            width="20"></button>
+                                    <button class="btn-action"> <span class="material-icons">search</span></button>
                                 </div>
                             </div>
                         </mat-list-item>
                         <mat-divider></mat-divider>
                     </div>
-
                 </mat-list>
             </mat-card-content>
         </mat-card>
+        <ng-template #notShifts>
+            <div class="d-flex justify-content-center align-items-center ">
+                <mat-list class="col-md-12">
+                    <mat-list-item>
+                        Sin turnos disponibles hoy
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
+
+            </div>
+        </ng-template>
     </div>
 
 </div>

@@ -1,55 +1,15 @@
 @import '../../../../styles.scss';
 
 
-.card-info {
-    width: 100%;
-    padding: 15px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: $dyblleaColor;
 
-    .card-description {}
-
-    .icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        >span {
-            color: white;
-            font-size: 70px;
-        }
-    }
-
-    .number {
-        display: flex;
-        align-items: center;
-
-        >span {
-            font-size: 20px;
-        }
-    }
-
-    .description {
-        display: flex;
-        align-items: center;
-
-        >span {
-            font-size: 15px;
-            color: white;
-        }
-    }
-}
 
 .employees {
     margin: 95px 20px 20px 20px;
     border-radius: 1px;
-    border: 1px solid #c7c7c7;
     box-shadow: none !important;
 
     mat-card-header {
-        background-color: $mostazaDybella;
+        background-color: map-get($md-mcgpalette0, 500);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -60,15 +20,45 @@
             color: white;
         }
     }
+}
 
-    .list-shifts {
-        justify-content: space-between;
-        align-items: center;
-    }
+.list-shifts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .description {
+        width: 70%;
+
         >span {
             font-size: 15px;
         }
     }
+
+    .actions {
+        display: flex;
+        width: 30%;
+        justify-content: flex-end;
+
+        .btn-action {
+            background-color: transparent;
+            border: 0px;
+            display: flex;
+            align-items: center;
+            width: 50px;
+        }
+    }
+}
+
+.title-service {
+    font-size: 30px;
+}
+
+.description-servicetoday {
+    font-size: 17px;
+}
+
+.no-shifts {
+    height: 200px;
 }

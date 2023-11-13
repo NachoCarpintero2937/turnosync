@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private fb: FormBuilder, private Router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private Router: Router,
+    private LoginService: LoginService
+  ) {}
 
   form = this.fb.group({
-    username: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required],
   });
 
   submit() {
-    this.Router.navigate(['/in/home']);
+    this.LoginService.login(this.form.getRawValue()).then((data: any) => {
+      this.LoginService.setUserData(data);
+      this.Router.navigate(['/in/home']);
+    });
   }
 }
