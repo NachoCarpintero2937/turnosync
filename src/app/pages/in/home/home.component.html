@@ -41,20 +41,19 @@
                     <div *ngFor="let shift of employe?.shifts">
                         <mat-list-item lines="">
                             <div class="d-flex list-shifts">
-                                <div class="description">
+                                <div class="description" [matTooltip]="getTooltip()">
+                                    <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
                                     <span>
-                                        {{shift?.service?.name}} a
+                                        {{shift?.service?.name}}
                                     </span>
                                     <span>
                                         <b>{{shift?.client?.name}}</b>
                                     </span>
-                                    <span>
-                                        a las <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
-                                    </span>
+
                                 </div>
                                 <div class="actions">
-                                    <button class="btn-action"><img src="./assets/img/wsp.png" alt=""
-                                            width="20"></button>
+                                    <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
+                                            alt="" width="20"></button>
                                     <button class="btn-action"> <span class="material-icons">search</span></button>
                                 </div>
                             </div>

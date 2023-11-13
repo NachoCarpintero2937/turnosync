@@ -15,8 +15,8 @@
                                     a las <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
                                 </div>
                                 <div class="actions">
-                                    <button class="btn-action"><img src="./assets/img/wsp.png" alt=""
-                                            width="20"></button>
+                                    <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
+                                            alt="" width="20"></button>
                                     <button class="btn-action"> <span class="material-icons">search</span></button>
                                 </div>
                             </div>

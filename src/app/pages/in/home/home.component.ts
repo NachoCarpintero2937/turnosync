@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './services/home.service';
+import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,7 @@ import { HomeService } from './services/home.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private HomeService: HomeService) {}
+  constructor(private HomeService: HomeService, private dialog: MatDialog) {}
   shifts: any;
 
   ngOnInit(): void {
@@ -21,7 +23,18 @@ export class HomeComponent implements OnInit {
     };
     this.HomeService.getShifts(date).then((data: any) => {
       this.shifts = data?.data;
-      console.log(this.shifts);
     });
+  }
+
+  sendWsp(shift: any) {
+    const dialogRef = this.dialog.open(DialogWspComponent, {
+      data: { shift: shift },
+      width: '50%',
+    });
+    dialogRef.afterClosed().subscribe((resultado: any) => {});
+  }
+
+  getTooltip() {
+    return '';
   }
 }

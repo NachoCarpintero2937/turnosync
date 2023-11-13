@@ -3,6 +3,8 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { DiaryService } from './services/diary.service';
 import { DatePipe } from '@angular/common';
+import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-diary',
@@ -15,7 +17,8 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private DiaryService: DiaryService,
-    private DatePipe: DatePipe
+    private DatePipe: DatePipe,
+    private dialog: MatDialog
   ) {
     this.dateAdapter.setLocale('es-AR');
   }
@@ -66,5 +69,13 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     // this.calendar.selectedChange.subscribe((data) => {
     //   console.log(data);
     // });
+  }
+
+  sendWsp(shift: any) {
+    const dialogRef = this.dialog.open(DialogWspComponent, {
+      data: { shift: shift },
+      width: '50%',
+    });
+    dialogRef.afterClosed().subscribe((resultado) => {});
   }
 }
