@@ -15,6 +15,7 @@ export class EnviromentService {
         },
         shifts: {
           getShiftToUsers: this.API_URL + '/users/getShiftToUsers',
+          shifts: this.API_URL + '/shifts/',
         },
       },
     };

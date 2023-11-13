@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { DiaryRoutingModule } from './diary-routing.module';
 import { DiaryComponent } from './diary.component';
@@ -9,6 +9,6 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 @NgModule({
   declarations: [DiaryComponent],
   imports: [CommonModule, DiaryRoutingModule, MaterialModule],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' }],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' }, DatePipe],
 })
 export class DiaryModule {}

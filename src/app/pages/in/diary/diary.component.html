@@ -1,1 +1,30 @@
-<mat-calendar (selectedChange)="onDateSelect($event)"></mat-calendar>
+<div class="d-flex">
+    <mat-calendar #matcalendar class="mat-calendar " (selectedChange)="onDateSelect($event)"
+        (monthSelected)="onMonthSelect($event)" (yearSelected)="onYearSelect($event)"></mat-calendar>
+    <div class="list-shifts mt-5 ">
+        <mat-card class="col-md-12">
+            <mat-card-content>
+                <mat-list>
+                    <div *ngFor=" let shift of shifts">
+                        <mat-list-item>
+                            <div class="d-flex">
+                                <div class="description" [matTooltip]="getTootlip(shift)">
+                                    {{shift?.service?.name}} a <b>{{shift?.client?.name}}</b>
+                                    el día {{ shift?.date_shift |
+                                    date:'dd/MM/YYYY' }}
+                                    a las <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
+                                </div>
+                                <div class="actions">
+                                    <button class="btn-action"><img src="./assets/img/wsp.png" alt=""
+                                            width="20"></button>
+                                    <button class="btn-action"> <span class="material-icons">search</span></button>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                    </div>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
