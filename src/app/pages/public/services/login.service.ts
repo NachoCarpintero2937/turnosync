@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import {  Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { EnviromentService } from 'src/app/services/enviroment.service';
 
@@ -12,7 +13,7 @@ export class LoginService {
     private EnviromentService: EnviromentService,
     private Router: Router
   ) {}
-
+  public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject({});
   login(data: any) {
     return this.ApiService.post(
       data,
@@ -31,7 +32,7 @@ export class LoginService {
   logout(path: string = '/login'): Promise<object> {
     return new Promise((resolve, reject) => {
       localStorage.removeItem('currentUser');
-      // this.TokenService.dataUserSubject.next(null);
+      this.dataUserSubject.next(null);
       this.Router.navigate([path])
         .then(() => {
           resolve({

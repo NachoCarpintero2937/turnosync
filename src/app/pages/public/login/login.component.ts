@@ -23,6 +23,7 @@ export class LoginComponent {
   submit() {
     this.LoginService.login(this.form.getRawValue()).then((data: any) => {
       this.LoginService.setUserData(data);
+      this.LoginService.dataUserSubject.next(data);
       this.Router.navigate(['/in/home']);
     });
   }

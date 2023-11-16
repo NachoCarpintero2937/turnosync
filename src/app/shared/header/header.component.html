@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="userData">
     <div class="header-main">
         <div class="btns-logo-header">
             <a [routerLink]="['/logged/home']">
@@ -42,7 +42,7 @@
                     </app-iniciales>
                 </div>
                 <div class="action-exit">
-                    <button mat-icon-button matTooltip="Cerrar sesión">
+                    <button mat-icon-button matTooltip="Cerrar sesión" (click)="logout()">
                         <span class="material-icons">
                             input
                         </span>
