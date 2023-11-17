@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './pages/public/services/login.service';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { EnviromentService } from './services/enviroment.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,12 @@ import { LoginService } from './pages/public/services/login.service';
 })
 export class AppComponent implements OnInit{
   title = 'dybella-front';
-  constructor(private LoginService: LoginService){
+  excludePage:boolean =false;
+  url:any;
+  constructor(
+    private LoginService: LoginService,
+    private EnviromentService : EnviromentService,
+    private Router: Router){
 
   }
   userData : any;
@@ -17,6 +24,22 @@ export class AppComponent implements OnInit{
   }
 
   initComponent(){
+    this.Router.url
     this.userData = this.LoginService.getDataUser()?.data;
+    this.Router.events.subscribe((page:any) => {
+      if (page instanceof NavigationEnd) {
+      this.url =  this.Router.url
+      this.onCheckPageUrl();
+      }
+    })
   }
+
+ onCheckPageUrl(){
+  const page = this.EnviromentService.getExcludePagesHeader().find(page => page ===  this.url);
+  if(page){
+    this.excludePage = true;
+  }else{
+    this.excludePage = false;
+  }
+ }
 }

@@ -17,6 +17,9 @@ export class EnviromentService {
           getShiftToUsers: this.API_URL + '/users/getShiftToUsers',
           shifts: this.API_URL + '/shifts/',
         },
+        clients : {
+          clients : this.API_URL + '/clients',
+        }
       },
     };
   }
@@ -29,5 +32,9 @@ export class EnviromentService {
       404: 'Error en el servidor (404)',
     };
     return HttpErrorCodes;
+  }
+
+  getExcludePagesHeader(){
+    return ['/','/login']
   }
 }

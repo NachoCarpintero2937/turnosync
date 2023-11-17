@@ -5,7 +5,7 @@
         <mat-card class="col-md-12">
             <mat-card-content>
                 <mat-list>
-                    <div *ngFor=" let shift of shifts">
+                    <div *ngFor=" let shift of shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
                         <mat-list-item>
                             <div class="d-flex">
                                 <div class="description" [matTooltip]="getTootlip(shift)">
@@ -13,7 +13,11 @@
                                     {{shift?.service?.name}} a <b>{{shift?.client?.name}}</b>
                                     el día {{ shift?.date_shift |
                                     date:'dd/MM/YYYY' }}
-
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <div class="price-shift">
+                                    <span> {{ shift?.price === "0.00" ? 'GRATIS' : shift?.price| currency:'$':'symbol':'1.2-2'  }}</span>
+                                  </div>
                                 </div>
                                 <div class="actions">
                                     <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"

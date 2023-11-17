@@ -1,1 +1,16 @@
-<p>clients works!</p>
+
+<div class="container">
+    <div class="pd-5 d-flex mt-5 align-items-center">
+        <div class="line">
+            <hr>
+        </div>
+        <span class="title d-flex align-items-center dybella-text">Listado de clientes
+        </span>
+    </div>
+    <div class="pd-5">
+        <app-view-table-clients [columns]="columns" [data]="clients"></app-view-table-clients>
+    </div>
+</div>
+<div class="add_work">
+    <!-- <app-add-event (onCerrado)="dialogEmit($event);"></app-add-event> -->
+</div>
