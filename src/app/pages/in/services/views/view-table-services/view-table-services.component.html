@@ -30,40 +30,38 @@
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element?.name">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
                     {{element?.name}}
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="email" >
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Email
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Precio
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="element?.email">
-                    {{element?.email}}
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.price?.price | currency:'$':'symbol':'1.2-2'}}
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="phone">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Número de telefono
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Creado por
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="element?.phone">
-                    {{element?.phone}}
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="date_brithday">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de nacimiento
-                </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="tooltipDate(element?.created_at)">
-                    {{element?.date_birthday | date: 'dd/MM/yyyy'}}
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.user?.name}}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="created_at">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Alta
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de alta
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="tooltipDate(element?.created_at)">
-                    {{element?.created_at | date: 'dd/MM/yyyy'}}
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.created_at | date : 'dd/MM/yyy HH:mm'}}
                 </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="columns">
-            </mat-header-row>
+            <ng-container matColumnDef="updated_at">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Última modificación
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.updated_at | date : 'dd/MM/yyy HH:mm'}}
+                </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
                 </mat-header-cell>
@@ -78,3 +76,4 @@
         </mat-paginator>
     </mat-card-content>
 </mat-card>
+

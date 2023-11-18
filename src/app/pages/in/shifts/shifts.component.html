@@ -1,1 +1,16 @@
-<p>shifts works!</p>
+
+<div class="container">
+    <div class="pd-5 d-flex mt-5 align-items-center">
+        <div class="line">
+            <hr>
+        </div>
+        <span class="title d-flex align-items-center dybella-text">Turnos
+        </span>
+    </div>
+    <div class="pd-5">
+        <app-view-table-shifts [columns]="columns" [data]="shifts"></app-view-table-shifts>
+    </div>
+</div>
+<div class="add_work">
+    <!-- <app-add-event (onCerrado)="dialogEmit($event);"></app-add-event> -->
+</div>

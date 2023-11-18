@@ -1,7 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { ClientsService } from './services/clients.service';
-import { ApiService } from 'src/app/services/api.service';
-
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -19,7 +17,8 @@ columns = [
   'email',
   'phone',
   'date_brithday',
-  'created_at'
+  'created_at',
+  'actions'
 ];
 clients : any[]= [];
 

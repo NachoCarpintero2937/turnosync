@@ -27,43 +27,48 @@
                     {{element?.id}}
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre
+            <ng-container matColumnDef="client">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Cliente
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element?.name">
-                    {{element?.name}}
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.client?.name">
+                    <b>{{element?.client?.name}}</b>
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="email" >
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Email
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="element?.email">
-                    {{element?.email}}
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.description">
+                    {{element?.description}}
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="phone">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Número de telefono
+            <ng-container matColumnDef="service">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Servicio
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="element?.phone">
-                    {{element?.phone}}
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.service?.name">
+                    {{element?.service?.name}}
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="date_brithday">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de nacimiento
+            <ng-container matColumnDef="date_shift">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de turno
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="tooltipDate(element?.created_at)">
-                    {{element?.date_birthday | date: 'dd/MM/yyyy'}}
+                <mat-cell *matCellDef="let element" [matTooltip]="tooltipDate(element?.date_shift)">
+                    <b>{{element?.date_shift | date: 'dd/MM/yyyy HH:mm'}}</b>
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="created_at">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Alta
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de creación
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="tooltipDate(element?.created_at)">
                     {{element?.created_at | date: 'dd/MM/yyyy'}}
                 </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="columns">
-            </mat-header-row>
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Turno creado por
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.user?.name">
+                    {{element?.user?.name}}
+                </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
                 </mat-header-cell>
@@ -71,7 +76,8 @@
                <button>ac</button>
                 </mat-cell>
             </ng-container>
-            <mat-row *matRowDef="let row; columns: columns;let i= index">
+            <mat-row *matRowDef="let row; columns: columns;let i= index"
+                [ngClass]="{'pago-row': row.paid == 1, 'impago-row' : row.paid == 0 }">
             </mat-row>
         </mat-table>
         <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]">

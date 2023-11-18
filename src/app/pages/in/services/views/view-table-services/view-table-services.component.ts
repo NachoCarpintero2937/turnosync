@@ -1,14 +1,14 @@
-import { AfterViewInit, Component,Input,OnChanges,OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-view-table-clients',
-  templateUrl: './view-table-clients.component.html',
-  styleUrls: ['./view-table-clients.component.scss']
+  selector: 'app-view-table-services',
+  templateUrl: './view-table-services.component.html',
+  styleUrls: ['./view-table-services.component.scss']
 })
-export class ViewTableClientsComponent implements OnInit,AfterViewInit,OnChanges{
+export class ViewTableServicesComponent {
   @Input() columns: any;
   @Input() data: any;
   // MatTable
