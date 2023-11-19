@@ -14,7 +14,7 @@ export class ApiService {
     const get = this._http.get(url, options);
     return await lastValueFrom(get);
   }
-  public async post(model: any, url: string) {
+  public async post( url: string,model: any,) {
     const options = model;
     const post = this._http.post(url, options);
     return await lastValueFrom(post);
