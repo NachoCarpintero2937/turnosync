@@ -18,4 +18,11 @@ export class ShiftsService {
       data
     );
   }
+
+  setShift(data:any){
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.shifts.create,
+      data
+    );
+  }
 }

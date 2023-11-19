@@ -2,9 +2,8 @@ import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { DiaryService } from './services/diary.service';
+import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-diary',
@@ -14,11 +13,12 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class DiaryComponent implements OnInit, AfterViewInit {
   @ViewChild('matcalendar') calendar!: MatCalendar<any>;
+  date! : Date;
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private DiaryService: DiaryService,
-    private DatePipe: DatePipe,
-    private dialog: MatDialog
+    private Router: Router,
+    private DatePipe : DatePipe
   ) {
     this.dateAdapter.setLocale('es-AR');
   }
@@ -29,8 +29,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   }
 
   onDateSelect(event: Date): void {
-    const selectedDate = event;
-    console.log(selectedDate);
+  this.date= event;
   }
   onMonthSelect(event: any) {
     // Este método se ejecutará cuando se cambie de mes
@@ -52,17 +51,11 @@ export class DiaryComponent implements OnInit, AfterViewInit {
       })
       .catch((e) => {});
   }
-  getTootlip(shift: any) {
-    const tooltip =
-      shift?.service?.name +
-      ' a ' +
-      shift?.client?.name +
-      ' el día ' +
-      this.DatePipe.transform(shift?.date_shift, 'dd/MM/yyyy') +
-      ' a las ' +
-      this.DatePipe.transform(shift?.date_shift, 'HH:mm');
-    return tooltip;
+
+  addShift(){
+    this.Router.navigate(['in/shifts/create-shift'] ,{ queryParams : { date : this.date}});
   }
+ 
   ngAfterViewInit() {
     // this.calendar.stateChanges.subscribe((data) => {});
     // console.log(this.calendar.selectedChange);
@@ -71,11 +64,4 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     // });
   }
 
-  sendWsp(shift: any) {
-    const dialogRef = this.dialog.open(DialogWspComponent, {
-      data: { shift: shift },
-      width: '50%',
-    });
-    dialogRef.afterClosed().subscribe((resultado) => {});
-  }
 }

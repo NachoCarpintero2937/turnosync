@@ -10,7 +10,6 @@ export class HeaderComponent implements OnInit {
   constructor(private LoginService: LoginService) {
 
     this.LoginService.dataUserSubject.subscribe(data =>{
-      console.log(data)
       this.userData = data;
     })
   }

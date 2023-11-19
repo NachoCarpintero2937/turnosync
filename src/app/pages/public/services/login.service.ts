@@ -13,7 +13,7 @@ export class LoginService {
     private EnviromentService: EnviromentService,
     private Router: Router
   ) {}
-  public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject({});
+  public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject(this.getDataUser());
   login(data: any) {
     return this.ApiService.post(
       data,

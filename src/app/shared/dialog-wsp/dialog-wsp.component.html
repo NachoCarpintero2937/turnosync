@@ -9,10 +9,10 @@
         Recordatorio</button>
     <mat-form-field class="col-md-12 mt-5 description">
         <mat-label>Mensaje</mat-label>
-        <textarea matInput rows="5" cols="40" class="description" [value]="notif"></textarea>
+        <textarea matInput rows="5" cols="40" class="description" [value]="notif" [(ngModel)]="notif"></textarea>
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="true">Cancelar</button>
-    <button mat-button color="primary" [mat-dialog-close]="true">Enviar</button>
+    <button mat-button [mat-dialog-close]="true" (click)="onClose()">Cancelar</button>
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="send();">Enviar</button>
 </mat-dialog-actions>

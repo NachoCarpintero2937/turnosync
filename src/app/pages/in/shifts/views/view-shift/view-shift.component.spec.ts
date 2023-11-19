@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogWspComponent } from './dialog-wsp.component';
+import { ViewShiftComponent } from './view-shift.component';
 
-describe('DialogWspComponent', () => {
-  let component: DialogWspComponent;
-  let fixture: ComponentFixture<DialogWspComponent>;
+describe('ViewShiftComponent', () => {
+  let component: ViewShiftComponent;
+  let fixture: ComponentFixture<ViewShiftComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DialogWspComponent]
+      declarations: [ViewShiftComponent]
     });
-    fixture = TestBed.createComponent(DialogWspComponent);
+    fixture = TestBed.createComponent(ViewShiftComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

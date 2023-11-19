@@ -1,4 +1,4 @@
-import { DOCUMENT, DatePipe } from '@angular/common';
+import {  DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -15,7 +15,6 @@ export class DialogWspComponent implements OnInit {
   ) {}
   notif: string = '';
   ngOnInit(): void {
-    console.log(this.data);
   }
 
   setValueNotif() {
@@ -29,5 +28,16 @@ export class DialogWspComponent implements OnInit {
       ' tenes turno para ' +
       this.data?.shift?.service?.name +
       '. Por favor confirmar asistencia. Te deseamos que tengas un hermoso día 💗.';
+  }
+
+send(){
+    this.dialogRef.close({
+      shift: this.data?.shift,
+      message: this.notif
+    })
+  }
+
+  onClose(){
+    this.dialogRef.close();
   }
 }
