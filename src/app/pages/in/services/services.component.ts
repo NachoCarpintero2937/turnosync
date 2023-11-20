@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServicesService } from './services/services.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-services',
@@ -7,7 +8,10 @@ import { ServicesService } from './services/services.service';
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent {
-  constructor(private ServicesService: ServicesService){
+  constructor(
+    private ServicesService: ServicesService,
+    private Router: Router
+    ){
 
   }
 
@@ -32,5 +36,8 @@ export class ServicesComponent {
     });
   }
 
+  addService(){
+    this.Router.navigate(['in/services/create-service'])
+  }
   }
 

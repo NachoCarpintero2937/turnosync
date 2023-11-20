@@ -7,3 +7,19 @@
 .list-shifts{
   width: 50%;
 }
+
+
+:host ::ng-deep mat-calendar .highlight-event{
+  border:1px solid $dyblleaColor;
+  border-radius: 50%;
+  span{
+    color:$dyblleaColor!important;
+    border:0px!important;
+    
+  }
+}
+
+:host ::ng-deep mat-calendar .event-content{
+z-index: 99999;
+}
+

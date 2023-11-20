@@ -11,7 +11,7 @@ export class DiaryService {
     private EnviromentService: EnviromentService
   ) {}
 
-  getShifts(data: any) {
+  getShifts(data?: any) {
     return this.ApiService.get(
       this.EnviromentService.getEndpoints().endpoints.shifts.shifts,
       data

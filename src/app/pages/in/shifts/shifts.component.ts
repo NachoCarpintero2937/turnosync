@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { ShiftsService } from './services/shifts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shifts',
@@ -19,7 +20,10 @@ export class ShiftsComponent implements OnInit{
   ];
   shifts : any[]= [];
 
-  constructor(private ShiftsService :  ShiftsService){}
+  constructor(
+    private ShiftsService :  ShiftsService,
+    private Router: Router
+    ){}
   
   ngOnInit(): void {
    this.getShifts();
@@ -32,5 +36,7 @@ export class ShiftsComponent implements OnInit{
 
     });
   }
-  
+  addShift(){
+    this.Router.navigate(['in/shifts/create-shift'])
+  }
 }

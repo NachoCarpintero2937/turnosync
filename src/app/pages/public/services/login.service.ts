@@ -16,8 +16,8 @@ export class LoginService {
   public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject(this.getDataUser());
   login(data: any) {
     return this.ApiService.post(
-      data,
-      this.EnviromentService.getEndpoints().endpoints.login.login
+      this.EnviromentService.getEndpoints().endpoints.login.login,
+      data
     );
   }
 

@@ -7,7 +7,9 @@ import { HeaderModule } from './shared/header/header.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt-interceptor.interceptor';
 import { NotifierModule } from 'angular-notifier';
-
+import { LOCALE_ID } from '@angular/core';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData,DatePipe } from '@angular/common';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,6 +23,12 @@ import { NotifierModule } from 'angular-notifier';
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'es' },
+    DatePipe
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeEs);
+  }
+}

@@ -1,6 +1,7 @@
 <div class="d-flex">
-    <mat-calendar #matcalendar class="mat-calendar " (selectedChange)="onDateSelect($event)"
-        (monthSelected)="onMonthSelect($event)" (yearSelected)="onYearSelect($event)"></mat-calendar>
+    <mat-calendar #matcalendar class="mat-calendar " [dateClass]="dateClass" (selectedChange)="onDateSelect($event)"
+        (monthSelected)="onMonthSelect($event)" (yearSelected)="onYearSelect($event)">
+        </mat-calendar>
 
     <div class="list-shifts">
         <app-view-shifts-diary [shifts]="shifts"></app-view-shifts-diary>

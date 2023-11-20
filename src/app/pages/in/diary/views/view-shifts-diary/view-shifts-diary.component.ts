@@ -17,7 +17,10 @@ constructor(
   ){
 
 }
-
+month = new Date();
+getMonthName(): string {
+  return this.DatePipe.transform(this.month, 'MMMM', 'es') || '';
+}
 
 getTootlip(shift: any) {
   const tooltip =

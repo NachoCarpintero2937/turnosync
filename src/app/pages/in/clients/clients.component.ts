@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { ClientsService } from './services/clients.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -8,7 +9,8 @@ import { ClientsService } from './services/clients.service';
 export class ClientsComponent implements OnInit{
 
 constructor(
-  private ClientsService:ClientsService
+  private ClientsService:ClientsService,
+  private Router : Router
   ){}
 
 columns = [
@@ -30,5 +32,9 @@ getClients(){
   this.ClientsService.getClients().then((clients:any) =>{
     this.clients = clients?.data?.clients;
   });
+}
+
+addClient(){
+  this.Router.navigate(['in/clients/create-client']);
 }
 }

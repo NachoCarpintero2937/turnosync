@@ -18,4 +18,11 @@ export class ServicesService {
       data
     );
   }
+
+setService(data:any){
+  return this.ApiService.post(
+    this.EnviromentService.getEndpoints().endpoints.services.create,
+    data
+  );
+}
 }

@@ -20,9 +20,11 @@ export class EnviromentService {
         },
         clients : {
           clients : this.API_URL + '/clients',
+          create :this.API_URL + '/clients/create'
         },
         services : {
           services : this.API_URL + '/services',
+          create : this.API_URL + '/services/create'
         },
         users: {
           users: this.API_URL + '/users'

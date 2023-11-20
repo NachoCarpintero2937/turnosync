@@ -1,5 +1,24 @@
 <div class="list-shifts mt-5">
-<mat-card *ngIf="shifts?.length > 0">
+    <mat-card *ngIf="shifts?.length > 0">
+   <mat-card-header>
+   <div class="text-header">
+    Turnos de {{getMonthName()}}
+</div>
+    <div class="d-flex introduction">
+        <div class="d-flex m-2 align-items-center">
+            <div class="show box m-1 align-items-center"></div>
+            <span class="text-introduction m-1">Asistió</span>
+        </div>
+        <div class="d-flex m-2">
+            <div class="no-show box m-1 align-items-center"></div>
+            <span class="text-introduction m-1">No asistió/Cancelada</span>
+        </div>
+        <div class="d-flex m-2">
+            <div class="pending box m-1 align-items-center"></div>
+            <span class="text-introduction m-1">Pendiente</span>
+        </div>
+    </div>
+   </mat-card-header>     
     <mat-card-content>
         <mat-list>
             <div *ngFor=" let shift of shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
