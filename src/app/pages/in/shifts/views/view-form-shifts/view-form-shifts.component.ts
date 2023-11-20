@@ -7,6 +7,7 @@ import { ClientsService } from '../../../clients/services/clients.service';
 import { map, startWith } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ShiftsService } from '../../services/shifts.service';
+import { UsersService } from '../../../users/services/users.service';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -14,15 +15,28 @@ import { ShiftsService } from '../../services/shifts.service';
 })
 export class ViewFormShiftsComponent implements OnInit{
   @Input() date!:any
-
+  dateTransform! : any;
  constructor(
   private fb : FormBuilder,
   private LoginService: LoginService,
   private ServicesService: ServicesService,
   private ClientService :ClientsService,
   private DatePipe : DatePipe,
-  private ShiftService : ShiftsService
+  private ShiftService : ShiftsService,
+  private UsersService : UsersService
   ){}
+
+  form = this.fb.group({
+    date_shift: [this.date,Validators.required],
+    hour : [null,Validators.required],
+    description : [null,Validators.required],
+    status: [0, Validators.required],
+    price : [null,Validators.required],
+    service_id:[null,Validators.required],
+    client_id : [null,Validators.required],
+    user_id : [null,Validators.required]
+   });
+
   dybellaTheme: NgxMaterialTimepickerTheme = {
     container: {
         bodyBackgroundColor: '#fff',
@@ -41,21 +55,17 @@ export class ViewFormShiftsComponent implements OnInit{
 
 clients : any[] = [];
 services : any[] = [];
+users : any[] = [];
 
- form = this.fb.group({
-  date_shift: [this.date,Validators.required],
-  hour : [null,Validators.required],
-  description : [null,Validators.required],
-  status: [0, Validators.required],
-  price : [null,Validators.required],
-  service_id:[null,Validators.required],
-  client_id : [null,Validators.required],
-  user_id : [null,Validators.required]
- });
- searchCtrlClient = new FormControl();
- filteredClients!: any[];
- searchCtrlService= new FormControl();
- filteredService!: any[];
+searchCtrlClient = new FormControl();
+filteredClients!: any[];
+
+searchCtrlService= new FormControl();
+filteredService!: any[];
+
+searchCtrlUsers= new FormControl();
+filteredUsers!: any[];
+
 ngOnInit(): void {
   this.getServices();
   this.setValueForm();
@@ -77,15 +87,23 @@ getServices(){
 getClients(){
   this.ClientService.getClients().then((clients: any) =>{
     this.clients = clients?.data?.clients;
+    this.getUsers();
+  })
+}
+
+getUsers(){
+  this.UsersService.getUsers().then((users: any) =>{
+    this.users = users?.data?.users;
     this.searchMat();
   })
 }
+
 
 searchMat(){
   this.filteredClients = this.clients;
   this.searchCtrlClient.valueChanges.pipe(
     startWith(''),
-    map((search) => this.filterClients(search))
+    map((search) => this.ShiftService.filterItems(this.clients,search))
   ).subscribe((filteredClients) => {
     this.filteredClients = filteredClients;
   });
@@ -93,9 +111,17 @@ searchMat(){
   this.filteredService = this.services;
   this.searchCtrlService.valueChanges.pipe(
     startWith(''),
-    map((search) => this.filterService(search))
+    map((search) => this.ShiftService.filterItems(this.services,search))
   ).subscribe((filteredService) => {
     this.filteredService = filteredService;
+  });
+
+  this.filteredUsers = this.users;
+  this.searchCtrlUsers.valueChanges.pipe(
+    startWith(''),
+    map((search) => this.ShiftService.filterItems(this.users,search))
+  ).subscribe((filteredUsers) => {
+    this.filteredUsers = filteredUsers;
   });
 
   this.form.get('hour')?.valueChanges.subscribe((hour:any)=>{
@@ -105,19 +131,12 @@ searchMat(){
       const [hours, minutes] = hour.split(':');
       fullDate.setHours(Number(hours));
       fullDate.setMinutes(Number(minutes));
-      const tranformDate = this.DatePipe.transform(fullDate, 'yyyy/MM/dd HH:mm:ss');
-      this.form.get('date_shift')?.setValue(tranformDate);
+      this.dateTransform = this.DatePipe.transform(fullDate, 'yyyy/MM/dd HH:mm:ss');
     }
   })
 }
-filterClients(search: string): any[] {
-  const filterValue = search;
-  return this.clients.filter((client) => client.name.toLowerCase().includes(filterValue));
-}
-filterService(search: string): any[] {
-  const filterValue = search;
-  return this.services.filter((service) => service.name.toLowerCase().includes(filterValue));
-}
+
+
 
 onSelect(type:string){
   if(type == 'service'){
@@ -130,8 +149,10 @@ onSelect(type:string){
     this.filteredClients = this.clients;
   }
 }
+
 submit(){
-  this.ShiftService.setShift(this.form.getRawValue()).then((data) =>{
+const data  = this.ShiftService.mapToShift(this.form.getRawValue(),this.dateTransform);
+  this.ShiftService.setShift(data).then((data) =>{
     console.log(data);
   })
 }

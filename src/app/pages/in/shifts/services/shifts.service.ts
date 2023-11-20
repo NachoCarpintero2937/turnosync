@@ -10,7 +10,7 @@ export class ShiftsService {
   constructor(
     private ApiService: ApiService,
     private EnviromentService: EnviromentService
-    ) { }
+  ) { }
 
   getShifts(data?: any) {
     return this.ApiService.get(
@@ -19,10 +19,27 @@ export class ShiftsService {
     );
   }
 
-  setShift(data:any){
+  setShift(data: any) {
     return this.ApiService.post(
       this.EnviromentService.getEndpoints().endpoints.shifts.create,
       data
     );
+  }
+
+  mapToShift(data: any,date:any) {
+    return {
+      date_shift: date,
+      description : data?.description,
+      status: data?.status,
+      price :data?.price,
+      service_id: data?.service_id,
+      client_id :data?.client_id,
+      user_id : data?.user_id
+    }
+  }
+
+  filterItems(items: any[], search: string): any[] {
+    const filterValue = search.toLowerCase();
+    return items.filter((item) => item.name.toLowerCase().includes(filterValue));
   }
 }
