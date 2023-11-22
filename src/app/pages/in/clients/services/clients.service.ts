@@ -23,6 +23,7 @@ export class ClientsService {
   setClients(data: any) {
     const client = this.mapToCreateClient(data);
     return this.ApiService.post(
+      data?.id ? this.EnviromentService.getEndpoints().endpoints.clients.update :
       this.EnviromentService.getEndpoints().endpoints.clients.create,
       client
     );
@@ -30,9 +31,11 @@ export class ClientsService {
 
   mapToCreateClient(data:any){
 return {
+  id: data?.id,
   name: data?.name,
   email : data?.email,
-  phone: data?.cod_area + data?.phone,
+  cod_area: data?.cod_area,
+  phone: data?.phone,
   date_birthday: this.DatePipe.transform(data?.date_birthday, 'yyyy-MM-dd HH:mm:ss')
 }
   }

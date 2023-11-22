@@ -4,11 +4,11 @@
         <div class="line">
             <hr>
         </div>
-        <span class="title d-flex align-items-center dybella-text">Crear cliente
+        <span class="title d-flex align-items-center dybella-text">{{id ? 'Editar' : 'Crear'}} cliente
         </span>
     </div>
     <div class="pd-5">
-            <app-view-form-clients></app-view-form-clients>
+            <app-view-form-clients [client]="client"></app-view-form-clients>
     </div>
 </div>
 
