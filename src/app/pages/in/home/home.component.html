@@ -58,9 +58,15 @@
 
                                 </div>
                                 <div class="actions">
+                                    <button class="btn-action">
+                                        <span class="material-icons" >done</span>
+                                    </button>
+                                    <button class="btn-action">
+                                        <span class="material-icons" >close</span>
+                                    </button>
                                     <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
                                             alt="" width="20"></button>
-                                    <button class="btn-action"> <span class="material-icons">search</span></button>
+                                    <button class="btn-action"[routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons" >visibility</span></button>
                                 </div>
                             </div>
                         </mat-list-item>
