@@ -68,7 +68,9 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" >
-               <a mat-button [routerLink]="['view-client']" [queryParams]="{id: element?.id}">Editar</a>
+               <a mat-button color="primary" [routerLink]="['view-client']" [queryParams]="{id: element?.id}">
+                <span class="material-icons" >visibility</span>
+                </a>
                 </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: columns;let i= index">

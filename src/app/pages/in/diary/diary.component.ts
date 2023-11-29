@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { DateService } from 'src/app/services/date.service';
+import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
+import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
@@ -20,16 +22,19 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     private DiaryService: DiaryService,
     private Router: Router,
     private DatePipe: DatePipe,
-    private DateService : DateService
+    private DateService : DateService,
+    private ToastService : ToastService
   ) {
     this.dateAdapter.setLocale('es-AR');
   }
   events: Date[] = [];
   shifts: any;
   filter_date = new Date();
+  loading!:Boolean;
   shiftsCalendar: any[]= [];
+  enumShift!: EnumStatusShift;
   ngOnInit(): void {
-    this.getShifts(this.filter_date);
+    this.getShifts(this.filter_date,false);
   }
 
   onDateSelect(event: any): void {
@@ -38,16 +43,17 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     this.getShifts(this.filter_date);
   }
 
-  getShifts(date?: any) {
+  getShifts(date?: any,outDate? :boolean) {
+    this.loading = true;
+    this.shifts = [];
+    
     var filter = {};
-    if (date) {
-      const dateRange = this.DateService.getMonthDateRange(date);
+      const dateRange = !outDate ? this.DateService.getMonthDateRange(date) : this.DateService.getDayRange(date)
       filter = {
         start_date: dateRange.startDate,
         end_date: dateRange.endDate
       };
-    }
-  
+
     this.DiaryService.getShifts(filter)
       .then((data: any) => {
         this.shifts = this.DiaryService.groupShiftsByDate(data?.data?.shifts);
@@ -63,6 +69,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     .then((data: any) => {
       this.shiftsCalendar = data?.data?.shifts;
       this.calendar.updateTodaysDate();
+      this.loading = false;
     })
     .catch((e) => {
       console.error("Error fetching shifts:", e);
@@ -96,13 +103,30 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     this.Router.navigate(['in/shifts/create-shift'], { queryParams: { date: this.date } });
   }
 
+  getDate(date:Date){
+  this.getShifts(date,true);
+  }
+
+  goChangeStatus(data:any){
+    const dataStatus = {
+      id : data?.shift?.id,
+      status: data?.status
+    }
+    this.DiaryService.setStatus(dataStatus).then((shift) =>{
+      this.ToastService.showToastNew(
+        '',
+        "Turno " + (data?.status == 1 ? 'confirmado' : 'cancelado') + ' correctamente',
+        'success'
+      );
+      this.getShifts(this.filter_date);
+    }).catch((e:any) =>{
+
+    })
+  }
+
 
   ngAfterViewInit() {
-    // this.calendar.stateChanges.subscribe((data) => {});
-    // console.log(this.calendar.selectedChange);
-    // this.calendar.selectedChange.subscribe((data) => {
-    //   console.log(data);
-    // });
+
   }
 
 }

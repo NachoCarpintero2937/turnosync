@@ -19,6 +19,13 @@ export class DiaryService {
     );
   }
 
+  setStatus(data?: any) {
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.shifts.updateStatus,
+      data
+    );
+  }
+
 groupShiftsByDate(shifts: IntShift[]): { date: string, shifts: IntShift[] }[] {
   const groupedShifts: { [date: string]: IntShift[] } = {};
 

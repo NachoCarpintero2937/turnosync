@@ -17,7 +17,8 @@ export class EnviromentService {
           getShiftToUsers: this.API_URL + '/users/getShiftToUsers',
           shifts: this.API_URL + '/shifts',
           create: this.API_URL + '/shifts/create',
-          update: this.API_URL + '/shifts/update'
+          update: this.API_URL + '/shifts/update',
+          updateStatus: this.API_URL + '/shifts/updateStatus'
         },
         clients : {
           clients : this.API_URL + '/clients',

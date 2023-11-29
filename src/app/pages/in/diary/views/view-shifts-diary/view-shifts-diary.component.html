@@ -20,45 +20,63 @@
     </div>
    </mat-card-header>     
     <mat-card-content>
-        <mat-list>
-            <div *ngFor="let dateShift of shifts">
-          <div class="m-3 d-flex justify-content-center">
-           <b>{{dateShift?.date |date : 'dd/MM/yyyy'}}</b>
-          </div>
-            <div *ngFor=" let shift of dateShift?.shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
-                <mat-list-item>
-                    <div class="d-flex">
-                        <div class="description" [matTooltip]="getTootlip(shift)">
-                            <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
-                            {{shift?.service?.name}} a <b>{{shift?.client?.name}}</b>
-                            el día {{ shift?.date_shift |
-                            date:'dd/MM/YYYY' }}
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center">
-                          <div class="price-shift">
-                            <span> {{ shift?.price === "0.00" ? 'GRATIS' : shift?.price| currency:'$':'symbol':'1.2-2'  }}</span>
-                          </div>
-                        </div>
-                        <div class="actions">
-                            <button class="btn-action">
-                                <span class="material-icons" >done</span>
-                            </button>
-                            <button class="btn-action">
-                                <span class="material-icons" >close</span>
-                            </button>
-                            <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
-                                    alt="" width="20"></button>
-                            <button class="btn-action"  [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons">search</span></button>
-                        </div>
-                    </div>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-            </div>
+        <div *ngIf="date" class="d-flex justify-content-center">
+            <button (click)="filterDate()"mat-raised-button color="primary" class="text-white"> 
+                <b>{{date | date : 'dd/MM'}}</b>
+            </button>
         </div>
-            <div class="pd-8 d-flex justify-content-center text-center" *ngIf="shifts?.length == 0;">
+
+        <div *ngIf="!loading;else spinner">
+            <mat-expansion-panel *ngFor="let dateShift of shifts" class="m-3">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="d-flex justify-content-center">
+                    <div class="m-3">
+                        <div [matBadge]="dateShift?.shifts?.length"  matBadgeOverlap="false"  matBadgeColor="primary">
+                           <b>{{dateShift?.date |date : 'dd/MM/yyyy'}}</b> 
+                        </div>
+                       </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                    <div *ngFor=" let shift of dateShift?.shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
+                       <mat-list>
+                        <mat-list-item>
+                            <div class="d-flex">
+                                <div class="description" [matTooltip]="getTootlip(shift)">
+                                    <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
+                                    {{shift?.service?.name}} a <b>{{shift?.client?.name}}</b>
+                                    el día {{ shift?.date_shift |
+                                    date:'dd/MM/YYYY' }}
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <div class="price-shift">
+                                    <span> {{ shift?.price === "0.00" ? 'GRATIS' : shift?.price| currency:'$':'symbol':'1.2-2'  }}</span>
+                                  </div>
+                                </div>
+                                <div class="actions">
+                                    <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,1)">
+                                        <span class="material-icons"  >done</span>
+                                    </button>
+                                    <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,2)">
+                                        <span class="material-icons" >close</span>
+                                    </button>
+                                    <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
+                                            alt="" width="20"></button>
+                                    <button class="btn-action"  [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons">search</span></button>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+            <div *ngIf="shifts.length == 0 && !loading" class="m-5 d-flex justify-content-center">
                 Sin turnos para esta fecha
             </div>
-        </mat-list>
+        <ng-template #spinner>
+            <div class="d-flex justify-content-center m-5">
+                <mat-spinner class="loading-spinner"></mat-spinner>
+            </div>
+        </ng-template>
     </mat-card-content>
 </mat-card>
 </div>
