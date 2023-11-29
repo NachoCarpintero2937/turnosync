@@ -3,6 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ViewShiftsDiaryComponent } from './view-shifts-diary.component';
 import { MaterialModule } from 'src/app/common/modules/material/material.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -13,7 +14,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ],
   providers:[DatePipe],
   exports:[ViewShiftsDiaryComponent]

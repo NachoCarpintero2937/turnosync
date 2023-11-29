@@ -12,6 +12,7 @@
 :host ::ng-deep mat-calendar .highlight-event{
   border:1px solid $dyblleaColor;
   border-radius: 50%;
+  z-index: 99!important;
   span{
     color:$dyblleaColor!important;
     border:0px!important;

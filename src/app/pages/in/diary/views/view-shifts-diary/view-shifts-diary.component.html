@@ -1,5 +1,5 @@
 <div class="list-shifts mt-5">
-    <mat-card *ngIf="shifts?.length > 0">
+    <mat-card>
    <mat-card-header>
    <div class="text-header">
     Turnos de {{getMonthName()}}
@@ -21,7 +21,11 @@
    </mat-card-header>     
     <mat-card-content>
         <mat-list>
-            <div *ngFor=" let shift of shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
+            <div *ngFor="let dateShift of shifts">
+          <div class="m-3 d-flex justify-content-center">
+           <b>{{dateShift?.date |date : 'dd/MM/yyyy'}}</b>
+          </div>
+            <div *ngFor=" let shift of dateShift?.shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
                 <mat-list-item>
                     <div class="d-flex">
                         <div class="description" [matTooltip]="getTootlip(shift)">
@@ -38,11 +42,15 @@
                         <div class="actions">
                             <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
                                     alt="" width="20"></button>
-                            <button class="btn-action"> <span class="material-icons">search</span></button>
+                            <button class="btn-action"  [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons">search</span></button>
                         </div>
                     </div>
                 </mat-list-item>
                 <mat-divider></mat-divider>
+            </div>
+        </div>
+            <div class="pd-8 d-flex justify-content-center text-center" *ngIf="shifts?.length == 0;">
+                Sin turnos para esta fecha
             </div>
         </mat-list>
     </mat-card-content>

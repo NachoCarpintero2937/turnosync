@@ -5,6 +5,7 @@ import { DiaryService } from './services/diary.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
+import { DateService } from 'src/app/services/date.service';
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
@@ -14,59 +15,53 @@ import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 export class DiaryComponent implements OnInit, AfterViewInit {
   @ViewChild('matcalendar') calendar!: MatCalendar<any>;
   date!: Date;
-  // Define una función para determinar las clases de estilo de las celdas del calendario
-
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private DiaryService: DiaryService,
     private Router: Router,
-    private DatePipe: DatePipe
+    private DatePipe: DatePipe,
+    private DateService : DateService
   ) {
     this.dateAdapter.setLocale('es-AR');
   }
   events: Date[] = [];
-  shifts: any[] = [];
-  shiftToCards: any[] = [];
+  shifts: any;
   filter_date:any;
+  shiftsCalendar: any[]= [];
   ngOnInit(): void {
     this.getShifts();
   }
 
   onDateSelect(event: any): void {
-    this.filter_date = this.DatePipe.transform(event, 'yyyy-MM-dd');
-    this.getShifts();
     this.date = event;
-  }
-  onMonthSelect(event: any) {
-    // Este método se ejecutará cuando se cambie de mes
-    console.log('Mes seleccionado:', event);
-  }
-  onYearSelect(event: any) {
-    // Este método se ejecutará cuando se cambie de año
-    console.log('Año seleccionado:', event);
+    this.filter_date = new Date(event);
+    this.getShifts(this.filter_date);
   }
 
-  getShifts() {
+  getShifts(date?: any) {
     var filter = {};
-    // if(!this.filter_date){
-    //   const nextMonth = new Date();
-    //   nextMonth.setMonth(nextMonth.getMonth() + 1);
-    //   filter = {
-    //     start_date: this.DatePipe.transform(new Date().setDate(1),'yyyy-MM-dd'),
-    //     end_date: this.DatePipe.transform(nextMonth,'yyyy-MM-dd'),
-    //   };
-    // }
+    if (date) {
+      const dateRange = this.DateService.getMonthDateRange(date);
+      filter = {
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+      };
+    }
+  
     this.DiaryService.getShifts(filter)
       .then((data: any) => {
-        this.shifts = data?.data?.shifts;
-        this.shiftToCards = data?.data?.shifts;
+        this.shifts = this.DiaryService.groupShiftsByDate(data?.data?.shifts);
+        this.shiftsCalendar = data?.data?.shifts;
+        console.log(this.shifts);
         this.calendar.updateTodaysDate();
       })
-      .catch((e) => { });
+      .catch((e) => {
+        console.error("Error fetching shifts:", e);
+      });
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
-    const highlightDate = this.shifts.find((event: any) => {
+    const highlightDate = this.shiftsCalendar.find((event: any) => {
       const dateShift = new Date(event?.date_shift);
       return this.isSameDay(dateShift, date);
     });
