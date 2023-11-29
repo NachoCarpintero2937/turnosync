@@ -30,14 +30,14 @@
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.name">
                     {{element?.name}}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="price">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Precio
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.price">
                     {{element?.price?.price | currency:'$':'symbol':'1.2-2'}}
                 </mat-cell>
             </ng-container>
@@ -51,14 +51,14 @@
             <ng-container matColumnDef="created_at">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de alta
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.created_at">
                     {{element?.created_at | date : 'dd/MM/yyy HH:mm'}}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="updated_at">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Última modificación
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.updated_at">
                     {{element?.updated_at | date : 'dd/MM/yyy HH:mm'}}
                 </mat-cell>
             </ng-container>
@@ -69,6 +69,8 @@
                     <button mat-button [routerLink]="['view-service']" [queryParams]="{id: element?.id}">Editar</button>
                 </mat-cell>
             </ng-container>
+            <mat-header-row *matHeaderRowDef="columns">
+            </mat-header-row>
             <mat-row *matRowDef="let row; columns: columns;let i= index">
             </mat-row>
         </mat-table>

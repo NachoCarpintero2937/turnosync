@@ -76,8 +76,9 @@
                <button mat-button [routerLink]="['view-shift']" [queryParams]="{id: element?.id}">Editar</button>
                 </mat-cell>
             </ng-container>
-            <mat-row *matRowDef="let row; columns: columns;let i= index"
-                [ngClass]="{'pago-row': row.paid == 1, 'impago-row' : row.paid == 0 }">
+            <mat-header-row *matHeaderRowDef="columns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;let i= index">
             </mat-row>
         </mat-table>
         <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]">
