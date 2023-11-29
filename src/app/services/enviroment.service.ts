@@ -48,6 +48,6 @@ export class EnviromentService {
   }
 
   getExcludePagesHeader(){
-    return ['/','/login']
+    return ['/','/login','/clients'];
   }
 }

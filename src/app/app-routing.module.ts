@@ -15,6 +15,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/public/login/login.module').then((m) => m.LoginModule),
   },
+  {
+    path: 'clients',
+    loadChildren: () =>
+      import('./pages/public/clients/clients.module').then((m) => m.ClientsModule),
+  },
   // all routes logged
   {
     path: 'in',
