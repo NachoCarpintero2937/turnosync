@@ -2,7 +2,7 @@ import { Component,OnInit,Input,OnChanges} from '@angular/core';
 import { ServicesService } from '../../services/services.service';
 import { FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/pages/public/services/login.service';
+import { LoginService } from 'src/app/pages/public/login/services/login.service';
 @Component({
   selector: 'app-view-form-service',
   templateUrl: './view-form-service.component.html',

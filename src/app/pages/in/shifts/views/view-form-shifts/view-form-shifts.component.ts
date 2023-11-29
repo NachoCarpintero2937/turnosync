@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/pages/public/services/login.service';
+import { LoginService } from 'src/app/pages/public/login/services/login.service';
 import { NgxMaterialTimepickerTheme }  from 'ngx-material-timepicker';
 import { ServicesService } from '../../../services/services/services.service';
 import { ClientsService } from '../../../clients/services/clients.service';

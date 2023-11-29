@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from './pages/public/services/login.service';
+import { LoginService } from './pages/public/login/services/login.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { EnviromentService } from './services/enviroment.service';
 

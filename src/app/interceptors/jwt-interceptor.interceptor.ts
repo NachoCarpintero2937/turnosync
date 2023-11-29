@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { ToastService } from '../services/toast.service';
-import { LoginService } from '../pages/public/services/login.service';
+import { LoginService } from '../pages/public/login/services/login.service';
 import { EnviromentService } from '../services/enviroment.service';
 
 @Injectable()
