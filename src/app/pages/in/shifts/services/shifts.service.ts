@@ -21,6 +21,7 @@ export class ShiftsService {
 
   setShift(data: any) {
     return this.ApiService.post(
+      data?.id ?  this.EnviromentService.getEndpoints().endpoints.shifts.update :
       this.EnviromentService.getEndpoints().endpoints.shifts.create,
       data
     );
@@ -28,6 +29,7 @@ export class ShiftsService {
 
   mapToShift(data: any,date:any) {
     return {
+      id: data?.id,
       date_shift: date,
       description : data?.description,
       status: data?.status,

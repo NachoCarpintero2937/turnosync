@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,Input,OnInit } from '@angular/core';
 import { ShiftsService } from './services/shifts.service';
 import { Router } from '@angular/router';
 
@@ -19,7 +19,6 @@ export class ShiftsComponent implements OnInit{
     'actions'
   ];
   shifts : any[]= [];
-
   constructor(
     private ShiftsService :  ShiftsService,
     private Router: Router

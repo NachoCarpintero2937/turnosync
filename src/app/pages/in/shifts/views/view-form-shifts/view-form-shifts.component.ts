@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/pages/public/services/login.service';
 import { NgxMaterialTimepickerTheme }  from 'ngx-material-timepicker';
@@ -13,8 +13,9 @@ import { UsersService } from '../../../users/services/users.service';
   templateUrl: './view-form-shifts.component.html',
   styleUrls: ['./view-form-shifts.component.scss']
 })
-export class ViewFormShiftsComponent implements OnInit{
+export class ViewFormShiftsComponent implements OnInit, OnChanges{
   @Input() date!:any
+  @Input() shift :any;
   dateTransform! : any;
  constructor(
   private fb : FormBuilder,
@@ -27,8 +28,9 @@ export class ViewFormShiftsComponent implements OnInit{
   ){}
 
   form = this.fb.group({
+    id: [null],
     date_shift: [this.date,Validators.required],
-    hour : [null,Validators.required],
+    hour : ['',Validators.required],
     description : [null,Validators.required],
     status: [0, Validators.required],
     price : [null,Validators.required],
@@ -68,9 +70,30 @@ filteredUsers!: any[];
 
 ngOnInit(): void {
   this.getServices();
-  this.setValueForm();
+  this.initComponent();
 }
+ngOnChanges(): void {
+  if(this.shift){
+    this.setValueFromShift()
+  }else{
+    this.setValueForm();
+  }
+}
+initComponent(){
 
+}
+setValueFromShift(){
+this.form.get('id')?.setValue(this.shift?.id)
+this.form.get('date_shift')?.setValue(this.DatePipe.transform(this.shift?.date_shift, 'yyyy-MM-dd'));
+this.dateTransform = this.shift?.date_shift;
+this.form.get('hour')?.setValue(this.DatePipe.transform(this.shift?.date_shift, 'HH:mm'));
+this.form.get('description')?.setValue(this.shift?.description);
+// this.form.get('status').setValue();
+this.form.get('price')?.setValue(this.shift?.price);
+this.form.get('service_id')?.setValue(this.shift?.service_id);
+this.form.get('client_id')?.setValue(this.shift?.client_id);
+this.form.get('user_id')?.setValue(this.shift?.user_id);
+}
 setValueForm(){
   const date= new Date(this.date);
   this.form.get('date_shift')?.setValue(date);

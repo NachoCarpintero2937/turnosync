@@ -4,10 +4,10 @@
         <div class="line">
             <hr>
         </div>
-        <span class="title d-flex align-items-center dybella-text">Crear turno
+        <span class="title d-flex align-items-center dybella-text">{{id ? 'Editar' : 'Crear'}} turno
         </span>
     </div>
     <div class="pd-5">
-            <app-view-form-shifts [date]="date"></app-view-form-shifts>
+            <app-view-form-shifts [date]="date" [shift]="shift"></app-view-form-shifts>
     </div>
 </div>

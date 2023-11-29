@@ -13,7 +13,7 @@ const routes: Routes = [
     component: ViewShiftComponent
   },
   {
-    path : 'view-shift/:id',
+    path : 'view-shift',
     component: ViewShiftComponent
   }
 ];
