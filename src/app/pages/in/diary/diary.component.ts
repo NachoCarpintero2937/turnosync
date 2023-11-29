@@ -26,10 +26,10 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   }
   events: Date[] = [];
   shifts: any;
-  filter_date:any;
+  filter_date = new Date();
   shiftsCalendar: any[]= [];
   ngOnInit(): void {
-    this.getShifts();
+    this.getShifts(this.filter_date);
   }
 
   onDateSelect(event: any): void {
@@ -51,13 +51,22 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     this.DiaryService.getShifts(filter)
       .then((data: any) => {
         this.shifts = this.DiaryService.groupShiftsByDate(data?.data?.shifts);
-        this.shiftsCalendar = data?.data?.shifts;
-        console.log(this.shifts);
-        this.calendar.updateTodaysDate();
+        this.AllShifts();
       })
       .catch((e) => {
         console.error("Error fetching shifts:", e);
       });
+  }        
+
+  AllShifts(){
+    this.DiaryService.getShifts()
+    .then((data: any) => {
+      this.shiftsCalendar = data?.data?.shifts;
+      this.calendar.updateTodaysDate();
+    })
+    .catch((e) => {
+      console.error("Error fetching shifts:", e);
+    });
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {

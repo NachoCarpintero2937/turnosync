@@ -8,9 +8,9 @@ import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.compone
   templateUrl: './view-shifts-diary.component.html',
   styleUrls: ['./view-shifts-diary.component.scss']
 })
-export class ViewShiftsDiaryComponent {
+export class ViewShiftsDiaryComponent  {
 @Input() shifts: any;
-
+@Input() date!: Date;
 constructor(
   private DatePipe: DatePipe,
   private dialog: MatDialog
@@ -19,9 +19,8 @@ constructor(
 }
 month = new Date();
 getMonthName(): string {
-  return this.DatePipe.transform(this.month, 'MMMM', 'es') || '';
+  return this.DatePipe.transform(this.date ?this.date :  this.month, 'MMMM', 'es') +' '+ this.DatePipe.transform(this.date ?this.date :  this.month, 'YYYY');
 }
-
 getTootlip(shift: any) {
   const tooltip =
     shift?.service?.name +

@@ -8,6 +8,8 @@ import { map, startWith } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ShiftsService } from '../../services/shifts.service';
 import { UsersService } from '../../../users/services/users.service';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -24,7 +26,9 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges{
   private ClientService :ClientsService,
   private DatePipe : DatePipe,
   private ShiftService : ShiftsService,
-  private UsersService : UsersService
+  private UsersService : UsersService,
+  private Router : Router,
+  private ToastService: ToastService
   ){}
 
   form = this.fb.group({
@@ -176,7 +180,12 @@ onSelect(type:string){
 submit(){
 const data  = this.ShiftService.mapToShift(this.form.getRawValue(),this.dateTransform);
   this.ShiftService.setShift(data).then((data) =>{
-    console.log(data);
+    this.Router.navigate(['/in/diary/']);
+    this.ToastService.showToastNew(
+      '',
+      "Turno generado correctamente",
+      'success'
+    );
   })
 }
 }
