@@ -13,7 +13,7 @@ const routes: Routes = [
     component: ViewServiceComponent
   },
   {
-    path : 'view-service/:id',
+    path : 'view-service',
     component: ViewServiceComponent
   }
 ];

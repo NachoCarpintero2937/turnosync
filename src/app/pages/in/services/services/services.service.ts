@@ -21,6 +21,7 @@ export class ServicesService {
 
 setService(data:any){
   return this.ApiService.post(
+    data?.id ?  this.EnviromentService.getEndpoints().endpoints.services.update :
     this.EnviromentService.getEndpoints().endpoints.services.create,
     data
   );

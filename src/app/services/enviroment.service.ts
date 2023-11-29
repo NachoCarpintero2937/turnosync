@@ -26,7 +26,8 @@ export class EnviromentService {
         },
         services : {
           services : this.API_URL + '/services',
-          create : this.API_URL + '/services/create'
+          create : this.API_URL + '/services/create',
+          update : this.API_URL + '/services/update'
         },
         users: {
           users: this.API_URL + '/users'
