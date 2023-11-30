@@ -19,7 +19,6 @@ columns = [
   'email',
   'phone',
   'date_brithday',
-  'created_at',
   'actions'
 ];
 clients : any[]= [];

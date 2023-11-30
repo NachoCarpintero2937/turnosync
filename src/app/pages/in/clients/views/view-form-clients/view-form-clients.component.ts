@@ -3,6 +3,8 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { ClientsService } from '../../services/clients.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { UrlService } from 'src/app/services/url.service';
+import { LoginService } from 'src/app/pages/public/login/services/login.service';
 @Component({
   selector: 'app-view-form-clients',
   templateUrl: './view-form-clients.component.html',
@@ -13,20 +15,23 @@ export class ViewFormClientsComponent implements OnInit,OnChanges {
     private fb: FormBuilder,
     private ClientsService: ClientsService,
     private Router: Router,
-    private DatePipe: DatePipe
+    private UrlService : UrlService,
+    private LoginService : LoginService
     ){}
 @Input() client! :any
+@Input() idUrl! : any;
+submitForm = false;
   form = this.fb.group({
     id:[null],
     name : [null,Validators.required],
-    email: [null,Validators.email],
+    email: [null,[Validators.email,Validators.required]],
     phone : [null,Validators.required],
-    cod_area: [null,Validators.required],
+    cod_area: ["11",[Validators.required, Validators.pattern(/^\d+$/)]],
     date_birthday:[null,Validators.required]
   });
 
 ngOnInit(): void {
-  // this.initComponent();
+
 }
 
 ngOnChanges(){
@@ -50,9 +55,28 @@ this.form.get('date_birthday')?.setValue(this.client?.date_birthday);
 }
 
 submit(){
-  console.log(this.form.getRawValue())
+  this.submitForm = true;
   this.ClientsService.setClients(this.form.getRawValue()).then((data :any)=>{
-    this.Router.navigate(['in/clients']);
+    this.submitForm=false;
+    this.Router.navigate([this.idUrl ? '/clients/thanks' : 'in/clients']);
+    if(this.idUrl){
+      this.goUpdateUrl();
+    }else{
+      
+    }
+  }).catch(e =>{
+    this.submitForm = false;
   })
+}
+
+goUpdateUrl(){
+  this.UrlService.setUrl({
+    id: this.idUrl,
+    user_id : this.LoginService.getDataUser().data?.id
+  }).then((data:any)=>{
+    console.log(data)
+  }).catch(e =>{
+
+  });
 }
 }

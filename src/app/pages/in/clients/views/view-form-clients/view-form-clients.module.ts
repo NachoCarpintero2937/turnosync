@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewFormClientsComponent } from './view-form-clients.component';
 import { MaterialModule } from 'src/app/common/modules/material/material.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { MaterialModule } from 'src/app/common/modules/material/material.module'
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports:[ViewFormClientsComponent]
 })

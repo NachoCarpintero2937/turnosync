@@ -83,7 +83,6 @@
                     </mat-list-item>
                     <mat-divider></mat-divider>
                 </mat-list>
-
             </div>
         </ng-template>
     </div>
@@ -91,5 +90,8 @@
 </div>
 
 <div class="add_work">
-    <button mat-fab (click)="addShift();" *ngIf="date"><span class="material-icons text-white">add</span></button>
+    <div class="float-buttons">
+        <button mat-fab (click)="createUrl();" *ngIf="date"><span class="material-icons text-white">share</span></button>
+        <button mat-fab (click)="addShift();" *ngIf="date"><span class="material-icons text-white">add</span></button>
+    </div>
 </div>

@@ -71,6 +71,8 @@
                <a mat-button color="primary" [routerLink]="['view-client']" [queryParams]="{id: element?.id}">
                 <span class="material-icons" >visibility</span>
                 </a>
+                <button mat-button (click)="sendWsp(element)"><img src="./assets/img/wsp.png"
+                    alt="" width="20"></button>
                 </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: columns;let i= index">

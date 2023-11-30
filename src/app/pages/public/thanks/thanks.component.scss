@@ -1,0 +1,13 @@
+.description{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top:60px;
+    .title{
+        font-size: 35px;
+    }
+    .title-description{
+        font-size: 20px;
+        margin-top:15px;
+    }
+}

@@ -32,6 +32,11 @@ export class EnviromentService {
         },
         users: {
           users: this.API_URL + '/users'
+        },
+        urls : {
+          urls: this.API_URL + '/urls',
+          create : this.API_URL + '/urls/create',
+          update : this.API_URL + '/urls/update'
         }
       },
     };
@@ -48,6 +53,16 @@ export class EnviromentService {
   }
 
   getExcludePagesHeader(){
-    return ['/','/login','/clients'];
+    return ['/login','/clients','/home'];
+  }
+
+  goToWsp(data:any){
+    const url = 'https://api.whatsapp.com/send'
+    const phone = `?phone=54${data?.cod_area}${data?.phone}`;
+    const message =  data?.message ? `&text=${data?.message}` : '';
+    window.open(
+      url + phone + message
+    );
+  
   }
 }

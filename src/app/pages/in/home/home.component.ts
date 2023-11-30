@@ -6,6 +6,10 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { DiaryService } from '../diary/services/diary.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { EnviromentService } from 'src/app/services/enviroment.service';
+import { UrlService } from 'src/app/services/url.service';
+import { LoginService } from '../../public/login/services/login.service';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +23,11 @@ export class HomeComponent implements OnInit {
      private DatePipe: DatePipe,
      private Router : Router,
      private DiaryService: DiaryService,
-     private ToastService: ToastService) {}
+     private ToastService: ToastService,
+     private EnviromentService: EnviromentService,
+     private LoginService : LoginService,
+     private UrlService : UrlService,
+     private ClipboardService: ClipboardService) {}
   shifts: any;
   submitStatus! : boolean;
   date= new Date();
@@ -43,7 +51,31 @@ export class HomeComponent implements OnInit {
       data: { shift: shift },
       width: '50%',
     });
-    dialogRef.afterClosed().subscribe((resultado: any) => {});
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if(data){
+        const dataToWsp = {
+          cod_area : data?.shift?.client?.cod_area,
+          phone : data?.shift?.client?.phone,
+          message : data?.message
+        }
+        this.EnviromentService.goToWsp(dataToWsp);
+      };
+    });
+  }
+
+  createUrl(){
+    this.UrlService.setUrl({
+      user_id : this.LoginService.getDataUser().data?.id
+    }).then((data : any)=>{
+      this.ClipboardService.copyFromContent(data?.data?.url+ '/' + data?.data?.id);
+      this.ToastService.showToastNew(
+        '',
+        "URL copiada en portapapeles",
+        'success'
+      );
+    }).catch(e =>{
+
+    }); 
   }
 
   getTooltip() {

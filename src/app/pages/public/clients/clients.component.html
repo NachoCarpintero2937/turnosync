@@ -1,4 +1,26 @@
-<p>clients works!</p>
+<mat-toolbar color="primary">
+    <div class="d-flex col-12 justify-content-center">
+            <img src="./assets/img/logo_blanco.png" class="img-logo" alt="">
+    </div>
+</mat-toolbar>
 
-
-<app-view-form-clients></app-view-form-clients>
+<div class="col-md-12" *ngIf="showForm && !loading;">
+<div class="text-description">
+<span>
+    ¡Hola!, necesitamos algunos datos tuyos para asignarte tus próximos turnos
+</span>
+</div>
+    <app-view-form-clients [idUrl]="id"></app-view-form-clients>
+</div>
+<div *ngIf="!loading && !showForm">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="description">
+            <span class="title">
+            URL expirada...
+            </span>
+            <span class="title-description">
+              Comúniquese con el administrador para más información
+            </span>
+        </div>
+    </div>
+</div>

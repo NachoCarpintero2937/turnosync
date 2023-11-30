@@ -5,6 +5,11 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
     loadChildren: () =>
       import('./pages/public/landing/landing.module').then(
         (m) => m.LandingModule
@@ -16,9 +21,14 @@ const routes: Routes = [
       import('./pages/public/login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'clients',
+    path: 'clients/:id',
     loadChildren: () =>
       import('./pages/public/clients/clients.module').then((m) => m.ClientsModule),
+  },
+  {
+    path: 'thanks',
+    loadChildren: () =>
+      import('./pages/public/thanks/thanks.module').then((m) => m.ThanksModule),
   },
   // all routes logged
   {
@@ -32,4 +42,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

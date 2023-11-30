@@ -34,12 +34,8 @@ export class AppComponent implements OnInit{
     })
   }
 
- onCheckPageUrl(){
-  const page = this.EnviromentService.getExcludePagesHeader().find(page => page ===  this.url);
-  if(page){
-    this.excludePage = true;
-  }else{
-    this.excludePage = false;
+  onCheckPageUrl() {
+    const page = this.EnviromentService.getExcludePagesHeader().some(excludedPage => this.url.startsWith(excludedPage));
+    this.excludePage = page;
   }
- }
 }

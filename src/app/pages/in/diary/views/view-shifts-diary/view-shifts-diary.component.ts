@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
+import { EnviromentService } from 'src/app/services/enviroment.service';
 import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
 
 @Component({
@@ -18,7 +19,8 @@ export class ViewShiftsDiaryComponent  {
 enumShift!: EnumStatusShift
 constructor(
   private DatePipe: DatePipe,
-  private dialog: MatDialog
+  private dialog: MatDialog,
+  private EnviromentService : EnviromentService
   ){
 
 }
@@ -46,8 +48,14 @@ sendWsp(shift: any) {
     width: '50%',
   });
   dialogRef.afterClosed().subscribe((data) => {
-    if(data)
-    this.goToWsp(data);
+    if(data){
+      const dataToWsp = {
+        cod_area : data?.shift?.client?.cod_area,
+        phone : data?.shift?.client?.phone,
+        message : data?.message
+      }
+      this.EnviromentService.goToWsp(dataToWsp);
+    }
   });
 }
 
@@ -55,15 +63,6 @@ filterDate(){
   this.outDate.emit(this.date);
 }
 
-goToWsp(data:any){
-  const url = 'https://api.whatsapp.com/send'
-  const phone = `?phone=54${data?.shift?.client?.phone}`;
-  const message = `&text=${data?.message}`;
-  window.open(
-    url + phone + message
-  );
-
-}
 
 changeStatus(data:any, status: any){
     this.status.emit({

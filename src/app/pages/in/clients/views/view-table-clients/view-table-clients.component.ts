@@ -2,6 +2,7 @@ import { AfterViewInit, Component,Input,OnChanges,OnInit, ViewChild } from '@ang
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { EnviromentService } from 'src/app/services/enviroment.service';
 
 @Component({
   selector: 'app-view-table-clients',
@@ -15,7 +16,7 @@ export class ViewTableClientsComponent implements OnInit,AfterViewInit,OnChanges
   public list = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
- constructor(){}
+ constructor(public EnviromentService: EnviromentService){}
 
  ngOnInit(): void {
 
@@ -37,5 +38,9 @@ export class ViewTableClientsComponent implements OnInit,AfterViewInit,OnChanges
 //  UI
 tooltipDate(data:any){
  return data;
+}
+
+sendWsp(data:any){
+this.EnviromentService.goToWsp(data)
 }
 }
