@@ -26,7 +26,9 @@ submitForm = false;
       this.LoginService.setUserData(data);
       this.submitForm =false;
       this.goToHome(data);
-    });
+    }).catch(e =>{
+      this.submitForm = false;
+    })
   }
 
   goToHome(data:any){
