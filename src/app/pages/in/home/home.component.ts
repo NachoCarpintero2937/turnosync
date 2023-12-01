@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
      private ClipboardService: ClipboardService) {}
   shifts: any;
   submitStatus! : boolean;
+  submitUrl =false;
   date= new Date();
   ngOnInit(): void {
     this.getShifts();
@@ -65,9 +66,11 @@ export class HomeComponent implements OnInit {
   }
 
   createUrl(){
+    this.submitUrl = true;
     this.UrlService.setUrl({
       user_id : this.LoginService.getDataUser().data?.id
     }).then((data : any)=>{
+      this.submitUrl =false;
       this.ClipboardService.copyFromContent(data?.data?.url+ '/' + data?.data?.id);
       this.ToastService.showToastNew(
         '',

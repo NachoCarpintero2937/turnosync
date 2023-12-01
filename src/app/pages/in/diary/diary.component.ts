@@ -8,6 +8,7 @@ import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { DateService } from 'src/app/services/date.service';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 import { ToastService } from 'src/app/services/toast.service';
+import { isBefore } from 'date-fns';
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
@@ -33,6 +34,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   loading!:Boolean;
   shiftsCalendar: any[]= [];
   enumShift!: EnumStatusShift;
+  isDateBefore! :boolean;
   ngOnInit(): void {
     this.getShifts(this.filter_date,false);
   }
@@ -40,7 +42,17 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   onDateSelect(event: any): void {
     this.date = event;
     this.filter_date = new Date(event);
+    this.validateDate();
     this.getShifts(this.filter_date);
+  }
+
+  validateDate() {
+    if (isBefore(new Date(this.date), new Date(this.filter_date))) {
+      this.isDateBefore = true;
+    } else {
+      this.isDateBefore = false;
+    }
+    console.log(this.isDateBefore)
   }
 
   getShifts(date?: any,outDate? :boolean) {

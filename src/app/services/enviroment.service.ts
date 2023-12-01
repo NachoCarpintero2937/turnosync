@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class EnviromentService {
   constructor() {}
   API_URL = 'http://localhost:8000/api';
+  // API_URL = 'https://dybella.com.ar/api/public/api';
 
   getEndpoints() {
     return {

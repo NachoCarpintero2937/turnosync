@@ -14,15 +14,17 @@ export class LoginComponent {
     private Router: Router,
     private LoginService: LoginService
   ) {}
-
+submitForm = false;
   form = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', [Validators.required,Validators.email]],
     password: ['', Validators.required],
   });
 
   submit() {
+    this.submitForm = true;
     this.LoginService.login(this.form.getRawValue()).then((data: any) => {
       this.LoginService.setUserData(data);
+      this.submitForm =false;
       this.goToHome(data);
     });
   }

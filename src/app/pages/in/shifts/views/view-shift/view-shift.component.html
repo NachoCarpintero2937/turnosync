@@ -6,8 +6,11 @@
         </div>
         <span class="title d-flex align-items-center dybella-text">{{id ? 'Editar' : 'Crear'}} turno
         </span>
+        <div>
+            <mat-spinner *ngIf="loading" class="loading-spinner" diameter="50"></mat-spinner>
+        </div>
     </div>
     <div class="pd-5">
-            <app-view-form-shifts [date]="date" [shift]="shift"></app-view-form-shifts>
+            <app-view-form-shifts [date]="date" [shift]="shift" [client]="client" (loading)="getLoading($event)"></app-view-form-shifts>
     </div>
 </div>

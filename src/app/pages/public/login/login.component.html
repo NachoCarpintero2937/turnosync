@@ -6,7 +6,7 @@
                     <div class="d-flex">
                         <div class="login">
                             <div class="d-flex justify-content-center">
-                                <img src="./assets/img/logo.jpg" alt="Logo via bariloche" class="logo">
+                                <img src="./assets/img/logo_rosa.png" alt="Logo via bariloche" class="logo">
                             </div>
                             <div class="inputs">
                                 <mat-form-field class="col-12 pd-5">
@@ -25,7 +25,7 @@
                 </mat-card-content>
             </form>
             <div class="d-flex justify-content-center col-12 ">
-                <button mat-button color="primary" (click)="submit()" class="btn-custom col-12">Ingresar</button>
+                <button mat-button color="primary" (click)="submit()" [disabled]="!form.valid || submitForm" class="btn-custom col-12">Ingresar</button>
             </div>
         </mat-card>
     </div>

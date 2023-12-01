@@ -1,6 +1,6 @@
 import { Component,Input,OnInit } from '@angular/core';
 import { ShiftsService } from './services/shifts.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-shifts',
@@ -24,6 +24,7 @@ export class ShiftsComponent implements OnInit{
     ){}
   
   ngOnInit(): void {
+
    this.getShifts();
   }
 

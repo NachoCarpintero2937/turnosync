@@ -1,3 +1,4 @@
+@import '../../../../../../styles.scss';
 
 mat-expansion-panel {
     background: transparent !important;
@@ -21,4 +22,12 @@ mat-expansion-panel {
     .filtros {
         display: flex;
     }
+}
+
+.btn-tables {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: map-get($md-mcgpalette0 , 500)
 }
