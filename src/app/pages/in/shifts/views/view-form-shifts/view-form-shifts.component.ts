@@ -18,6 +18,7 @@ import { ToastService } from 'src/app/services/toast.service';
 export class ViewFormShiftsComponent implements OnInit, OnChanges{
   @Input() date!:any
   @Input() shift :any;
+  submitForm = false;
   dateTransform! : any;
  constructor(
   private fb : FormBuilder,
@@ -35,7 +36,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges{
     id: [null],
     date_shift: [this.date,Validators.required],
     hour : ['',Validators.required],
-    description : [null,Validators.required],
+    description : [null],
     status: [0, Validators.required],
     price : [null,Validators.required],
     service_id:[null,Validators.required],
@@ -178,14 +179,18 @@ onSelect(type:string){
 }
 
 submit(){
+  this.submitForm = true;
 const data  = this.ShiftService.mapToShift(this.form.getRawValue(),this.dateTransform);
   this.ShiftService.setShift(data).then((data) =>{
+    this.submitForm = false;
     this.Router.navigate(['/in/diary/']);
     this.ToastService.showToastNew(
       '',
       "Turno generado correctamente",
       'success'
     );
+  }).catch(e =>{
+    this.submitForm = false;
   })
 }
 }

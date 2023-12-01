@@ -58,7 +58,7 @@ submit(){
   this.submitForm = true;
   this.ClientsService.setClients(this.form.getRawValue()).then((data :any)=>{
     this.submitForm=false;
-    this.Router.navigate([this.idUrl ? '/clients/thanks' : 'in/clients']);
+    this.Router.navigate([this.idUrl ? '/thanks' : 'in/clients']);
     if(this.idUrl){
       this.goUpdateUrl();
     }else{

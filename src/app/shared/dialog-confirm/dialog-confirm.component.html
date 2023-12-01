@@ -1,0 +1,16 @@
+<div mat-dialog-title class="d-flex justify-content-center align-items-center title-dialog">
+    <div class="pd-3">
+       ¿Estás seguro?
+    </div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography ">
+    <span class="description">
+        Vas a <b>{{data?.status  == 2 ? 'cancelar' : 'confirmar'}}</b> el turno de <b>{{data?.client}} </b>
+    </span>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button  (click)="onClose(false)">Cancelar</button>
+    <button mat-button color="primary" (click)="onClose(true);">Confirmar</button>
+</mat-dialog-actions>

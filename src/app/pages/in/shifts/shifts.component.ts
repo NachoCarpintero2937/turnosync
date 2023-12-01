@@ -14,7 +14,6 @@ export class ShiftsComponent implements OnInit{
     'date_shift',
     'description',
     'service',
-    'created_at',
     'user',
     'actions'
   ];

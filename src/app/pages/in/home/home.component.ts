@@ -10,6 +10,7 @@ import { EnviromentService } from 'src/app/services/enviroment.service';
 import { UrlService } from 'src/app/services/url.service';
 import { LoginService } from '../../public/login/services/login.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-home',
@@ -78,15 +79,23 @@ export class HomeComponent implements OnInit {
     }); 
   }
 
-  getTooltip() {
-    return '';
+  getTootlip(shift: any) {
+    const tooltip =
+      shift?.service?.name +
+      ' a ' +
+      shift?.client?.name +
+      ' el día ' +
+      this.DatePipe.transform(shift?.date_shift, 'dd/MM/yyyy') +
+      ' a las ' +
+      this.DatePipe.transform(shift?.date_shift, 'HH:mm');
+    return tooltip;
   }
 
   addShift(){
     this.Router.navigate(['in/shifts/create-shift'], { queryParams: { date: this.date } });
   }
 
-  changeStatus(data:any,status:any){
+  goChangeStatus(data:any,status:any){
     if(!this.submitStatus){
       this.submitStatus = true;
       const dataStatus = {
@@ -106,4 +115,17 @@ export class HomeComponent implements OnInit {
       })
     }
   }
+
+
+  changeStatus(shift:any,status:any) {
+  const dialogRef = this.dialog.open(DialogConfirmComponent, {
+    data: { client: shift?.client.name, status:status },
+    width: '20%',
+  });
+  dialogRef.afterClosed().subscribe((data) => {
+    if(data){
+     this.goChangeStatus(shift,status);
+    }
+  });
+}
 }

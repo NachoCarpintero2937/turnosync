@@ -53,7 +53,7 @@ export class EnviromentService {
   }
 
   getExcludePagesHeader(){
-    return ['/login','/clients','/home'];
+    return ['/login','/clients','/home','/thanks'];
   }
 
   goToWsp(data:any){

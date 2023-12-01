@@ -16,6 +16,9 @@
                                     <span class="description-servicetoday">
                                         {{serviceToday?.name}}
                                     </span>
+                                    <div class="bagde-count">
+                                        {{serviceToday?.count}}
+                                    </div>
                                 </div>
                                 <div class="price">
                                     {{ serviceToday?.price?.price | currency:'$':'symbol':'1.2-2' }}
@@ -47,7 +50,7 @@
                     <div *ngFor="let shift of employe?.shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
                         <mat-list-item lines="">
                             <div class="d-flex list-shifts">
-                                <div class="description" [matTooltip]="getTooltip()">
+                                <div class="description" [matTooltip]="getTootlip(shift)">
                                     <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
                                     <span>
                                         {{shift?.service?.name}}
