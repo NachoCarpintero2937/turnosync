@@ -52,7 +52,6 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     } else {
       this.isDateBefore = false;
     }
-    console.log(this.isDateBefore)
   }
 
   getShifts(date?: any,outDate? :boolean) {
