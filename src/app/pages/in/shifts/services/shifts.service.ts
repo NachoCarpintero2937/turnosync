@@ -28,7 +28,6 @@ export class ShiftsService {
   }
 
   mapToShift(data: any,date:any) {
-    console.log(date)
     return {
       id: data?.id,
       date_shift: date,

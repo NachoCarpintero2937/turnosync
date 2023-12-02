@@ -30,6 +30,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   }
   events: Date[] = [];
   shifts: any;
+  dateNow = new Date();
   filter_date = new Date();
   loading!:Boolean;
   shiftsCalendar: any[]= [];

@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 import { EnviromentService } from 'src/app/services/enviroment.service';
+import { ModalService } from 'src/app/services/modal.service';
 import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
 
 @Component({
@@ -19,8 +20,7 @@ export class ViewShiftsDiaryComponent  {
 enumShift!: EnumStatusShift
 constructor(
   private DatePipe: DatePipe,
-  private dialog: MatDialog,
-  private EnviromentService : EnviromentService
+  private ModalService: ModalService
   ){
 
 }
@@ -43,20 +43,14 @@ getTootlip(shift: any) {
 
 
 sendWsp(shift: any) {
-  const dialogRef = this.dialog.open(DialogWspComponent, {
-    data: { shift: shift },
-    width: '50%',
-  });
-  dialogRef.afterClosed().subscribe((data) => {
-    if(data){
-      const dataToWsp = {
-        cod_area : data?.shift?.client?.cod_area,
-        phone : data?.shift?.client?.phone,
-        message : data?.message
-      }
-      this.EnviromentService.goToWsp(dataToWsp);
-    }
-  });
+ const dataWsp = {
+  cod_area: shift?.client?.cod_area,
+  phone : shift?.client?.phone,
+  name : shift?.client?.name,
+  date_shift : shift?.date_shift,
+  service : shift?.service?.name
+ }
+  this.ModalService.getModalWsp(dataWsp);
 }
 
 filterDate(){

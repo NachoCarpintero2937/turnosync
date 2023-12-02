@@ -1,10 +1,10 @@
 <h2 mat-dialog-title>
     <div class="d_flex justify_content_center align_items_center">
-        Enviar WhatSapp a {{data?.shift?.client?.name}}
+        Enviar WhatSapp a {{data?.name}}
     </div>
 </h2>
 <mat-dialog-content class="mat-typography mt-5">
-    <button mat-button color="primary" (click)="setValueNotif()">
+    <button mat-button color="primary" (click)="setValueNotif()" *ngIf="data?.service && data?.date_shift">
         <span class="material-icons">notifications</span>
         Recordatorio</button>
     <mat-form-field class="col-md-12 mt-5 description">

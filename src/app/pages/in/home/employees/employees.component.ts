@@ -11,6 +11,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { DiaryService } from '../../diary/services/diary.service';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
 import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
+import { ModalService } from 'src/app/services/modal.service';
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -20,16 +21,11 @@ export class EmployeesComponent {
 @Input() shifts:any;
 @Output() shiftEvent = new EventEmitter();
 constructor(
-  private HomeService: HomeService,
    private dialog: MatDialog,
    private DatePipe: DatePipe,
-   private Router : Router,
    private DiaryService: DiaryService,
    private ToastService: ToastService,
-   private EnviromentService: EnviromentService,
-   private LoginService : LoginService,
-   private UrlService : UrlService,
-   private ClipboardService: ClipboardService) {}
+   private ModalService:ModalService) {}
 
    submitStatus! : boolean;
 goChangeStatus(data:any,status:any){
@@ -66,21 +62,15 @@ dialogRef.afterClosed().subscribe((data) => {
 }
 
 sendWsp(shift: any) {
-  const dialogRef = this.dialog.open(DialogWspComponent, {
-    data: { shift: shift },
-    width: '50%',
-  });
-  dialogRef.afterClosed().subscribe((data: any) => {
-    if(data){
-      const dataToWsp = {
-        cod_area : data?.shift?.client?.cod_area,
-        phone : data?.shift?.client?.phone,
-        message : data?.message
-      }
-      this.EnviromentService.goToWsp(dataToWsp);
-    };
-  });
-}
+  const dataWsp = {
+   cod_area: shift?.client?.cod_area,
+   phone : shift?.client?.phone,
+   name : shift?.client?.name,
+   date_shift : shift?.date_shift,
+   service : shift?.service?.name
+  }
+   this.ModalService.getModalWsp(dataWsp);
+ }
 
 getTootlip(shift: any) {
   const tooltip =

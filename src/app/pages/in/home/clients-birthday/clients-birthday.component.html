@@ -1,21 +1,23 @@
 <mat-card>
     <mat-card-header>
         <span class="title-service">
-           Cumpleaños
+            <span class="material-icons">celebration</span>
+            Cumpleaños
         </span>
     </mat-card-header>
     <mat-card-content>
-        <mat-list >
+        <mat-list>
             <div *ngFor="let client of clients">
                 <mat-list-item lines="">
                     <div class="d-flex list-shifts">
                         <div class="description">
                             <span class="description-servicetoday">
-                                {{client?.name}}
+                                {{client?.name}}, {{calculateAge(client?.date_birthday)}} años
                             </span>
                         </div>
                         <div class="price">
-                         wsp
+                            <button mat-button (click)="sendWsp(client)"><img src="./assets/img/wsp.png" alt=""
+                                    width="20"></button>
                         </div>
                     </div>
                 </mat-list-item>

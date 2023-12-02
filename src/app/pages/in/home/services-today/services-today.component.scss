@@ -39,6 +39,10 @@
 
 }
 
+.material-icons {
+    color: map-get($md-mcgpalette0, 500)
+}
+
 .description-servicetoday {
     font-size: 17px;
 }

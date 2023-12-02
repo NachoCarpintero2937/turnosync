@@ -20,13 +20,13 @@ export class DialogWspComponent implements OnInit {
   setValueNotif() {
     this.notif =
       'Hola ' +
-      this.data?.shift?.client?.name +
+      this.data?.name +
       ', queríamos recordarte que el día ' +
-      this.DatePipe.transform(this.data?.shift?.date_shift, 'dd/MM/yyyy') +
+      this.DatePipe.transform(this.data?.date_shift, 'dd/MM/yyyy') +
       ' a las ' +
-      this.DatePipe.transform(this.data?.shift?.date_shift, 'HH:mm') +
+      this.DatePipe.transform(this.data?.date_shift, 'HH:mm') +
       ' tenes turno para ' +
-      this.data?.shift?.service?.name +
+      this.data?.service +
       '. Por favor confirmar asistencia. Te deseamos que tengas un hermoso día 💗.';
   }
 
