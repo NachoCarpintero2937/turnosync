@@ -1,0 +1,78 @@
+@import '../../../../../styles.scss';
+
+.employees {
+    margin: 95px 20px 20px 20px;
+    border-radius: 1px;
+    box-shadow: none !important;
+
+    mat-card-header {
+        background-color: map-get($md-mcgpalette0, 500);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+
+        >span {
+            font-size: 20px;
+            color: white;
+        }
+    }
+}
+
+.list-shifts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .description {
+        width: 60%;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 15px;
+            margin-left: 5px;
+        }
+
+        .bagde-count {
+            background-color: map-get($md-mcgpalette0, 500);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+        }
+    }
+
+    .actions {
+        display: flex;
+        width: 40%;
+        justify-content: flex-end;
+
+        .btn-action {
+            background-color: transparent;
+            border: 0px;
+            display: flex;
+            align-items: center;
+            width: 50px;
+        }
+    }
+}
+
+.no-shifts {
+    height: 200px;
+}
+
+@media only screen and (max-width: 767px) {
+    .div-employees {
+        flex-direction: column !important;
+    }
+}

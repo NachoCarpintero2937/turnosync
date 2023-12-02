@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './services/home.service';
-import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,7 +9,7 @@ import { EnviromentService } from 'src/app/services/enviroment.service';
 import { UrlService } from 'src/app/services/url.service';
 import { LoginService } from '../../public/login/services/login.service';
 import { ClipboardService } from 'ngx-clipboard';
-import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
+import { ClientsService } from '../clients/services/clients.service';
 
 @Component({
   selector: 'app-home',
@@ -20,21 +19,21 @@ import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-con
 export class HomeComponent implements OnInit {
   constructor(
     private HomeService: HomeService,
-     private dialog: MatDialog,
      private DatePipe: DatePipe,
      private Router : Router,
-     private DiaryService: DiaryService,
      private ToastService: ToastService,
-     private EnviromentService: EnviromentService,
      private LoginService : LoginService,
      private UrlService : UrlService,
-     private ClipboardService: ClipboardService) {}
+     private ClipboardService: ClipboardService,
+     private ClientService : ClientsService,
+     ) {}
   shifts: any;
-  submitStatus! : boolean;
+  clients: any[]=[];
   submitUrl =false;
   date= new Date();
   ngOnInit(): void {
     this.getShifts();
+    this.getClientsToBirthday();
   }
 
   getShifts() {
@@ -48,20 +47,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  sendWsp(shift: any) {
-    const dialogRef = this.dialog.open(DialogWspComponent, {
-      data: { shift: shift },
-      width: '50%',
-    });
-    dialogRef.afterClosed().subscribe((data: any) => {
-      if(data){
-        const dataToWsp = {
-          cod_area : data?.shift?.client?.cod_area,
-          phone : data?.shift?.client?.phone,
-          message : data?.message
-        }
-        this.EnviromentService.goToWsp(dataToWsp);
-      };
+  getClientsToBirthday(){
+    const now = new Date();
+    this.ClientService.getClients({
+      date_birthday : this.DatePipe.transform(now,'yyyy-MM-dd' )
+    }).then((client:any)=>{
+      this.clients = client?.data?.clients;
+    }).catch(e =>{
+
     });
   }
 
@@ -82,53 +75,10 @@ export class HomeComponent implements OnInit {
     }); 
   }
 
-  getTootlip(shift: any) {
-    const tooltip =
-      shift?.service?.name +
-      ' a ' +
-      shift?.client?.name +
-      ' el día ' +
-      this.DatePipe.transform(shift?.date_shift, 'dd/MM/yyyy') +
-      ' a las ' +
-      this.DatePipe.transform(shift?.date_shift, 'HH:mm');
-    return tooltip;
-  }
-
   addShift(){
     this.Router.navigate(['in/shifts/create-shift'], { queryParams: { date: this.date } });
   }
 
-  goChangeStatus(data:any,status:any){
-    if(!this.submitStatus){
-      this.submitStatus = true;
-      const dataStatus = {
-        id : data?.id,
-        status: status
-      }
-      this.DiaryService.setStatus(dataStatus).then((shift) =>{
-        this.submitStatus = false;
-        this.ToastService.showToastNew(
-          '',
-          "Turno " + (status== 1 ? 'confirmado' : 'cancelado') + ' correctamente',
-          'success'
-        );
-        this.getShifts();
-      }).catch((e:any) =>{
-  
-      })
-    }
-  }
 
-
-  changeStatus(shift:any,status:any) {
-  const dialogRef = this.dialog.open(DialogConfirmComponent, {
-    data: { client: shift?.client.name, status:status },
-    width: '20%',
-  });
-  dialogRef.afterClosed().subscribe((data) => {
-    if(data){
-     this.goChangeStatus(shift,status);
-    }
-  });
-}
+ 
 }

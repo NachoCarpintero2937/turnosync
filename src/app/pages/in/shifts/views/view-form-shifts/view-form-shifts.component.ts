@@ -23,6 +23,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
   loadingForm = false;
   submitForm = false;
   dateTransform!: any;
+  dateNow = new Date()
   constructor(
     private fb: FormBuilder,
     private LoginService: LoginService,
@@ -141,11 +142,12 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
 
 
   searchMat() {
-    this.filteredClients = this.clients;
+    this.filteredClients =[];
     this.searchCtrlClient.valueChanges.pipe(
       startWith(''),
       map((search) => this.ShiftService.filterItems(this.clients, search))
     ).subscribe((filteredClients) => {
+      console.log("entro")
       this.filteredClients = filteredClients;
     });
 
@@ -193,8 +195,10 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
 
   submit() {
     this.submitForm = true;
+    this.loading.emit(true);
     const data = this.ShiftService.mapToShift(this.form.getRawValue(), this.dateTransform);
     this.ShiftService.setShift(data).then((data) => {
+      this.loading.emit(false);
       this.submitForm = false;
       this.Router.navigate(['/in/diary/']);
       this.ToastService.showToastNew(
@@ -203,6 +207,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
         'success'
       );
     }).catch(e => {
+      this.loading.emit(false);
       this.submitForm = false;
     })
   }

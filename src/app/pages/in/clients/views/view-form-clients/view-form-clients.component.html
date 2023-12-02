@@ -23,7 +23,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="col-12 mt-3">
                             <mat-label>Fecha de nacimiento </mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="date_birthday" (click)="picker.open();">
+                            <input matInput [matDatepicker]="picker" formControlName="date_birthday" readonly="true" (click)="picker.open();">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>

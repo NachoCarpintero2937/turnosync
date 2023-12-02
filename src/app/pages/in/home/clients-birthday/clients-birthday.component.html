@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-header>
+        <span class="title-service">
+           Cumpleaños
+        </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list >
+            <div *ngFor="let client of clients">
+                <mat-list-item lines="">
+                    <div class="d-flex list-shifts">
+                        <div class="description">
+                            <span class="description-servicetoday">
+                                {{client?.name}}
+                            </span>
+                        </div>
+                        <div class="price">
+                         wsp
+                        </div>
+                    </div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </div>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

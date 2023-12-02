@@ -1,5 +1,5 @@
 <div class="d-flex div-father">
-    <mat-calendar #matcalendar class="mat-calendar " [dateClass]="dateClass" (selectedChange)="onDateSelect($event)"
+    <mat-calendar #matcalendar class="mat-calendar " [minDate]="filter_date" [dateClass]="dateClass" (selectedChange)="onDateSelect($event)"
         (monthSelected)="onDateSelect($event)" (yearSelected)="onDateSelect($event)">
         </mat-calendar>
 

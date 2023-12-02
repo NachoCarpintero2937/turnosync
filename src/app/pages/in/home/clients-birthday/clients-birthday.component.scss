@@ -1,0 +1,30 @@
+.title-service {
+    font-size: 30px;
+}
+
+.list-shifts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .description {
+        width: 60%;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 15px;
+            margin-left: 5px;
+        }
+    }
+
+}
+
+.description-servicetoday {
+    font-size: 17px;
+}
