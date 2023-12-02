@@ -24,10 +24,10 @@ export class ViewFormClientsComponent implements OnChanges {
   form = this.fb.group({
     id: [null],
     name: [null, Validators.required],
-    email: [null, [Validators.email, Validators.required]],
+    email: [null, [Validators.email]],
     phone: [null, [Validators.required,Validators.pattern(/^\d+$/)]],
     cod_area: ["11", [Validators.required, Validators.pattern(/^\d+$/)]],
-    date_birthday: [new Date(), Validators.required]
+    date_birthday: [new Date()]
   });
 
   ngOnChanges() {
@@ -36,10 +36,17 @@ export class ViewFormClientsComponent implements OnChanges {
 
   initComponent() {
     if (this.client) {
-      
       this.setValue();
     }
+    
+    if(this.idUrl){
+        this.setValidators();
+    }
   }
+
+  setValidators(){
+    this.form.get('date_birthday')?.setValidators([Validators.required])
+  } 
 
   setValue() {
     this.loading = false;
