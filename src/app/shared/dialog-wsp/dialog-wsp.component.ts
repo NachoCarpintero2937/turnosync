@@ -32,7 +32,7 @@ export class DialogWspComponent implements OnInit {
 
 send(){
     this.dialogRef.close({
-      shift: this.data?.shift,
+      data: this.data,
       message: this.notif
     })
   }
