@@ -44,3 +44,23 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 767px) {
+    .info-cards {
+        flex-direction: column !important;
+    }
+
+    .div-cards-info-father {
+        width: 100%;
+
+        .children-cards {
+            width: 80%;
+        }
+    }
+
+    .card-info {
+        margin: 10px;
+        width: 100%;
+    }
+}

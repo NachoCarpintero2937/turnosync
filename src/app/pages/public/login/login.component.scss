@@ -1,5 +1,11 @@
+@import '../../../../styles.scss';
+
 .login-container {
     height: 90vh;
+
+    .material-icons {
+        color: map-get($md-mcgpalette0, 500);
+    }
 
     .logo {
         width: 50%;

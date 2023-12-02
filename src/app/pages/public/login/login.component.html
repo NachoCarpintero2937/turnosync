@@ -15,7 +15,11 @@
                                 </mat-form-field>
                                 <mat-form-field class="col-12 pd-5">
                                     <mat-label>Contraseña</mat-label>
-                                    <input matInput type="password" formControlName="password">
+                                    <input matInput [type]="viewPass ? 'text' : 'password'"  formControlName="password">
+                                    <button tabindex="-1" mat-icon-button matSuffix
+                                    (click)="$event.stopPropagation(); viewPass= !viewPass;">
+                                    <span class="material-icons">{{viewPass ? 'visibility' : 'visibility_off'}}</span>
+                                  </button>
                                 </mat-form-field>
                             </div>
 

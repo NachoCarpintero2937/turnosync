@@ -1,54 +1,83 @@
 <mat-toolbar color="primary" *ngIf="userData">
     <div class="header-main">
+        <div class="mobile-menu-btn">
+            <!-- Agrega un botón de menú para dispositivos móviles -->
+            <button mat-icon-button (click)="toggleMobileMenu()">
+                <span class="material-icons">menu</span>
+            </button>
+        </div>
         <div class="btns-logo-header">
             <a [routerLink]="['/logged/home']">
                 <img src="./assets/img/logo_blanco.png" class="img-logo" alt="">
             </a>
-            <div class="d-flex m-3">
-                <div class="div-btns">
-                    <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
-                        matTooltip="Inicio">Inicio</a>
-                </div>
-                <div class="div-btns">
-                    <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
-                        matTooltip="Clientes">Clientes</a>
-                </div>
-                <div class="div-btns">
-                    <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
-                        matTooltip="Agenda">Agenda</a>
-                </div>
-                <div class="div-btns">
-                    <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
-                        matTooltip="Turnos">Turnos</a>
-                </div>
-                <div class="div-btns">
-                    <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
-                        matTooltip="Turnos">Servicios</a>
-                </div>
-                <div class="div-btns">
-                    <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
-                        matTooltip="Usuarios">Usuarios</a>
+                <div class="d-flex m-3 buttons-desktop">
+                    <div class="div-btns">
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
+                            matTooltip="Inicio">Inicio</a>
+                    </div>
+                    <div class="div-btns">
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
+                            matTooltip="Clientes">Clientes</a>
+                    </div>
+                    <div class="div-btns">
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
+                            matTooltip="Agenda">Agenda</a>
+                    </div>
+                    <div class="div-btns">
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
+                            matTooltip="Turnos">Turnos</a>
+                    </div>
+                    <div class="div-btns">
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
+                            matTooltip="Turnos">Servicios</a>
+                    </div>
+                    <div class="div-btns">
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
+                            matTooltip="Usuarios">Usuarios</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="d-flex align-items-center  div-btn-exit">
+      
+        <div class="d-flex align-items-center div-btn-exit">
             <div class="hour">
-                {{hour}}
+                {{ hour }}
             </div>
             <div class="d-flex">
                 <div class="d-flex align-items-center incials">
-                    <app-iniciales color="primary" class="iniciales-nav" color="#eaeaea" size="15px"
-                        [text]="userData?.data?.name" width="40px" height="40px">
-                    </app-iniciales>
+                    <app-iniciales color="primary" class="iniciales-nav" color="#eaeaea" size="15px" [text]="userData?.data?.name" width="40px" height="40px"></app-iniciales>
                 </div>
                 <div class="action-exit">
                     <button mat-icon-button matTooltip="Cerrar sesión" (click)="logout()">
-                        <span class="material-icons">
-                            input
-                        </span>
+                        <span class="material-icons">input</span>
                     </button>
                 </div>
             </div>
         </div>
+    </div>
+</mat-toolbar>
+<mat-toolbar color="primary"  class="mobile-menu h-100"  [ngClass]="{'show-menu': isMobileMenuOpen}">
+    <div class="div-btns">
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
+            matTooltip="Inicio">Inicio</a>
+    </div>
+    <div class="div-btns">
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
+            matTooltip="Clientes">Clientes</a>
+    </div>
+    <div class="div-btns">
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
+            matTooltip="Agenda">Agenda</a>
+    </div>
+    <div class="div-btns">
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
+            matTooltip="Turnos">Turnos</a>
+    </div>
+    <div class="div-btns">
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
+            matTooltip="Turnos">Servicios</a>
+    </div>
+    <div class="div-btns">
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
+            matTooltip="Usuarios">Usuarios</a>
     </div>
 </mat-toolbar>

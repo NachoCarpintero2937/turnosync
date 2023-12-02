@@ -14,7 +14,8 @@ export class LoginComponent {
     private Router: Router,
     private LoginService: LoginService
   ) {}
-submitForm = false;
+  viewPass: boolean = false;
+submitForm = true;
   form = this.fb.group({
     email: ['', [Validators.required,Validators.email]],
     password: ['', Validators.required],

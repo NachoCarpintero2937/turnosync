@@ -3,6 +3,11 @@
     justify-content: space-between;
     width: 100%;
 
+    .mobile-menu-btn {
+        display: none;
+    }
+
+
     .img-logo {
         width: 100px
     }
@@ -51,4 +56,41 @@
 
 .toolbar-btn {
     color: white !important;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .btns-logo-header {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex !important;
+        align-items: center;
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+
+    .show-menu {
+        display: block !important;
+    }
+
+    .hour {
+        display: none;
+    }
+
+    .buttons-desktop {
+        display: none !important;
+    }
+
+    .div-btns {
+        padding: 10px;
+    }
+}
+
+
+.mobile-menu {
+    display: none;
 }

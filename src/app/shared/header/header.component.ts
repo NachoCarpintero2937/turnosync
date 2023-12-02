@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
 
 @Component({
@@ -7,13 +8,19 @@ import { LoginService } from 'src/app/pages/public/login/services/login.service'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private LoginService: LoginService) {
+  constructor(
+    private LoginService: LoginService,
+    private Router : Router
+    ) {
 
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
     })
+    this.Router.events.subscribe(() =>{
+      this.isMobileMenuOpen = false;
+    })
   }
-
+  isMobileMenuOpen = false;
   userData: any;
   hour!: string;
 
@@ -22,10 +29,12 @@ export class HeaderComponent implements OnInit {
     setInterval(() => {
       this.hour = this.getHours();
     }, 1000); // Actualizar cada segundo
-
-
   }
 
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
   getUserData() {
     this.userData = this.LoginService.getDataUser();
   }
