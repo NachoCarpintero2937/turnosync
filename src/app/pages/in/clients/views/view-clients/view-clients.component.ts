@@ -14,6 +14,7 @@ constructor(
   ){}
 id!:string;
 client:any;
+loading = false;
 ngOnInit(): void {
   this.initComponent();
 }
@@ -27,8 +28,12 @@ initComponent(){
 }
 
 getClient(){
+  this.loading = true
   this.ClientService.getClients({id: this.id}).then((data:any)=>{
+    this.loading =false;
    this.client = data?.data?.clients[0];
+  }).catch(e =>{
+    this.loading =false;
   })
 }
 }

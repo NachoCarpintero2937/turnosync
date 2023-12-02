@@ -10,6 +10,7 @@ import { ShiftsService } from '../../services/shifts.service';
 import { UsersService } from '../../../users/services/users.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
+import { TimepickerService } from 'src/app/services/timepicker.service';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -33,7 +34,8 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     private ShiftService: ShiftsService,
     private UsersService: UsersService,
     private Router: Router,
-    private ToastService: ToastService
+    private ToastService: ToastService,
+    private TimePicker: TimepickerService
   ) { }
 
   form = this.fb.group({
@@ -48,21 +50,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     user_id: [null, Validators.required]
   });
 
-  dybellaTheme: NgxMaterialTimepickerTheme = {
-    container: {
-      bodyBackgroundColor: '#fff',
-      buttonColor: '#e1b6b6',
-    },
-    dial: {
-      dialBackgroundColor: '#e1b6b6',
-
-    },
-    clockFace: {
-      clockFaceBackgroundColor: '#e1b6b6',
-      clockHandColor: '#a58171',
-      clockFaceTimeInactiveColor: '#fff',
-    }
-  };
+  dybellaTheme= this.TimePicker.getConfiguration();
 
   clients: any[] = [];
   services: any[] = [];
@@ -79,8 +67,8 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getServices();
-    this.initComponent();
   }
+
   ngOnChanges(): void {
     if (this.shift) {
       this.setValueFromShift()
@@ -88,12 +76,10 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
       this.setValueForm();
     }    
   }
-  initComponent() {
 
-  }
   setValueFromShift() {
     this.form.get('id')?.setValue(this.shift?.id)
-    this.form.get('date_shift')?.setValue(this.DatePipe.transform(this.shift?.date_shift, 'yyyy-MM-dd'));
+    this.form.get('date_shift')?.setValue(new Date(this.shift?.date_shift));
     this.dateTransform = this.shift?.date_shift;
     this.form.get('hour')?.setValue(this.DatePipe.transform(this.shift?.date_shift, 'HH:mm'));
     this.form.get('description')?.setValue(this.shift?.description);
@@ -175,6 +161,16 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
         fullDate.setHours(Number(hours));
         fullDate.setMinutes(Number(minutes));
         this.dateTransform = this.DatePipe.transform(fullDate, 'yyyy/MM/dd HH:mm:ss');
+      }
+    })
+
+    this.form.get('date_shift')?.valueChanges.subscribe((date:any)=>{
+      const hour = this.form.get('hour')?.value;
+      if (date && hour) {
+        const [hours, minutes] = hour.split(':');
+        date.setHours(Number(hours));
+        date.setMinutes(Number(minutes));
+        this.dateTransform = this.DatePipe.transform(date, 'yyyy/MM/dd HH:mm:ss');
       }
     })
   }

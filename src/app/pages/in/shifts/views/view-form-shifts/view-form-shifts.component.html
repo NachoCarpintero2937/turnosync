@@ -4,19 +4,19 @@
             <form [formGroup]="form" class="m-3">
                 <mat-form-field appearance="fill" class="col-12 mt-3">
                     <mat-label>Fecha del turno </mat-label>
-                    <input matInput [disabled]="loadingForm" [min]="dateNow"  [matDatepicker]="picker" formControlName="date_shift" (click)="picker.open();">
+                    <input matInput  [min]="dateNow"  [matDatepicker]="picker" formControlName="date_shift" (click)="picker.open();">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 
                 <mat-form-field appearance="fill" class="col-12 mt-3">
                     <mat-label>Hora del turno </mat-label>
-                    <input matInput [disabled]="loadingForm"    [ngxTimepicker]="fullTime" [format]="24"  readonly formControlName="hour">
+                    <input matInput     [ngxTimepicker]="fullTime" [format]="24"  readonly formControlName="hour">
                     <ngx-material-timepicker #fullTime [theme]="dybellaTheme"></ngx-material-timepicker>
                 </mat-form-field>
                 <mat-form-field class="col-12 mt-3">
                     <mat-label>Servicio</mat-label>
-                    <mat-select formControlName="service_id" [disabled]="loadingForm"  (selectionChange)="onSelect('service');">
+                    <mat-select formControlName="service_id"   (selectionChange)="onSelect('service');">
                         <mat-form-field class="col-12 mt-3">
                         <mat-label>Buscar Servicio</mat-label>
                         <input matInput [formControl]="searchCtrlService" class="search-mat" >
@@ -26,11 +26,11 @@
                   </mat-form-field>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Precio</mat-label>
-                    <input matInput [disabled]="loadingForm"  formControlName="price">
+                    <input matInput   formControlName="price">
                 </mat-form-field>
                 <mat-form-field class="col-12 mt-3">
                     <mat-label>Cliente</mat-label>
-                    <mat-select formControlName="client_id" [disabled]="loadingForm"  (selectionChange)="onSelect('client');">
+                    <mat-select formControlName="client_id"   (selectionChange)="onSelect('client');">
                         <mat-form-field class="col-12 mt-3">
                         <mat-label>Buscar Cliente</mat-label>
                         <input matInput [formControl]="searchCtrlClient" class="search-mat" >
@@ -40,7 +40,7 @@
                   </mat-form-field>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Usuario a asignar turno</mat-label>
-                    <mat-select [disabled]="loadingForm" formControlName="user_id" (selectionChange)="onSelect('user');">
+                    <mat-select  formControlName="user_id" (selectionChange)="onSelect('user');">
                         <mat-form-field class="col-12 mt-3">
                         <mat-label>Buscar Usuario</mat-label>
                         <input matInput [formControl]="searchCtrlUsers" class="search-mat" >
@@ -50,7 +50,7 @@
                   </mat-form-field>
                 <mat-form-field class="col-md-12 description mt-3">
                     <mat-label>Descripcion</mat-label>
-                    <textarea matInput rows="5" cols="40" class="description" formControlName="description" [disabled]="loadingForm" ></textarea>
+                    <textarea matInput rows="5" cols="40" class="description" formControlName="description"  ></textarea>
                 </mat-form-field>
             </form>
         </mat-card-content>

@@ -28,6 +28,7 @@ export class ShiftsService {
   }
 
   mapToShift(data: any,date:any) {
+    console.log(date)
     return {
       id: data?.id,
       date_shift: date,
@@ -41,7 +42,7 @@ export class ShiftsService {
   }
 
   filterItems(items: any[], search: string): any[] {
-    const filterValue = search.toLowerCase();
+    const filterValue = search?.toLowerCase();
     return items.filter((item) => item.name.toLowerCase().includes(filterValue));
   }
 }
