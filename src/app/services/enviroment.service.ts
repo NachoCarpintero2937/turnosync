@@ -58,7 +58,6 @@ export class EnviromentService {
   }
 
   goToWsp(data:any){
-    console.log(data)
     const url = 'https://api.whatsapp.com/send'
     const phone = `?phone=54${data?.data?.cod_area}${data?.data?.phone}`;
     const message =  data?.message ? `&text=${data?.message}` : '';

@@ -11,9 +11,14 @@ import { DialogConfirmModule } from 'src/app/shared/dialog-confirm/dialog-confir
 import { ServicesTodayComponent } from './services-today/services-today.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { ClientsBirthdayComponent } from './clients-birthday/clients-birthday.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [HomeComponent, InfoCardsComponent, ServicesTodayComponent, EmployeesComponent, ClientsBirthdayComponent],
   imports: [CommonModule, HomeRoutingModule, MaterialModule, DialogWspModule,ClipboardModule,DialogConfirmModule ],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-ES' }],
 })
 export class HomeModule { }

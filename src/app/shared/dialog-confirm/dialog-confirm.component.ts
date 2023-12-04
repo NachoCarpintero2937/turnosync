@@ -12,11 +12,11 @@ export class DialogConfirmComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any = DialogConfirmComponent,
-  ) {}
+  ) { }
 
+  price = this.data?.shift?.price;
 
-
-onClose(confirm: Boolean){
-  this.dialogRef.close(confirm)
-}
+  onClose(confirm: Boolean) {
+    this.dialogRef.close({ confirm: confirm, price: this.price })
+  }
 }

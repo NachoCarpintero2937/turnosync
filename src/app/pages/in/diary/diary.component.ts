@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { DiaryService } from './services/diary.service';
@@ -9,6 +9,8 @@ import { DateService } from 'src/app/services/date.service';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 import { ToastService } from 'src/app/services/toast.service';
 import { isBefore } from 'date-fns';
+import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
@@ -24,7 +26,8 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     private Router: Router,
     private DatePipe: DatePipe,
     private DateService : DateService,
-    private ToastService : ToastService
+    private ToastService : ToastService,
+    private dialog: MatDialog,
   ) {
     this.dateAdapter.setLocale('es-AR');
   }
@@ -36,6 +39,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   shiftsCalendar: any[]= [];
   enumShift!: EnumStatusShift;
   isDateBefore! :boolean;
+  submitStatus!: boolean;
   ngOnInit(): void {
     this.getShifts(this.filter_date,false);
   }
@@ -119,21 +123,38 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   this.getShifts(date,true);
   }
 
-  goChangeStatus(data:any){
-    const dataStatus = {
-      id : data?.shift?.id,
-      status: data?.status
-    }
-    this.DiaryService.setStatus(dataStatus).then((shift) =>{
-      this.ToastService.showToastNew(
-        '',
-        "Turno " + (data?.status == 1 ? 'confirmado' : 'cancelado') + ' correctamente',
-        'success'
-      );
-      this.getShifts(this.filter_date);
-    }).catch((e:any) =>{
+  changeStatus(data:any) {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      data: { shift: data?.shift, status: data?.status },
+      width: '20%',
+    });
+    dialogRef.afterClosed().subscribe((modalData) => {
+      if (data) {
+        this.goChangeStatus(data?.shift, data?.status, modalData?.price);
+      }
+    });
+  }
 
-    })
+  goChangeStatus(data: any, status: any, price: any) {
+    if (!this.submitStatus) {
+      this.submitStatus = true;
+      const dataStatus = {
+        id: data?.id,
+        status: status,
+        price: price
+      }
+      this.DiaryService.setStatus(dataStatus).then((shift) =>{
+        this.submitStatus = false;
+        this.ToastService.showToastNew(
+          '',
+          "Turno " + (status== 1 ? 'confirmado' : 'cancelado') + ' correctamente',
+          'success'
+        );
+        this.getShifts(this.filter_date);
+      }).catch((e:any) =>{
+
+      })
+    }
   }
 
 
