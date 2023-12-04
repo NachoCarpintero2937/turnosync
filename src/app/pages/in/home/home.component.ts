@@ -52,18 +52,21 @@ export class HomeComponent implements OnInit {
     this.showResetDate = true;
     this.date = new Date(this.date.setDate(this.date.getDate() + 1));
     this.getShifts();
+    this.getClientsToBirthday();
   }
 
   BeforeDay(){
     this.showResetDate = true;
     this.date = new Date(this.date.setDate(this.date.getDate() - 1));
     this.getShifts();
+    this.getClientsToBirthday();
   }
 
   goDate(){
     this.showResetDate = false;
     this.date = new Date();
     this.getShifts();
+    this.getClientsToBirthday();
   }
 
   getFormattedDate() {
@@ -74,9 +77,8 @@ export class HomeComponent implements OnInit {
   }
 
   getClientsToBirthday(){
-    const now = new Date();
     this.ClientService.getClients({
-      date_birthday : this.DatePipe.transform(now,'yyyy-MM-dd' )
+      date_birthday : this.DatePipe.transform(this.date,'yyyy-MM-dd' )
     }).then((client:any)=>{
       this.clients = client?.data?.clients;
     }).catch(e =>{
