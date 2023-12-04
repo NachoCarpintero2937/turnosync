@@ -41,6 +41,7 @@ tooltipDate(data:any){
 }
 
 sendWsp(data:any){
-this.EnviromentService.goToWsp(data)
+  const newData = { "data": data };
+this.EnviromentService.goToWsp(newData)
 }
 }
