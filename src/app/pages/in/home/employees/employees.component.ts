@@ -49,7 +49,7 @@ export class EmployeesComponent {
       width: '20%',
     });
     dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
+      if (data?.confirm) {
         this.goChangeStatus(shift, status, data?.price);
       }
     });

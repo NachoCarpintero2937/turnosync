@@ -8,12 +8,17 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                
-                <mat-form-field appearance="fill" class="col-12 mt-3">
+                <mat-form-field appearance="fill" class="col-12 mt-3" *ngIf="!isMobile;else mobileHour">
                     <mat-label>Hora del turno </mat-label>
                     <input matInput     [ngxTimepicker]="fullTime" [format]="24"  readonly formControlName="hour">
                     <ngx-material-timepicker #fullTime [theme]="dybellaTheme"></ngx-material-timepicker>
                 </mat-form-field>
+                <ng-template #mobileHour>
+                    <mat-form-field class="col-12 mt-3">
+                        <mat-label>Hora</mat-label>
+                        <input matInput formControlName="hour" type="time">
+                    </mat-form-field>
+                </ng-template>
                 <mat-form-field class="col-12 mt-3">
                     <mat-label>Servicio</mat-label>
                     <mat-select formControlName="service_id"   (selectionChange)="onSelect('service');">

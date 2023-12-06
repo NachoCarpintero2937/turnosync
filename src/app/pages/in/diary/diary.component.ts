@@ -129,7 +129,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
       width: '20%',
     });
     dialogRef.afterClosed().subscribe((modalData) => {
-      if (data) {
+      if (modalData?.confirm) {
         this.goChangeStatus(data?.shift, data?.status, modalData?.price);
       }
     });

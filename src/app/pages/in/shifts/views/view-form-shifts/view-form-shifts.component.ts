@@ -11,6 +11,7 @@ import { UsersService } from '../../../users/services/users.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 import { TimepickerService } from 'src/app/services/timepicker.service';
+import { MobileService } from 'src/app/services/mobile.service';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -35,7 +36,8 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     private UsersService: UsersService,
     private Router: Router,
     private ToastService: ToastService,
-    private TimePicker: TimepickerService
+    private TimePicker: TimepickerService,
+    private MobileService: MobileService
   ) { }
 
   form = this.fb.group({
@@ -49,6 +51,9 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     client_id: [0, Validators.required],
     user_id: [null, Validators.required]
   });
+
+  
+  isMobile = this.MobileService.isMobile();
 
   dybellaTheme= this.TimePicker.getConfiguration();
 
