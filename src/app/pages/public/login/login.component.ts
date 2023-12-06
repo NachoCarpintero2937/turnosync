@@ -33,8 +33,7 @@ submitForm = false;
   }
 
   goToHome(data:any){
-    this.Router.navigate(['/in/home']).then(() =>{
-      this.LoginService.dataUserSubject.next(data);
-    });
+    this.LoginService.dataUserSubject.next(data);
+    this.Router.navigate(['/in/home']);
   }
 }

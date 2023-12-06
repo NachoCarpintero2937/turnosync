@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
     ) {
 
     this.LoginService.dataUserSubject.subscribe(data =>{
+      console.log(data , " HEADER");
       this.userData = data;
     })
     this.Router.events.subscribe(() =>{
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
   hour!: string;
 
   ngOnInit(): void {
+    console.log("estoy vivo");
     this.getUserData();
     setInterval(() => {
       this.hour = this.getHours();

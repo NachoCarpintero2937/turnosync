@@ -1,35 +1,38 @@
-.img-logo{
+.img-logo {
     width: 5%;
 }
 
 
 @media only screen and (max-width: 600px) {
-    .img-logo{
+    .img-logo {
         width: 30%;
     }
 }
 
-.text-description{
+.text-description {
     text-align: center;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    span{
+
+    span {
         font-size: 20px;
     }
 }
 
-.description{
+.description {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-top:60px;
-    .title{
+    margin-top: 60px;
+
+    .title {
         font-size: 35px;
     }
-    .title-description{
+
+    .title-description {
         font-size: 20px;
-        margin-top:15px;
+        margin-top: 15px;
     }
 }

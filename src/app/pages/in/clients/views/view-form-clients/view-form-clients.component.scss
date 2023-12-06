@@ -1,18 +1,25 @@
-.phone-number{
+.phone-number {
     margin-left: 25px;
 }
 
 @media only screen and (max-width: 600px) {
-    .codArea,.phone-number{
+
+    .codArea,
+    .phone-number {
         width: 100%;
-        margin-left:0px!important;
+        margin-left: 0px !important;
     }
 }
 
 
-.loading-spinner{
-    width: 30px!important;
-    color:white!important;
+.loading-spinner {
+    width: 30px !important;
+    color: white !important;
 }
 
-
+.loading-login {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 25px;
+    margin-top: 15px;
+}

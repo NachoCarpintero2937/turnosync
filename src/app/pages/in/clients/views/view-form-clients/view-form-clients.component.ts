@@ -25,7 +25,7 @@ export class ViewFormClientsComponent implements OnChanges {
     id: [null],
     name: [null, Validators.required],
     email: [null, [Validators.email]],
-    phone: [null, [Validators.required,Validators.pattern(/^\d+$/)]],
+    phone: [null, [Validators.required,Validators.pattern(/^\d{8}$/)]],
     cod_area: ["11", [Validators.required, Validators.pattern(/^\d+$/)]],
     date_birthday: [new Date()]
   });
@@ -68,7 +68,7 @@ export class ViewFormClientsComponent implements OnChanges {
       this.submitForm = false;
       this.Router.navigate([this.idUrl ? '/thanks' : 'in/clients']);
       if (this.idUrl) {
-        this.goUpdateUrl();
+        // this.goUpdateUrl();
       } else {
 
       }
