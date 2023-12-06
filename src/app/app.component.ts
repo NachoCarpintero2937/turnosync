@@ -10,11 +10,10 @@ import { EnviromentService } from './services/enviroment.service';
 })
 export class AppComponent implements OnInit{
   title = 'dybella-front';
-  excludePage:boolean =false;
-  url:any;
+
+
   constructor(
     private LoginService: LoginService,
-    private EnviromentService : EnviromentService,
     private Router: Router){
 
   }
@@ -24,18 +23,11 @@ export class AppComponent implements OnInit{
   }
 
   initComponent(){
+    console.log(this.userData)
     this.Router.url
     this.userData = this.LoginService.getDataUser()?.data;
-    this.Router.events.subscribe((page:any) => {
-      if (page instanceof NavigationEnd) {
-      this.url =  this.Router.url
-      this.onCheckPageUrl();
-      }
-    })
+
   }
 
-  onCheckPageUrl() {
-    const page = this.EnviromentService.getExcludePagesHeader().some(excludedPage => this.url.startsWith(excludedPage));
-    this.excludePage = page;
-  }
+
 }

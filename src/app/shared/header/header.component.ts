@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
+import { EnviromentService } from 'src/app/services/enviroment.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,8 @@ import { LoginService } from 'src/app/pages/public/login/services/login.service'
 export class HeaderComponent implements OnInit {
   constructor(
     private LoginService: LoginService,
-    private Router : Router
+    private Router : Router,
+    private EnviromentService: EnviromentService
     ) {
 
     this.LoginService.dataUserSubject.subscribe(data =>{
@@ -24,13 +26,26 @@ export class HeaderComponent implements OnInit {
   isMobileMenuOpen = false;
   userData: any;
   hour!: string;
-
+  url:any;
+  excludePage:boolean =false;
+  
   ngOnInit(): void {
-    console.log("estoy vivo");
+    console.log(this.userData)
     this.getUserData();
     setInterval(() => {
       this.hour = this.getHours();
-    }, 1000); // Actualizar cada segundo
+    }, 1000);
+    this.Router.events.subscribe((page:any) => {
+      if (page instanceof NavigationEnd) {
+      this.url =  this.Router.url
+      this.onCheckPageUrl();
+      }
+    })
+  }
+
+  onCheckPageUrl() {
+    const page = this.EnviromentService.getExcludePagesHeader().some(excludedPage => this.url.startsWith(excludedPage));
+    this.excludePage = page;
   }
 
 

@@ -1,10 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
-import { EnviromentService } from 'src/app/services/enviroment.service';
 import { ModalService } from 'src/app/services/modal.service';
-import { DialogWspComponent } from 'src/app/shared/dialog-wsp/dialog-wsp.component';
 
 @Component({
   selector: 'app-view-shifts-diary',
