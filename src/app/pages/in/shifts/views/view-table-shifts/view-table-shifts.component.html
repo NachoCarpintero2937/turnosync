@@ -1,6 +1,6 @@
 <mat-card class="mt-5">
     <mat-card-content>
-        <mat-expansion-panel #filtrosPanel class="mat-elevation-z0">
+        <mat-expansion-panel #filtrosPanel class="mat-elevation-z0"  [expanded]="true">
             <mat-expansion-panel-header>
                 <mat-panel-title style="align-items: center;">
                     <div class="title-general">
@@ -11,13 +11,19 @@
 
                         </div>
                         <div>
-                            <!-- <button mat-button class="btn_reset" color="primary"
+                            <button mat-button class="btn_reset" color="primary"
                                 (click)="$event.stopPropagation();reset();">Resetear
-                                filtros</button> -->
+                                filtros</button>
                         </div>
                     </div>
                 </mat-panel-title>
             </mat-expansion-panel-header> 
+            <form  [formGroup]="form">
+                <mat-form-field class="col-12 pd-5">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" (input)="filter()">
+                </mat-form-field>
+            </form>
         </mat-expansion-panel>
         <mat-table matSort [dataSource]="list" class="mt-5">
             <ng-container matColumnDef="id">

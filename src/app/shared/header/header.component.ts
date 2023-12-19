@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
     ) {
 
     this.LoginService.dataUserSubject.subscribe(data =>{
-      console.log(data , " HEADER");
       this.userData = data;
     })
     this.Router.events.subscribe(() =>{
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
   excludePage:boolean =false;
   
   ngOnInit(): void {
-    console.log(this.userData)
     this.getUserData();
     setInterval(() => {
       this.hour = this.getHours();

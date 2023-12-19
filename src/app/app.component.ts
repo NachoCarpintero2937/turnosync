@@ -23,7 +23,6 @@ export class AppComponent implements OnInit{
   }
 
   initComponent(){
-    console.log(this.userData)
     this.Router.url
     this.userData = this.LoginService.getDataUser()?.data;
 
