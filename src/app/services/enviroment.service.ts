@@ -38,6 +38,9 @@ export class EnviromentService {
           urls: this.API_URL + '/urls',
           create : this.API_URL + '/urls/create',
           update : this.API_URL + '/urls/update'
+        },
+        chart : {
+          reports : this.API_URL + '/shifts/reports'
         }
       },
     };
@@ -51,6 +54,10 @@ export class EnviromentService {
       404: 'Error en el servidor (404)',
     };
     return HttpErrorCodes;
+  }
+
+  getMonthly(){
+    return ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre' , 'Noviembre', 'Diciembre'];
   }
 
   getExcludePagesHeader(){
