@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { ClientsService } from './services/clients.service';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -10,7 +11,8 @@ export class ClientsComponent implements OnInit{
 
 constructor(
   private ClientsService:ClientsService,
-  private Router : Router
+  private Router : Router,
+  private ToastService : ToastService
   ){}
 
 columns = [
@@ -36,4 +38,16 @@ getClients(){
 addClient(){
   this.Router.navigate(['in/clients/create-client']);
 }
+
+destroy(data:any){
+ this.ClientsService.deleteClient(data).then((r:any)=>{
+  this.ToastService.showToastNew(
+    '',
+    r?.message,
+    'success'
+  );
+ }).catch((e : any)=>{
+ });
+}
+
 }

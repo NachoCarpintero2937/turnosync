@@ -21,13 +21,14 @@ export class EmployeesComponent {
     private ModalService: ModalService) { }
 
   submitStatus!: boolean;
-  goChangeStatus(data: any, status: any, price: any) {
+  goChangeStatus(data: any, status: any, price: any,description : any) {
     if (!this.submitStatus) {
       this.submitStatus = true;
       const dataStatus = {
         id: data?.id,
         status: status,
-        price: price
+        price: price,
+        description: description
       }
       this.DiaryService.setStatus(dataStatus).then((shift) =>{
         this.submitStatus = false;
@@ -50,7 +51,7 @@ export class EmployeesComponent {
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data?.confirm) {
-        this.goChangeStatus(shift, status, data?.price);
+        this.goChangeStatus(shift, status, data?.price, data?.description);
       }
     });
   }

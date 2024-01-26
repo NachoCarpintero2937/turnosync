@@ -8,7 +8,7 @@
         </span>
     </div>
     <div class="pd-5">
-        <app-view-table-clients [columns]="columns" [data]="clients"></app-view-table-clients>
+        <app-view-table-clients [columns]="columns" [data]="clients" (delete)="destroy($event)"></app-view-table-clients>
     </div>
 </div>
 <div class="add_work">

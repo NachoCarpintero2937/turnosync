@@ -24,7 +24,8 @@ export class EnviromentService {
         clients : {
           clients : this.API_URL + '/clients',
           create :this.API_URL + '/clients/create',
-          update: this.API_URL + '/clients/update'
+          update: this.API_URL + '/clients/update',
+          delete: this.API_URL + '/clients/delete'
         },
         services : {
           services : this.API_URL + '/services',

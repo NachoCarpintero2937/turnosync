@@ -5,15 +5,26 @@
 </div>
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography ">
-    <span class="description">
-        Vas a <b>{{data?.status  == 2 ? 'cancelar' : 'confirmar'}}</b> el turno de <b>{{data?.shift?.client.name}} </b>
-    </span>
-    <div>
-        <mat-form-field class="col-12 mt-3" *ngIf="data?.status == 1">
-            <mat-label>Precio</mat-label>
-            <input matInput   [(ngModel)]="price">
-        </mat-form-field>
+    <div *ngIf="!data?.text else generic">
+        <span class="description">
+            Vas a <b>{{data?.status  == 2 ? 'cancelar' : 'confirmar'}}</b> el turno de <b>{{data?.shift?.client.name}} </b>
+        </span>
+        <div>
+            <mat-form-field class="col-12 mt-3" *ngIf="data?.status == 1">
+                <mat-label>Precio</mat-label>
+                <input matInput   [(ngModel)]="price">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="col-12 mt-3" *ngIf="data?.status == 1">
+                <mat-label>Observaciones</mat-label>
+                <textarea matInput rows="5" cols="40" class="description"  [(ngModel)]="description"  ></textarea>
+            </mat-form-field>
+        </div>
     </div>
+    <ng-template #generic>
+        <div [innerHTML]="data?.text"></div>
+    </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
     <button mat-button  (click)="onClose(false)">Cancelar</button>

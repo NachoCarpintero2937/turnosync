@@ -84,6 +84,7 @@
                 </a>
                 <a  color="primary" class="btn-tables" (click)="sendWsp(element)"><img src="./assets/img/wsp.png"
                     alt="" width="20"></a>
+                    <a  color="primary" class="btn-tables" *ngIf="!element?.shift"(click)="destroy(element)"> <span class="material-icons" >delete</span></a>
                 </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: columns;let i= index">

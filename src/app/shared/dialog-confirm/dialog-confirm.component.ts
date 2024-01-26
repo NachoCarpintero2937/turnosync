@@ -15,8 +15,9 @@ export class DialogConfirmComponent {
   ) { }
 
   price = this.data?.shift?.price;
+  description = this.data?.shift?.description;
 
   onClose(confirm: Boolean) {
-    this.dialogRef.close({ confirm: confirm, price: this.price })
+    this.dialogRef.close({ confirm: confirm, price: this.price , description : this.description})
   }
 }

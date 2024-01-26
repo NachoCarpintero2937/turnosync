@@ -11,7 +11,7 @@ export class ClientsService {
     private ApiService: ApiService,
     private EnviromentService: EnviromentService,
     private DatePipe: DatePipe
-    ) { }
+  ) { }
 
   getClients(data?: any) {
     return this.ApiService.get(
@@ -24,19 +24,26 @@ export class ClientsService {
     const client = this.mapToCreateClient(data);
     return this.ApiService.post(
       data?.id ? this.EnviromentService.getEndpoints().endpoints.clients.update :
-      this.EnviromentService.getEndpoints().endpoints.clients.create,
+        this.EnviromentService.getEndpoints().endpoints.clients.create,
       client
     );
   }
 
-  mapToCreateClient(data:any){
-return {
-  id: data?.id,
-  name: data?.name,
-  email : data?.email,
-  cod_area: data?.cod_area,
-  phone: data?.phone,
-  date_birthday: this.DatePipe.transform(data?.date_birthday, 'yyyy-MM-dd HH:mm:ss')
-}
+  deleteClient(data : any){
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.clients.delete,
+      data
+    );
+  }
+
+  mapToCreateClient(data: any) {
+    return {
+      id: data?.id,
+      name: data?.name,
+      email: data?.email,
+      cod_area: data?.cod_area,
+      phone: data?.phone,
+      date_birthday: this.DatePipe.transform(data?.date_birthday, 'yyyy-MM-dd HH:mm:ss')
+    }
   }
 }
