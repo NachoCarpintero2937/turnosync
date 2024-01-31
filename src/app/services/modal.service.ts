@@ -26,7 +26,6 @@ export class ModalService {
       width: '50%',
     });
     dialogRef.afterClosed().subscribe((data: any) => {
-      console.log(data)
       if(data)
         this.EnviromentService.goToWsp(data);
      

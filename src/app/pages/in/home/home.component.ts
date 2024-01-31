@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { HomeService } from './services/home.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { LoginService } from '../../public/login/services/login.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { ClientsService } from '../clients/services/clients.service';
 import { DateService } from 'src/app/services/date.service';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
   date= new Date();
   dateNow = new Date();
   showResetDate = false;
+  @ViewChild('picker') picker!: MatDatepicker<Date>;
   ngOnInit(): void {
     this.getShifts();
     this.getClientsToBirthday();
@@ -68,7 +70,13 @@ export class HomeComponent implements OnInit {
     this.getShifts();
     this.getClientsToBirthday();
   }
-
+  setDate(event: any){
+    this.date = event?.value;
+    this.getFormattedDate();
+    this.getShifts();
+    if(this.date != new Date())
+    this.showResetDate = true;
+  }
   getFormattedDate() {
     const dateFormat = "EEEE, d 'de' MMMM 'del' yyyy";
 

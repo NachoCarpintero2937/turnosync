@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 import { TimepickerService } from 'src/app/services/timepicker.service';
 import { MobileService } from 'src/app/services/mobile.service';
+import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -25,6 +26,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
   loadingForm = false;
   submitForm = false;
   dateTransform!: any;
+  shiftStatus = EnumStatusShift;
   dateNow = new Date()
   constructor(
     private fb: FormBuilder,
@@ -37,7 +39,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     private Router: Router,
     private ToastService: ToastService,
     private TimePicker: TimepickerService,
-    private MobileService: MobileService
+    private MobileService: MobileService,
   ) { }
 
   form = this.fb.group({
@@ -45,7 +47,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     date_shift: [this.date, Validators.required],
     hour: ['', Validators.required],
     description: [null],
-    status: [0, Validators.required],
+    status: [0],
     price: [null, Validators.required],
     service_id: [null, Validators.required],
     client_id: [0, Validators.required],
@@ -93,6 +95,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.form.get('service_id')?.setValue(this.shift?.service_id);
     this.form.get('client_id')?.setValue(this.shift?.client_id);
     this.form.get('user_id')?.setValue(this.shift?.user_id);
+    this.form.get('status')?.setValue(this.shift?.status);
   }
 
   setValueForm() {
@@ -138,7 +141,6 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
       startWith(''),
       map((search) => this.ShiftService.filterItems(this.clients, search))
     ).subscribe((filteredClients) => {
-      console.log("entro")
       this.filteredClients = filteredClients;
     });
 
@@ -211,5 +213,9 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
       this.loading.emit(false);
       this.submitForm = false;
     })
+  }
+
+  addClient(){
+    this.Router.navigate(['/in/clients/create-client'], { queryParams: { toShift: true } });
   }
 }

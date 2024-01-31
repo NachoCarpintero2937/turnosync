@@ -46,6 +46,7 @@ destroy(data:any){
     r?.message,
     'success'
   );
+  this.getClients();
  }).catch((e : any)=>{
  });
 }

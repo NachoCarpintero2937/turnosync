@@ -33,16 +33,22 @@
                     <mat-label>Precio</mat-label>
                     <input matInput   formControlName="price">
                 </mat-form-field>
-                <mat-form-field class="col-12 mt-3">
-                    <mat-label>Cliente</mat-label>
-                    <mat-select formControlName="client_id"   (selectionChange)="onSelect('client');">
-                        <mat-form-field class="col-12 mt-3">
-                        <mat-label>Buscar Cliente</mat-label>
-                        <input matInput [formControl]="searchCtrlClient" class="search-mat" >
-                    </mat-form-field>
-                        <mat-option *ngFor="let client of filteredClients" [value]="client?.id" >{{client?.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <div class="col-12 add-client">
+                    <mat-form-field class="input-client mt-3">
+                        <mat-label>Cliente</mat-label>
+                        <mat-select formControlName="client_id"   (selectionChange)="onSelect('client');">
+                            <mat-form-field class="col-12 mt-3">
+                            <mat-label>Buscar Cliente</mat-label>
+                            <input matInput [formControl]="searchCtrlClient" class="search-mat" >
+                        </mat-form-field>
+                            <mat-option *ngFor="let client of filteredClients" [value]="client?.id" >{{client?.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <div class="div-btn-add-client">
+                        <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons text-white  size-add">add</span></button>
+
+                      </div>
+                </div>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Usuario a asignar turno</mat-label>
                     <mat-select  formControlName="user_id" (selectionChange)="onSelect('user');">
@@ -51,6 +57,14 @@
                         <input matInput [formControl]="searchCtrlUsers" class="search-mat" >
                     </mat-form-field>
                         <mat-option *ngFor="let user of filteredUsers" [value]="user?.id">{{user?.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="col-12 mt-3" *ngIf="shift">
+                    <mat-label>Estado</mat-label>
+                    <mat-select  formControlName="status">
+                        <mat-option [value]="shiftStatus.PENDING">Pendiente</mat-option>
+                        <mat-option [value]="shiftStatus.SHOW">Confirmado</mat-option>
+                        <mat-option [value]="shiftStatus.CANCELLED">Cancelado</mat-option>
                     </mat-select>
                   </mat-form-field>
                 <mat-form-field class="col-md-12 description mt-3">

@@ -43,7 +43,6 @@ setValue(){
   this.form.get('user_id')?.setValue(this.service?.user_id);
 }
 submit(){
-  console.log(this.form.getRawValue())
   this.ServiceService.setService(this.form.getRawValue()).then((data:any)=>{
       this.Router.navigate(['in/services/']);
   })

@@ -15,6 +15,7 @@ constructor(
 id!:string;
 client:any;
 loading = false;
+toShift = false;
 ngOnInit(): void {
   this.initComponent();
 }

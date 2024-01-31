@@ -20,6 +20,8 @@
     font-size: 25px;
     // color: $dyblleaColor;
     text-transform: capitalize;
+    width: 400px;
+    text-align: center;
 }
 
 .btn-date {
@@ -28,6 +30,12 @@
 
 .remove-date {
     color: red;
+}
+
+.input-date-home {
+    background: transparent;
+    border: none;
+    width: 0px;
 }
 
 @media only screen and (max-width: 767px) {
