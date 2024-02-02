@@ -52,31 +52,41 @@ export class HomeComponent implements OnInit {
 
   nextDay(){
     this.showResetDate = true;
-    this.date = new Date(this.date.setDate(this.date.getDate() + 1));
+    const date = new Date(this.date.setDate(this.date.getDate() + 1));
+    this.date = new Date(date.setHours(0, 0, 0, 0))
     this.getShifts();
     this.getClientsToBirthday();
   }
 
   BeforeDay(){
     this.showResetDate = true;
-    this.date = new Date(this.date.setDate(this.date.getDate() - 1));
+    const date = new Date(this.date.setDate(this.date.getDate() - 1));
+    this.date = new Date(date.setHours(0, 0, 0, 0))
     this.getShifts();
     this.getClientsToBirthday();
   }
 
   goDate(){
     this.showResetDate = false;
-    this.date = new Date();
+    const date = new Date();
+    this.date = new Date(date.setHours(0, 0, 0, 0));
     this.getShifts();
     this.getClientsToBirthday();
+    this.picker.select(this.date)
   }
+
   setDate(event: any){
     this.date = event?.value;
     this.getFormattedDate();
     this.getShifts();
-    if(this.date != new Date())
-    this.showResetDate = true;
-  }
+    const date = new Date();
+   const dateNow = new Date(date.setHours(0, 0, 0, 0))
+    const datePage = new Date(this.date);
+    if(dateNow.getTime()  == datePage.getTime())
+    this.showResetDate = false;
+  else
+  this.showResetDate = true;
+    }
   getFormattedDate() {
     const dateFormat = "EEEE, d 'de' MMMM 'del' yyyy";
 

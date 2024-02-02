@@ -29,3 +29,13 @@
         }
     }
 }
+
+.add-client-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .mdc-list-item__primary-text {
+        width: 100%;
+    }
+}

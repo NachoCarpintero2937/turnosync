@@ -27,6 +27,11 @@
                         <input matInput [formControl]="searchCtrlService" class="search-mat" >
                     </mat-form-field>
                         <mat-option *ngFor="let service of filteredService" [value]="service?.id">{{service?.name}}</mat-option>
+                        <mat-option class="add-client-option"*ngIf="!filteredService?.length">
+                            <span>
+                                Sin resultados para esta búsqueda
+                            </span>
+                        </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field class="col-12 mt-3">
@@ -42,6 +47,11 @@
                             <input matInput [formControl]="searchCtrlClient" class="search-mat" >
                         </mat-form-field>
                             <mat-option *ngFor="let client of filteredClients" [value]="client?.id" >{{client?.name}}</mat-option>
+                            <mat-option class="add-client-option"*ngIf="!filteredClients?.length">
+                                <span>
+                                    Sin resultados para esta búsqueda
+                                </span>
+                            </mat-option>
                         </mat-select>
                       </mat-form-field>
                       <div class="div-btn-add-client">
@@ -57,6 +67,11 @@
                         <input matInput [formControl]="searchCtrlUsers" class="search-mat" >
                     </mat-form-field>
                         <mat-option *ngFor="let user of filteredUsers" [value]="user?.id">{{user?.name}}</mat-option>
+                        <mat-option class="add-client-option"*ngIf="!filteredUsers?.length">
+                            <span>
+                                Sin resultados para esta búsqueda
+                            </span>
+                        </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field class="col-12 mt-3" *ngIf="shift">
