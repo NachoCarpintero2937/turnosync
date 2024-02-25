@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   date= new Date();
   dateNow = new Date();
   showResetDate = false;
+  loading : Boolean = false;
   @ViewChild('picker') picker!: MatDatepicker<Date>;
   ngOnInit(): void {
     this.getShifts();
@@ -41,13 +42,17 @@ export class HomeComponent implements OnInit {
   }
 
   getShifts() {
+    this.loading = true;
     const date = {
       start_date: this.DatePipe.transform(this.date, 'yyyy-MM-dd ') + '00:00:00',
       end_date:this.DatePipe.transform(this.date, 'yyyy-MM-dd ') + '23:59:59'
     };
     this.HomeService.getShifts(date).then((data: any) => {
+      this.loading = false;
       this.shifts = data?.data;
-    });
+    }).catch(e =>{
+      this.loading = false;
+    })
   }
 
   nextDay(){

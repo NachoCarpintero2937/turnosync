@@ -7,21 +7,25 @@
     <mat-datepicker #picker ></mat-datepicker>
     <button mat-button class="btn-date" (click)="nextDay()"> <span class="material-icons">navigate_next</span></button>
     <button mat-button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span class="material-icons">close</span></button>
+
+    <div>
+        <mat-spinner *ngIf="loading" class="loading-spinner home-loading" diameter="50"></mat-spinner>
+    </div>
 </div>
 <div class="container mt-5">
-    <div>
+    <div *ngIf="!loading">
         <app-info-cards [data]="shifts"></app-info-cards>
     </div>
 
-    <div class="col-md-12 mt-5">
+    <div class="col-md-12 mt-5" *ngIf="!loading">
         <app-services-today [shifts]="shifts"></app-services-today>
     </div>
 
-    <div class="col-md-12 mt-5" *ngIf="clients?.length">
+    <div class="col-md-12 mt-5" *ngIf="clients?.length && !loading"> 
         <app-clients-birthday [clients]="clients"></app-clients-birthday>
     </div>
 
-    <div>
+    <div *ngIf="!loading">
         <app-employees [shifts]="shifts" (shiftEvent)="getShifts()"></app-employees>
     </div>
 </div>
