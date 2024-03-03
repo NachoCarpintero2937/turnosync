@@ -19,7 +19,8 @@ export class EnviromentService {
           shifts: this.API_URL + '/shifts',
           create: this.API_URL + '/shifts/create',
           update: this.API_URL + '/shifts/update',
-          updateStatus: this.API_URL + '/shifts/updateStatus'
+          updateStatus: this.API_URL + '/shifts/updateStatus',
+          notifications: this.API_URL + '/shifts/notifications'
         },
         clients : {
           clients : this.API_URL + '/clients',

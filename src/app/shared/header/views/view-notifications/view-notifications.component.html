@@ -1,0 +1,14 @@
+
+
+    <div class="d-flex justify-content-center div-notif-title">
+        <span class="title-notif">
+            Tenés {{shifts.length}} turno(s) sin confirmar a 30 dias a la fecha de hoy.
+        </span>
+    </div>
+    <mat-divider></mat-divider>
+<div class="d-flex justify-content-center shifts-for">
+    <div *ngFor="let dateShift of shifts">
+        <div class="date">{{dateShift?.date |date : 'dd/MM/yyyy'}}</div>
+            <dy-shift  [employe]="dateShift"></dy-shift>
+        </div>
+    </div>

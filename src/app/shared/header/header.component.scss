@@ -38,6 +38,12 @@
             margin: 10px;
         }
 
+        .notifications {
+            margin-top: 12px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
         .action-exit {
             display: flex;
             align-items: center;
@@ -48,7 +54,7 @@
 
         .hour {
             color: white;
-            margin: 30px;
+            margin: 15px;
             font-size: 25px
         }
     }

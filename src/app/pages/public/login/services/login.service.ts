@@ -22,6 +22,7 @@ export class LoginService {
   }
 
   setUserData(data: any) {
+    localStorage.setItem('notifications', JSON.stringify({notifications: true}));
     localStorage.setItem('currentUser', JSON.stringify(data));
   }
 
@@ -47,5 +48,13 @@ export class LoginService {
           });
         });
     });
+  }
+
+
+  getNotificactions(data?:any){
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.shifts.notifications,
+    data
+    );
   }
 }
