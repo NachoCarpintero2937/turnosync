@@ -1,0 +1,93 @@
+<div *ngIf="!loading">
+    <div class="d-flex justify-content-center">
+        <div class="perfil">
+            <div class="background">
+                <div class="portada">
+
+                </div>
+                <div class="photo_perfil">
+                    <div class="d-flex nombres">
+                        <div>
+                            <app-iniciales color="primary" color="#a58171" fuente="white" size="70px"
+                                [text]="client?.name" width="150px" height="150px" borde="5px solid #e1b6b6">
+                            </app-iniciales>
+                        </div>
+                        <div class="nombre">
+                            <span>
+                                {{client?.name}} ({{quantityShifts?.show.length}})
+                            </span>
+                        </div>
+                    </div>
+                    <div class="botones_editar">
+                        <!-- <div>
+                            <button mat-icon-button color="primary" matTooltip="Editar">
+                                <mat-icon>mode_edit_outline</mat-icon>
+                            </button>
+                        </div>
+                        <div>
+                            <button mat-icon-button color="primary" matTooltip="Editar">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="muro_div_principal">
+                <div class="muro">
+                    <div class="info">
+                        <mat-list>
+                            <mat-list-item class="descripcion">Fecha de nacimiento</mat-list-item>
+                            <mat-list-item >
+                                <span class="valor-profile">
+                                {{client?.date_birthday | date: 'dd/MM/yyyy'}}
+                                </span>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item class="descripcion">Último turno solicitado</mat-list-item>
+                            <mat-list-item > <span class="valor-profile">
+                                {{shifts[0]?.date_shift | date: 'dd/MM/yyyy HH:mm'}}
+                            </span> </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item class="descripcion">Pendientes </mat-list-item>
+                            <mat-list-item > <span class="valor-profile">
+                              {{quantityShifts?.pending?.length}}
+                            </span> </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item class="descripcion">Cancelados</mat-list-item>
+                            <mat-list-item > <span class="valor-profile">
+                              {{quantityShifts?.cancelled?.length}}
+                            </span> </mat-list-item>
+                        </mat-list>
+                    </div>
+                    <hr class="vertical_hr">
+                    <div class="history">
+                        <mat-list>
+                            <cdk-virtual-scroll-viewport itemSize="5" class="example-viewport">
+                                <div *cdkVirtualFor="let shift of shifts" class="example-item">
+                                    <mat-list-item  [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
+                                        <div class="d-flex listado_muro" [routerLink]="['/in/shifts/view-shift']"
+                                            [queryParams]="{id: shift?.id}">
+                                            <div class="nombre_inicial d-flex">
+                                                <div class="inicial_muro">
+                                                    <app-iniciales color="primary" color="#a58171" fuente="white"
+                                                        size="11px" [text]="shift?.client?.name" width="30px"
+                                                        height="30px" borde="3px solid #ccc">
+                                                    </app-iniciales>
+                                                </div>
+                                                <div class="nombre_muro">
+                                                    <b>{{shift?.date_shift | date: 'dd/MM/yyyy HH:mm'}}&nbsp;</b>
+                                                    <span>{{shift?.client?.name}} | {{shift?.description ? shift?.description : 'Sin observaciones'}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                </div>
+                            </cdk-virtual-scroll-viewport>
+                        </mat-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

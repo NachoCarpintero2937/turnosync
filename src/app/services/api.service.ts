@@ -20,10 +20,4 @@ export class ApiService {
     return await lastValueFrom(post);
   }
 
-  public _getAction(method: string, model?: any) {
-    return this.get(model, method);
-  }
-  public _postAction(method: string, model?: any) {
-    return this.post(model, method);
-  }
 }

@@ -76,9 +76,10 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" >
-               <a  color="primary" class="btn-tables" [routerLink]="['view-client']" [queryParams]="{id: element?.id}">
-                <span class="material-icons" >visibility</span>
-                </a>
+                    <a  color="primary" class="btn-tables" [routerLink]="['view-client']" [queryParams]="{id: element?.id}">  <span class="material-icons" >visibility</span></a>
+                    <a  color="primary" class="btn-tables" [routerLink]="['/in/profile/']" [queryParams]="{client: element?.id}">
+                        <span class="material-icons" >person</span>
+                    </a>
                    <a color="primary" class="btn-tables" [routerLink]="['/in/shifts/create-shift']" [queryParams]="{client: element?.id}">
                 <span class="material-icons" >event</span>
                 </a>

@@ -12,7 +12,6 @@
     }
 
     .div-btn-add-client {
-        width: 5%;
         display: flex;
         justify-content: flex-end;
 
@@ -20,6 +19,7 @@
             width: 30px;
             height: 30px;
             text-align: center;
+            margin: 10px;
 
             .size-add {
                 font-size: 15px !important;

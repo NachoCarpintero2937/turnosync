@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { ActivatedRoute } from '@angular/router';
 import {Subscription} from 'rxjs';
 import { ShiftsService } from '../../services/shifts.service';
+import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 @Component({
   selector: 'app-view-shift',
   templateUrl: './view-shift.component.html',
@@ -14,6 +15,7 @@ date!: Date;
 shift:any;
 client: any;
 loading : boolean = false;
+shiftEnum! : EnumStatusShift;
 constructor(
   private ActivatedRouter: ActivatedRoute,
   private ShiftsService: ShiftsService,
