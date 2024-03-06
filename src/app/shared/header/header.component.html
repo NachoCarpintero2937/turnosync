@@ -47,7 +47,9 @@
                 {{ hour }}
             </div>
             <div>
-         <span [matBadge]="notifications.length"  matTooltip="Notificaciones" (click)="openBottomSheet()"   matBadgeColor="warn" class="material-icons notifications">notifications</span>
+                <div [matBadge]="notifications.length"  matTooltip="Notificaciones" class="notifications"  matBadgeColor="warn">
+                    <span  (click)="openBottomSheet()"   class="material-icons  bell">notifications</span>
+                </div>
             </div>
             <div class="d-flex">
                 <div class="d-flex align-items-center incials">
