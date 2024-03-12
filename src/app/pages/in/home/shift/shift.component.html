@@ -4,22 +4,24 @@
             <div class="d-flex list-shifts">
                 <div class="description" [matTooltip]="getTootlip(shift)">
                     <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
-                    <span>
+                    <span class="">
                         {{shift?.service?.name}}
                     </span>
-                    <span>
+                    <span class="client-name"  [routerLink]="['/in/profile/']" [queryParams]="{client: shift?.client?.id}">
                         <b>{{shift?.client?.name}}</b>
                     </span>
-
+                    <span *ngIf="!edit">
+                        | {{shift?.description ? shift?.description : 'Sin observaciones'}}
+                    </span>
                 </div>
                 <div class="actions">
-                    <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,1)">
+                    <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,1)">
                         <span class="material-icons"  >done</span>
                     </button>
-                    <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,2)">
+                    <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,2)">
                         <span class="material-icons" >close</span>
                     </button>
-                    <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
+                    <button class="btn-action" (click)="sendWsp(shift)" *ngIf="edit"><img src="./assets/img/wsp.png"
                             alt="" width="20"></button>
                     <a class="btn-action"[routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons" >visibility</span></a>
                 </div>

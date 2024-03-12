@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     const notif  = JSON.parse(localStorage.getItem('notifications')!);
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
+      this.getNotifications();
 
     })
     this.Router.events.subscribe(() =>{

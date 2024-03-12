@@ -11,6 +11,7 @@ import { ViewFormShiftsComponent } from './views/view-form-shifts/view-form-shif
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ShiftModule } from '../home/shift/shift.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     ClientsModule,
     MaterialModule,
     ReactiveFormsModule,
-    NgxMaterialTimepickerModule.setOpts('ar-ES', 'AR')
+    NgxMaterialTimepickerModule.setOpts('ar-ES', 'AR'),
+    ShiftModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },DatePipe]
 })

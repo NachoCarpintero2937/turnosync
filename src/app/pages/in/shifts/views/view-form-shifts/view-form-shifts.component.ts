@@ -27,6 +27,9 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
   submitForm = false;
   dateTransform!: any;
   shiftStatus = EnumStatusShift;
+  shiftsToClient :any= {
+    shifts : []
+  }
   dateNow = new Date()
   constructor(
     private fb: FormBuilder,
@@ -39,7 +42,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     private Router: Router,
     private ToastService: ToastService,
     private TimePicker: TimepickerService,
-    private MobileService: MobileService,
+    private MobileService: MobileService
   ) { }
 
   form = this.fb.group({
@@ -74,6 +77,13 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getServices();
+    this.initComponent();
+  }
+
+  initComponent(){
+    this.form.get('client_id')?.valueChanges.subscribe((client:any)=>{
+      this.getShift(client);
+    })
   }
 
   ngOnChanges(): void {
@@ -107,6 +117,14 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
       this.form.get('client_id')?.setValue(intClient);
     }
 
+  }
+
+  getShift(client?:any){
+    this.shiftsToClient.shifts = [];
+    this.ShiftService.getShifts({client_id : client}).then((shift:any)=>{
+      this.shiftsToClient.shifts.push(shift?.data?.shifts[0]);
+      console.log(this.shiftsToClient)
+    })
   }
 
   getServices() {

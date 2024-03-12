@@ -5,7 +5,6 @@ import { ToastService } from 'src/app/services/toast.service';
 import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
 import { DiaryService } from '../../diary/services/diary.service';
 import { DatePipe } from '@angular/common';
-
 @Component({
   selector: 'dy-shift',
   templateUrl: './shift.component.html',
@@ -13,6 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ShiftComponent {
   @Input() employe: any;
+  @Input() edit: boolean = true;
   constructor(
     private ModalService: ModalService,
     private dialog: MatDialog,

@@ -41,10 +41,19 @@
         text-overflow: ellipsis;
         display: flex;
         align-items: center;
+        .client-name{
+            text-transform: capitalize;
+            text-decoration:  underline;
+            cursor: pointer;
+            color:#4949d5;
 
+
+        }
         >span {
             font-size: 15px;
             margin-left: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .bagde-count {

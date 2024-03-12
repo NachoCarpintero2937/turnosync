@@ -60,6 +60,12 @@
 
                       </div>
                 </div>
+                <div class="col-12 pd-5" *ngIf="shiftsToClient.shifts.length > 0">
+                    <span class="last-shift">
+                        Último turno
+                    </span>
+                    <dy-shift [employe]="shiftsToClient" [edit]="false"></dy-shift>
+                </div>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Usuario a asignar turno</mat-label>
                     <mat-select  formControlName="user_id" (selectionChange)="onSelect('user');">
