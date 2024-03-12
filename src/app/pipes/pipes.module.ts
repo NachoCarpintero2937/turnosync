@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InicialesPipe } from './iniciales.pipe';
+import { ArgentinePesoPipe } from './argentinepeso.pipe';
 
 
 
 @NgModule({
   declarations: [
-    InicialesPipe
+    InicialesPipe,
+    ArgentinePesoPipe
   ],
   imports: [
     CommonModule
   ],
-  exports: [InicialesPipe]
+  exports: [InicialesPipe, ArgentinePesoPipe]
 })
 export class PipesModule { }

@@ -23,6 +23,7 @@ ngOnInit(): void {
 initComponent(){
   this.ActivatedRouter.queryParamMap.subscribe( (data:any) =>{
     this.id=data?.params?.id;
+    if(this.id)
     this.getClient();
   });
 

@@ -1,38 +1,42 @@
 <div class="d-flex justify-content-center mt-5 align-items-center">
-    <button mat-button  class="btn-date" (click)="BeforeDay()"> <span class="material-icons">navigate_before</span></button>
+    <button mat-button class="btn-date" (click)="BeforeDay()"> <span
+            class="material-icons">navigate_before</span></button>
     <button mat-button (click)="picker.open()">
-        <span class="date-text" >{{getFormattedDate()}}</span>
+        <span class="date-text">{{getFormattedDate()}}</span>
     </button>
-    <input #dateInput [matDatepicker]="picker" (dateChange)="setDate($event)" class="input-date-home" >
-    <mat-datepicker #picker ></mat-datepicker>
+    <input #dateInput [matDatepicker]="picker" (dateChange)="setDate($event)" class="input-date-home">
+    <mat-datepicker #picker></mat-datepicker>
     <button mat-button class="btn-date" (click)="nextDay()"> <span class="material-icons">navigate_next</span></button>
-    <button mat-button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span class="material-icons">close</span></button>
+    <button mat-button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span
+            class="material-icons">close</span></button>
 
     <div>
         <mat-spinner *ngIf="loading" class="loading-spinner home-loading" diameter="50"></mat-spinner>
     </div>
 </div>
 <div class="container mt-5">
-    <div *ngIf="!loading">
+    <div>
         <app-info-cards [data]="shifts"></app-info-cards>
     </div>
 
-    <div class="col-md-12 mt-5" *ngIf="!loading">
+    <div class="col-md-12 mt-5">
         <app-services-today [shifts]="shifts"></app-services-today>
     </div>
 
-    <div class="col-md-12 mt-5" *ngIf="clients?.length && !loading"> 
+    <div class="col-md-12 mt-5" *ngIf="clients?.length">
         <app-clients-birthday [clients]="clients"></app-clients-birthday>
     </div>
 
-    <div *ngIf="!loading">
-        <app-employees [shifts]="shifts" (shiftEvent)="getShifts()"></app-employees>
+    <div>
+        <app-employees [shifts]="shifts" (shiftEvent)="getShifts()" (checked)="selectedShift($event)"></app-employees>
     </div>
 </div>
 
 
 <div class="add_work">
     <div class="float-buttons">
+        <button mat-fab (click)="goToViewShifts();" *ngIf="shiftIdSelected?.length"><span
+                class="material-icons text-white">event</span></button>
         <button mat-fab (click)="createUrl();" [disabled]="submitUrl"><span
                 class="material-icons text-white">share</span></button>
         <button mat-fab (click)="addShift();" *ngIf="date"><span class="material-icons text-white">add</span></button>

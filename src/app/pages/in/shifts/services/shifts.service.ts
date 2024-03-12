@@ -27,13 +27,17 @@ export class ShiftsService {
     );
   }
 
+  setShiftSelected(data: any) {
+    return this.ApiService.post(this.EnviromentService.getEndpoints().endpoints.shifts.createToShift, data);
+  }
+
   mapToShift(data: any, date: any) {
     return {
       id: data?.id,
       date_shift: date,
       description: data?.description,
       status: data?.status,
-      price: data?.price,
+      price: parseFloat(data?.price.replace('$', '').replace('.', '')),
       service_id: data?.service_id,
       client_id: data?.client_id,
       user_id: data?.user_id
@@ -61,4 +65,19 @@ export class ShiftsService {
         break;
     }
   }
+
+  formatInput(data: any) {
+    let value = data;
+    // Remueve cualquier carácter que no sea un dígito o un punto decimal
+    value = value.replace(/[^\d.]/g, '');
+    // Divide el valor en parte entera y parte decimal
+    const [integerPart, decimalPart] = value.split('.');
+    // Formatea la parte entera con separadores de miles
+    const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // Si hay parte decimal, formatearla también
+    const formattedDecimalPart = decimalPart ? `.${decimalPart.slice(0, 2)}` : '';
+    // Vuelve a asignar el valor formateado al control
+    return formattedIntegerPart + formattedDecimalPart;
+  }
+
 }

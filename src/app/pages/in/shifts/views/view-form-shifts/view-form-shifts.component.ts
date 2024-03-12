@@ -5,7 +5,7 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { ServicesService } from '../../../services/services/services.service';
 import { ClientsService } from '../../../clients/services/clients.service';
 import { map, startWith } from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ShiftsService } from '../../services/shifts.service';
 import { UsersService } from '../../../users/services/users.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { TimepickerService } from 'src/app/services/timepicker.service';
 import { MobileService } from 'src/app/services/mobile.service';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
+import { ArgentinePesoPipe } from 'src/app/pipes/argentinepeso.pipe';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -21,14 +22,16 @@ import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 export class ViewFormShiftsComponent implements OnInit, OnChanges {
   @Input() date!: any
   @Input() shift: any;
+  @Input() shifts: any;
   @Input() client: any;
-  @Output()loading = new EventEmitter();
+  @Output() loading = new EventEmitter();
   loadingForm = false;
   submitForm = false;
   dateTransform!: any;
+  formatPrice!: string;
   shiftStatus = EnumStatusShift;
-  shiftsToClient :any= {
-    shifts : []
+  shiftsToClient: any = {
+    shifts: []
   }
   dateNow = new Date()
   constructor(
@@ -42,7 +45,8 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     private Router: Router,
     private ToastService: ToastService,
     private TimePicker: TimepickerService,
-    private MobileService: MobileService
+    private MobileService: MobileService,
+    private ArgentinePesoPipe: ArgentinePesoPipe
   ) { }
 
   form = this.fb.group({
@@ -51,16 +55,16 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     hour: ['', Validators.required],
     description: [null],
     status: [0],
-    price: [null, Validators.required],
+    price: ['', Validators.required],
     service_id: [null, Validators.required],
     client_id: [0, Validators.required],
     user_id: [null, Validators.required]
   });
 
-  
+
   isMobile = this.MobileService.isMobile();
 
-  dybellaTheme= this.TimePicker.getConfiguration();
+  dybellaTheme = this.TimePicker.getConfiguration();
 
   clients: any[] = [];
   services: any[] = [];
@@ -80,10 +84,10 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.initComponent();
   }
 
-  initComponent(){
-    this.form.get('client_id')?.valueChanges.subscribe((client:any)=>{
+  initComponent() {
+    this.form.get('client_id')?.valueChanges.subscribe((client: any) => {
       this.getShift(client);
-    })
+    });
   }
 
   ngOnChanges(): void {
@@ -91,7 +95,14 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
       this.setValueFromShift()
     } else {
       this.setValueForm();
-    }    
+    }
+  }
+
+
+  formatInput(event: any) {
+    let value = event.target.value;
+    value = this.ArgentinePesoPipe.transform(value).replace(',00', "");
+    this.form.get('price')?.setValue(value)
   }
 
   setValueFromShift() {
@@ -101,7 +112,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.form.get('hour')?.setValue(this.DatePipe.transform(this.shift?.date_shift, 'HH:mm'));
     this.form.get('description')?.setValue(this.shift?.description);
     // this.form.get('status').setValue();
-    this.form.get('price')?.setValue(this.shift?.price);
+    this.form.get('price')?.setValue(this.ArgentinePesoPipe.transform(this.shift?.price).replace('$', '').replace(',00', ""));
     this.form.get('service_id')?.setValue(this.shift?.service_id);
     this.form.get('client_id')?.setValue(this.shift?.client_id);
     this.form.get('user_id')?.setValue(this.shift?.user_id);
@@ -112,18 +123,19 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     const date = new Date(this.date);
     this.form.get('date_shift')?.setValue(date);
     this.form.get('user_id')?.setValue(this.LoginService.getDataUser().data?.id);
-    if(this.client){
+    if (this.client) {
       const intClient = parseInt(this.client);
       this.form.get('client_id')?.setValue(intClient);
     }
 
   }
 
-  getShift(client?:any){
+  getShift(client?: any) {
     this.shiftsToClient.shifts = [];
-    this.ShiftService.getShifts({client_id : client}).then((shift:any)=>{
-      this.shiftsToClient.shifts.push(shift?.data?.shifts[0]);
-      console.log(this.shiftsToClient)
+    this.ShiftService.getShifts({ client_id: client }).then((shift: any) => {
+      if (shift?.data?.shifts[0]) {
+        this.shiftsToClient.shifts.push(shift?.data?.shifts[0]);
+      }
     })
   }
 
@@ -154,7 +166,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
 
 
   searchMat() {
-    this.filteredClients =[];
+    this.filteredClients = [];
     this.searchCtrlClient.valueChanges.pipe(
       startWith(''),
       map((search) => this.ShiftService.filterItems(this.clients, search))
@@ -189,7 +201,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
       }
     })
 
-    this.form.get('date_shift')?.valueChanges.subscribe((date:any)=>{
+    this.form.get('date_shift')?.valueChanges.subscribe((date: any) => {
       const hour = this.form.get('hour')?.value;
       if (date && hour) {
         const [hours, minutes] = hour.split(':');
@@ -233,7 +245,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     })
   }
 
-  addClient(){
+  addClient() {
     this.Router.navigate(['/in/clients/create-client'], { queryParams: { toShift: true } });
   }
 }

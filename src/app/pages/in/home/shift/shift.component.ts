@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 export class ShiftComponent {
   @Input() employe: any;
   @Input() edit: boolean = true;
+  @Output() checked = new EventEmitter();
   constructor(
     private ModalService: ModalService,
     private dialog: MatDialog,
@@ -37,7 +38,7 @@ export class ShiftComponent {
   changeStatus(shift: any, status: any) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       data: { shift: shift, status: status },
-      width: '20%',
+      width: '50%',
     });
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data?.confirm) {
@@ -62,7 +63,7 @@ export class ShiftComponent {
           "Turno " + (status == 1 ? 'confirmado' : 'cancelado') + ' correctamente',
           'success'
         );
-        this.shiftEvent.emit(true)
+        this.shiftEvent.emit(true);
       }).catch((e: any) => {
 
       })
@@ -79,5 +80,9 @@ export class ShiftComponent {
       ' a las ' +
       this.DatePipe.transform(shift?.date_shift, 'HH:mm');
     return tooltip;
+  }
+
+  checkbokShift(checked: boolean, shift: any) {
+    this.checked.emit({ checked: checked, shifts: shift })
   }
 }

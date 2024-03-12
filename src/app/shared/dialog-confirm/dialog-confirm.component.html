@@ -12,7 +12,7 @@
         <div>
             <mat-form-field class="col-12 mt-3" *ngIf="data?.status == 1">
                 <mat-label>Precio</mat-label>
-                <input matInput   [(ngModel)]="price">
+                <input matInput [(ngModel)]="price" (change)="formatInput($event)">
             </mat-form-field>
         </div>
         <div>
