@@ -30,7 +30,8 @@
             </form>
         </mat-card-content>
         <mat-card-footer>
-            <button mat-button color="primary" (click)="submit()" class="btn-custom col-12">Enviar</button>
+            <button mat-button color="primary" [disabled]="!form.valid || submitBtn" (click)="submit()"
+                class="btn-custom col-12">Enviar</button>
         </mat-card-footer>
     </mat-card>
 </div>

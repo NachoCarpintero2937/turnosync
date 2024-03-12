@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class ViewSelectedShiftsComponent implements OnInit {
   @Input() shifts: any
   users: any;
+  submitBtn!: boolean;
   constructor(
     private FormBuilder: FormBuilder,
     private TimePicker: TimepickerService,
@@ -51,7 +52,9 @@ export class ViewSelectedShiftsComponent implements OnInit {
   }
 
   submit() {
+    this.submitBtn = true;
     this.ShiftService.setShiftSelected(this.form.getRawValue()).then((data: any) => {
+      this.submitBtn = false;
       if (data?.data?.message)
         this.ToastService.showToastNew(
           '',
@@ -67,6 +70,8 @@ export class ViewSelectedShiftsComponent implements OnInit {
         );
 
       this.Router.navigate(['/in/home']);
+    }).catch((e) => {
+      this.submitBtn = false;
     })
   }
 
