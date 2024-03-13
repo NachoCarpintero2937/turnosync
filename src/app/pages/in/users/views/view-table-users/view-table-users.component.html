@@ -41,6 +41,13 @@
                     {{element?.email}}
                 </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="rol" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Rol
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                    {{element?.roles[0]?.name}}
+                </mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="created_at">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Alta

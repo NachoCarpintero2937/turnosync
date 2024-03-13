@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" *ngIf="userData?.access_token && !excludePage" >
+<mat-toolbar class="mat-primary" *ngIf="userData?.access_token && !excludePage" >
     <div class="header-main">
         <div class="mobile-menu-btn">
             <!-- Agrega un botón de menú para dispositivos móviles -->
@@ -48,6 +48,11 @@
             </div>
             <div>
          <span [matBadge]="notifications.length"  matTooltip="Notificaciones" (click)="openBottomSheet()"   matBadgeColor="warn" class="material-icons notifications">notifications</span>
+            </div>
+            <div>
+                <a mat-icon-button matTooltip="Configuración" [routerLink]="['/in/settings/']">
+                <span class="material-icons">settings</span>
+                </a>
             </div>
             <div class="d-flex">
                 <div class="d-flex align-items-center incials">

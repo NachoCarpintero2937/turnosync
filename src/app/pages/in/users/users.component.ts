@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersService } from './services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -11,11 +12,15 @@ export class UsersComponent {
     'id',
     'name',
     'email',
+    'rol',
     'created_at',
   ];
   users : any[]= [];
 
-  constructor(private UsersService :  UsersService){}
+  constructor(
+    private UsersService :  UsersService,
+    private Router : Router
+    ){}
   
   ngOnInit(): void {
    this.getUsers();
@@ -27,5 +32,9 @@ export class UsersComponent {
     }).catch(e =>{
 
     });
+  }
+
+  goToNewUser(){
+    this.Router.navigate(['/in/users/view-user'])
   }
 }
