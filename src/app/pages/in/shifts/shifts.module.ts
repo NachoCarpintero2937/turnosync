@@ -32,7 +32,7 @@ import { ViewSelectedShiftsComponent } from './views/view-selected-shifts/view-s
     ReactiveFormsModule,
     NgxMaterialTimepickerModule.setOpts('ar-ES', 'AR'),
     ShiftModule,
-    PipesModule,
+    PipesModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },DatePipe,CurrencyPipe,ArgentinePesoPipe], 
 })

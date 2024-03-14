@@ -1,13 +1,13 @@
 <div class="d-flex justify-content-center mt-5 align-items-center">
-    <button mat-button class="btn-date" (click)="BeforeDay()"> <span
+    <button  class="btn-date" (click)="BeforeDay()"> <span
             class="material-icons">navigate_before</span></button>
-    <button mat-button (click)="picker.open()">
+    <button  class="btn-date-text" (click)="picker.open()">
         <span class="date-text">{{getFormattedDate()}}</span>
     </button>
     <input #dateInput [matDatepicker]="picker" (dateChange)="setDate($event)" class="input-date-home">
     <mat-datepicker #picker></mat-datepicker>
-    <button mat-button class="btn-date" (click)="nextDay()"> <span class="material-icons">navigate_next</span></button>
-    <button mat-button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span
+    <button class="btn-date" (click)="nextDay()"> <span class="material-icons">navigate_next</span></button>
+    <button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span
             class="material-icons">close</span></button>
 
     <div>
@@ -36,9 +36,9 @@
 <div class="add_work">
     <div class="float-buttons">
         <button mat-fab (click)="goToViewShifts();" *ngIf="shiftIdSelected?.length"><span
-                class="material-icons text-white">event</span></button>
+                class="material-icons">event</span></button>
         <button mat-fab (click)="createUrl();" [disabled]="submitUrl"><span
-                class="material-icons text-white">share</span></button>
-        <button mat-fab (click)="addShift();" *ngIf="date"><span class="material-icons text-white">add</span></button>
+                class="material-icons">share</span></button>
+        <button mat-fab (click)="addShift();" *ngIf="date"><span class="material-icons">add</span></button>
     </div>
 </div>

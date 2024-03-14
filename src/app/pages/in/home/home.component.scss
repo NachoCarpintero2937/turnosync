@@ -26,6 +26,13 @@
 
 .btn-date {
     color: grey;
+    border:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-date-text{
+    border:none;
 }
 
 .remove-date {

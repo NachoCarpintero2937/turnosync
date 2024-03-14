@@ -1,6 +1,4 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { ThemePalette } from '@angular/material/core';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -8,9 +6,24 @@ import { ThemeService } from 'src/app/services/theme.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent {
- constructor(
-  ){}
+export class SettingsComponent implements OnInit {
+  constructor(
+    private ThemeService: ThemeService,
+) { }
+  company: any;
+  ngOnInit(): void {
+    this.getSettings();
+  }
+
+  getSettings() {
+    this.ThemeService.getSettings().then((settings: any) => {
+      this.company = settings?.data?.companies;
+    }).catch((e) => { })
+  }
+
+  setColor(color: string) {
+
+  }
 
 
 }

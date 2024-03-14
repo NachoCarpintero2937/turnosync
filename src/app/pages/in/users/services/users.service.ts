@@ -18,4 +18,23 @@ export class UsersService {
       data
     );
   }
+  getRoles(data?: any) {
+    return this.ApiService.get(
+      this.EnviromentService.getEndpoints().endpoints.users.getRoles,
+      data
+    );
+  }
+  setUser(data: any) {
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.users.create,
+      data
+    );
+  }
+
+  setStatus(data: any) {
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.users.status,
+      data
+    );
+  }
 }

@@ -20,13 +20,15 @@
                 <mat-form-field class="col-12 mt-3">
                     <mat-label>Rol</mat-label>
                     <mat-select formControlName="role">
-                   
+                        <mat-option *ngFor="let rol of roles" [value]="rol?.name">
+                        {{rol?.name}}
+                    </mat-option>
                     </mat-select>
                   </mat-form-field>
             </form>
         </mat-card-content>
         <mat-card-footer>
-            <button mat-button class="btn-custom col-12">
+            <button mat-button class="btn-custom col-12" (click)="submitForm()" [disabled]="!form.valid">
                 Guardar
             </button>
         </mat-card-footer>

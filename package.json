@@ -32,6 +32,7 @@
     "ngx-mat-select-search": "^7.0.5",
     "ngx-material-timepicker": "^13.1.1",
     "rxjs": "~7.8.0",
+    "tinycolor2": "^1.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
@@ -40,6 +41,7 @@
     "@angular/cli": "~16.2.2",
     "@angular/compiler-cli": "^16.2.0",
     "@types/jasmine": "~4.3.0",
+    "@types/tinycolor2": "^1.4.6",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

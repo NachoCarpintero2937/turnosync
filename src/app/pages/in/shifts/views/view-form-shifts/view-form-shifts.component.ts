@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
-import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { ServicesService } from '../../../services/services/services.service';
 import { ClientsService } from '../../../clients/services/clients.service';
 import { map, startWith } from 'rxjs';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import {  DatePipe } from '@angular/common';
 import { ShiftsService } from '../../services/shifts.service';
 import { UsersService } from '../../../users/services/users.service';
 import { Router } from '@angular/router';
@@ -112,7 +111,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.form.get('hour')?.setValue(this.DatePipe.transform(this.shift?.date_shift, 'HH:mm'));
     this.form.get('description')?.setValue(this.shift?.description);
     // this.form.get('status').setValue();
-    this.form.get('price')?.setValue(this.ArgentinePesoPipe.transform(this.shift?.price).replace('$', '').replace(',00', ""));
+    this.form.get('price')?.setValue(this.shift?.price);
     this.form.get('service_id')?.setValue(this.shift?.service_id);
     this.form.get('client_id')?.setValue(this.shift?.client_id);
     this.form.get('user_id')?.setValue(this.shift?.user_id);
@@ -233,7 +232,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.ShiftService.setShift(data).then((data) => {
       this.loading.emit(false);
       this.submitForm = false;
-      this.Router.navigate(['/in/diary/']);
+      this.Router.navigate(['/in/home/']);
       this.ToastService.showToastNew(
         '',
         "Turno generado correctamente",

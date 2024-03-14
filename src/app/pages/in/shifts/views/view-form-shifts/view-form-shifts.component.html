@@ -1,5 +1,5 @@
-<div class="container mt-5 mb-5">
-    <mat-card >
+<div class="container mt-5 mb-5"  >
+    <mat-card>
         <mat-card-content>
             <form [formGroup]="form" class="m-3">
                 <mat-form-field appearance="fill" class="col-12 mt-3">
@@ -36,7 +36,7 @@
                   </mat-form-field>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Precio</mat-label>
-                    <input matInput   formControlName="price" (change)="formatInput($event)">
+                    <input matInput   formControlName="price">
                 </mat-form-field>
                 <div class="col-12 add-client">
                     <mat-form-field class="input-client mt-3">
@@ -55,8 +55,8 @@
                         </mat-select>
                       </mat-form-field>
                       <div class="div-btn-add-client">
-                        <a mat-fab class="btn-client" *ngIf="form.get('client_id')?.value" [routerLink]="['/in/profile/']" [queryParams]="{client: form.get('client_id')?.value}"><span class="material-icons text-white  size-add">person</span></a>
-                        <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons text-white  size-add">add</span></button>
+                        <a mat-fab class="btn-client" *ngIf="form.get('client_id')?.value" [routerLink]="['/in/profile/']" [queryParams]="{client: form.get('client_id')?.value}"><span class="material-icons  size-add">person</span></a>
+                        <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons  size-add">add</span></button>
 
                       </div>
                 </div>

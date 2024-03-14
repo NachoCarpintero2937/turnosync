@@ -8,13 +8,13 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="col-12 mt-3">
                     <mat-label>Dirección</mat-label>
-                    <input matInput formControlName="name">
+                    <input matInput formControlName="address">
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="col-12 mt-3">
-                    <mat-label>Dirección</mat-label>
-                    <input matInput formControlName="name">
-                </mat-form-field>
+
             </form>
+            <div clas="pd-5">
+                <ngx-colors ngx-colors-trigger [(ngModel)]="toolbar"></ngx-colors>
+            </div>
         </mat-card-content>
         <mat-card-footer>
             <button mat-button color="primary" [disabled]="!form.valid"

@@ -14,6 +14,7 @@ export class UsersComponent {
     'email',
     'rol',
     'created_at',
+    'actions',
   ];
   users : any[]= [];
 

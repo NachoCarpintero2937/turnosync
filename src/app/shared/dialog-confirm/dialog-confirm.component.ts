@@ -16,7 +16,7 @@ export class DialogConfirmComponent {
     private ArgentinePesoPipe: ArgentinePesoPipe
   ) { }
 
-  price =  this.ArgentinePesoPipe.transform(this.data?.shift?.price).replace('$', '').replace(',00', "");
+  price = this.data?.shift?.price;
   description = this.data?.shift?.description;
 
 

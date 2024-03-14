@@ -35,7 +35,10 @@ export class EnviromentService {
           update: this.API_URL + '/services/update'
         },
         users: {
-          users: this.API_URL + '/users'
+          users: this.API_URL + '/users',
+          getRoles : this.API_URL + '/users/getRoles',
+          create:this.API_URL + '/users/create',
+          status : this.API_URL + '/users/suspend'
         },
         urls: {
           urls: this.API_URL + '/urls',
@@ -44,6 +47,9 @@ export class EnviromentService {
         },
         chart: {
           reports: this.API_URL + '/shifts/reports'
+        },
+        settings: {
+          settings: this.API_URL + '/companies'
         }
       },
     };

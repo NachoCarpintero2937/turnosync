@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-view-table-users',
@@ -16,7 +17,7 @@ export class ViewTableUsersComponent implements AfterViewInit, OnChanges,OnInit{
   public list = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
- constructor(){}
+ constructor(private UserService: UsersService){}
 
  ngOnInit(): void {
 
@@ -33,6 +34,12 @@ export class ViewTableUsersComponent implements AfterViewInit, OnChanges,OnInit{
 
  initComponent(){
   this.list.data = this.data;
+ }
+ 
+ statusUser(status:number, userId: number){
+  this.UserService.setStatus({ status: status, user_id: userId }).then((status)=>{
+
+  }).catch(e =>{})
  }
 
 //  UI
