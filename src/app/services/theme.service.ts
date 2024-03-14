@@ -33,8 +33,15 @@ export class ThemeService {
     
       const toolbar = this.findConfiguration(data, 'toolbar');
       const font = this.findConfiguration(data, 'font');
-    
-      return { toolbar: toolbar?.configuration_value, font: font?.configuration_value };
+      const icons = this.findConfiguration(data, 'icons');
+      const btnIcons = this.findConfiguration(data, 'button-icons');
+
+      return { 
+        toolbar: toolbar?.configuration_value,
+         font: font?.configuration_value,
+         icons: icons?.configuration_value,
+         btnIcons: btnIcons?.configuration_value
+         };
     }
     
     private findConfiguration(configurations: any[], key: string) {
@@ -67,18 +74,30 @@ export class ThemeService {
       mat-card-content{
         background:white!important;
       }
-      .material-icons{
-        color:red!important;
+      button>span.material-icons{
+        color:${data?.icons} !important;
       }
-      
+
+      a>span.material-icons{
+        color:${data?.icons} !important;
+      }
+
       button[mat-button]{
         background:${data?.toolbar}!important;
-        color:red!important;
+     
       }
 
       button[mat-fab]{
         background:${data?.toolbar}!important;
-        color:red!important;
+     
+      }
+      
+      .bagde-count{
+        background:${data?.toolbar}!important;
+      }
+
+      .iniciales{
+        color:${data?.toolbar}  !important;
       }
     `;
 return css;

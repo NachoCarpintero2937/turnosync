@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
 import { EnviromentService } from 'src/app/services/enviroment.service';
 import { ViewNotificationsComponent } from './views/view-notifications/view-notifications.component';
 import { ToastService } from 'src/app/services/toast.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +18,17 @@ export class HeaderComponent implements OnInit {
     private Router : Router,
     private EnviromentService: EnviromentService,
     private MatBottomSheet: MatBottomSheet,
-    private ToastService: ToastService
+    private ThemeService: ThemeService,
+    private renderer: Renderer2,
+    private elementRef: ElementRef,
     ) {
     const notif  = JSON.parse(localStorage.getItem('notifications')!);
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
-      this.getNotifications();
-
+      if(this.userData){
+        this.getNotifications();
+        this.getSettings();
+      }
     })
     this.Router.events.subscribe(() =>{
       this.isMobileMenuOpen = false;
@@ -76,7 +81,7 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     this.LoginService.logout().then(data =>{
-
+      this.removeStyle();
     }).catch(e =>{
       
     })
@@ -95,5 +100,31 @@ export class HeaderComponent implements OnInit {
     this.MatBottomSheet.open(ViewNotificationsComponent, {
       data : this.notifications
     });
+  }
+
+  getSettings() {
+    this.ThemeService.getSettings().then((settings: any) => {
+      let configurations = this.ThemeService.mapStyleToConfiguration(settings?.data?.companies?.configurations);
+      let style = this.ThemeService.setClassPropeties(configurations);
+      this.initTheme(style);
+    }).catch((e) => { })
+  }
+
+  initTheme(css: string) {
+    const blob = new Blob([css], { type: 'text/css' });
+    const cssUrl = URL.createObjectURL(blob);
+    const linkElement = this.renderer.createElement('link');
+    this.renderer.setAttribute(linkElement, 'rel', 'stylesheet');
+    this.renderer.setAttribute(linkElement, 'type', 'text/css');
+    this.renderer.setAttribute(linkElement, 'id', 'custom');
+    this.renderer.setAttribute(linkElement, 'href', cssUrl);
+    this.renderer.appendChild(this.elementRef.nativeElement.ownerDocument.head, linkElement);
+  }
+
+  removeStyle() {
+    const linkElement = this.elementRef.nativeElement.ownerDocument.getElementById('custom');
+    if (linkElement) {
+      linkElement.parentNode.removeChild(linkElement);
+    }
   }
 }
