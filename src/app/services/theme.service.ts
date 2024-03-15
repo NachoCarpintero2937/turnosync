@@ -87,11 +87,11 @@ export class ThemeService {
         background:white!important;
       }
       button>span.material-icons{
-        color:${data?.icons} !important;
+        color:${toolbar} !important;
       }
 
       a>span.material-icons{
-        color:${data?.icons} !important;
+        color:${toolbar} !important;
       }
 
       button[mat-button]{
