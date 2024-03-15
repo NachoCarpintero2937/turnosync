@@ -5,27 +5,26 @@
                 <mat-panel-title style="align-items: center;">
                     <div class="title-general">
                         <div>
-                            <mat-icon >
+                            <mat-icon>
                                 filter_alt
                             </mat-icon> Filtros
 
                         </div>
-                 
+
                         <div>
-                            <button mat-button class="btn_reset" 
-                                (click)="$event.stopPropagation();reset();">Resetear
-                                filtros</button>
+                            <a mat-button class="btn_reset" (click)="$event.stopPropagation();reset();">Resetear
+                                filtros</a>
                         </div>
                     </div>
                 </mat-panel-title>
-            </mat-expansion-panel-header> 
-            <form  [formGroup]="form">
+            </mat-expansion-panel-header>
+            <form [formGroup]="form">
                 <mat-form-field class="col-12 pd-5">
                     <mat-label>Nombre</mat-label>
                     <input matInput formControlName="name" (input)="filter()">
                 </mat-form-field>
             </form>
-  
+
         </mat-expansion-panel>
         <mat-table matSort [dataSource]="list" class="mt-5">
             <ng-container matColumnDef="id">
@@ -42,24 +41,24 @@
                     {{element?.name}}
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="email" >
+            <ng-container matColumnDef="email">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Email
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="element?.email">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.email">
                     {{element?.email}}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="phone">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Número de telefono
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="element?.phone">
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.phone">
                     {{element?.cod_area + element?.phone}}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="date_brithday">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de nacimiento
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [matTooltip]="tooltipDate(element?.created_at)">
+                <mat-cell *matCellDef="let element" [matTooltip]="tooltipDate(element?.created_at)">
                     {{element?.date_birthday | date: 'dd/MM/yyyy'}}
                 </mat-cell>
             </ng-container>
@@ -75,17 +74,19 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" >
-                    <a  color="primary" class="btn-tables" [routerLink]="['view-client']" [queryParams]="{id: element?.id}">  <span class="material-icons" >visibility</span></a>
-                    <a  color="primary" class="btn-tables" [routerLink]="['/in/profile/']" [queryParams]="{client: element?.id}">
+                <mat-cell *matCellDef="let element">
+                    <a class="btn-tables" [routerLink]="['view-client']" [queryParams]="{id: element?.id}" [matTooltip]="'Ver cliente'"> <span
+                            class="material-icons">visibility</span></a>
+                    <a class="btn-tables" [matTooltip]="'Ver ficha'" [routerLink]="['/in/profile/']" [queryParams]="{client: element?.id}">
                         <span class="material-icons" >person</span>
                     </a>
-                   <a color="primary" class="btn-tables" [routerLink]="['/in/shifts/create-shift']" [queryParams]="{client: element?.id}">
-                <span class="material-icons" >event</span>
-                </a>
-                <a  color="primary" class="btn-tables" (click)="sendWsp(element)"><img src="./assets/img/wsp.png"
-                    alt="" width="20"></a>
-                    <a  color="primary" class="btn-tables" (click)="destroy(element)"> <span class="material-icons" >delete</span></a>
+                    <a class="btn-tables" [matTooltip]="'Asignar turno'" [routerLink]="['/in/shifts/create-shift']"
+                        [queryParams]="{client: element?.id}">
+                        <span class="material-icons">event</span>
+                    </a>
+                    <a class="btn-tables" [matTooltip]="'Enviar WhatSapp'" (click)="sendWsp(element)"><img src="./assets/img/wsp.png" alt=""
+                            width="20"></a>
+                    <a class="btn-tables"  [matTooltip]="'Eliminar cliente'" (click)="destroy(element)"> <span class="material-icons">delete</span></a>
                 </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: columns;let i= index">

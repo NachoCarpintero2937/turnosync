@@ -48,8 +48,8 @@ export class JwtInterceptor implements HttpInterceptor {
           this.LoginService.logout().then((data: any) => {
             this.ToastService.showToastNew(
               'ERROR',
-              +error?.error?.mensaje
-                ? 'Error: ' + error?.error?.mensaje
+              +error?.error?.message
+                ? 'Error: ' + error?.error?.message
                 : 'Error: ' + errorMessage,
               'error'
             );

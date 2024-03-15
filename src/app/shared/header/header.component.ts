@@ -32,6 +32,16 @@ export class HeaderComponent implements OnInit {
     })
     this.Router.events.subscribe(() =>{
       this.isMobileMenuOpen = false;
+    });
+
+    this.ThemeService.color.subscribe((data:any)=>{
+      if(data?.type && data?.cfg){
+        this.removeStyle();
+        let cfg = this.ThemeService.mapStyleToConfiguration(data);
+        console.log(cfg)
+        let style = this.ThemeService.setClassPropeties(cfg);
+       this.initTheme(style);
+      }
     })
   }
   isMobileMenuOpen = false;
@@ -104,9 +114,14 @@ export class HeaderComponent implements OnInit {
 
   getSettings() {
     this.ThemeService.getSettings().then((settings: any) => {
-      let configurations = this.ThemeService.mapStyleToConfiguration(settings?.data?.companies?.configurations);
-      let style = this.ThemeService.setClassPropeties(configurations);
-      this.initTheme(style);
+      const originalTemplate = settings?.data?.companies?.configurations.find((settings:any)=> settings?.configuration_key =='originalTemplate')?.configuration_value;
+      if(!parseInt(originalTemplate)){
+       let configurations = this.ThemeService.mapStyleToConfiguration(settings?.data?.companies?.configurations);
+       let style = this.ThemeService.setClassPropeties(configurations);
+       this.initTheme(style);
+     }else{
+      this.removeStyle();
+     }
     }).catch((e) => { })
   }
 

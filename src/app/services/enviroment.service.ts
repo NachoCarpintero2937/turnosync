@@ -49,7 +49,8 @@ export class EnviromentService {
           reports: this.API_URL + '/shifts/reports'
         },
         settings: {
-          settings: this.API_URL + '/companies'
+          settings: this.API_URL + '/companies',
+          update : this.API_URL + '/companies/update'
         }
       },
     };
@@ -58,9 +59,7 @@ export class EnviromentService {
   getErrorCodeHttp() {
     const HttpErrorCodes: Record<number, string> = {
       500: 'Error en el servidor (500)',
-      401: 'Sesión expirada, ingrese nuevamente',
-      403: 'Sesión expirada, ingrese nuevamente',
-      404: 'Error en el servidor (404)',
+      403: 'Sesión expirada, ingrese nuevamente'
     };
     return HttpErrorCodes;
   }

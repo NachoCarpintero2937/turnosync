@@ -1,4 +1,4 @@
-import {Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { EnviromentService } from './enviroment.service';
 
@@ -13,63 +13,75 @@ export interface Color {
 })
 export class ThemeService {
 
-  constructor(    
-
+  constructor(
     private ApiService: ApiService,
     private EnviromentService: EnviromentService
-    ) {}
+  ) { }
+  public color = new EventEmitter();
+  getSettings(data?: any) {
+    return this.ApiService.get(
+      this.EnviromentService.getEndpoints().endpoints.settings.settings,
+      data
+    );
+  }
 
-    getSettings(data?: any) {
-      return this.ApiService.get(
-        this.EnviromentService.getEndpoints().endpoints.settings.settings,
-        data
-      );
-    }
-
-    mapStyleToConfiguration(data: any) {
-      if (!data?.length) {
-        return { toolbar: null, font: null };
-      }
-    
+  mapStyleToConfiguration(data: any) {
+    var cfg: any = {}
+    if (data?.cfg) {
+     cfg[data?.type] = sessionStorage.getItem(data?.type);
+      return cfg;
+    } else if (data?.length) {
       const toolbar = this.findConfiguration(data, 'toolbar');
-      const font = this.findConfiguration(data, 'font');
+      const cardHome = this.findConfiguration(data, 'cardHome');
       const icons = this.findConfiguration(data, 'icons');
       const btnIcons = this.findConfiguration(data, 'button-icons');
-
-      return { 
+      return {
         toolbar: toolbar?.configuration_value,
-         font: font?.configuration_value,
-         icons: icons?.configuration_value,
-         btnIcons: btnIcons?.configuration_value
-         };
+        cardHome: cardHome?.configuration_value,
+        icons: icons?.configuration_value,
+        btnIcons: btnIcons?.configuration_value
+      };
     }
-    
-    private findConfiguration(configurations: any[], key: string) {
-      for (const config of configurations) {
-        if (config?.configuration_key === key) {
-          return config;
-        }
-      }
-      return null;
-    }
-  
+    return { toolbar: null, cardHome: null, icons: null, btnIcons: null };
+  }
 
-  setClassPropeties(data:any){
+
+  private findConfiguration(configurations: any[], key: string) {
+    for (const config of configurations) {
+      if (config?.configuration_key === key) {
+        return config;
+      }
+    }
+    return null;
+  }
+
+
+  setClassPropeties(data: any) {
+    let toolbar = sessionStorage.getItem('toolbar');
+    let cardsHome = sessionStorage.getItem('cardsHome');
     // Simulación de estilos CSS
     const css = `
       .mat-toolbar{
-        background: ${data?.toolbar};
-        color:${data?.font}  !important;
+        background: ${toolbar};
       }
 
+      .inicial_muro,
+      .border-inicials{
+        border-color: ${toolbar}!important;
+      }
+      .title-dialog{
+        background:${toolbar} !important;
+      }
+      .confirm-dialog{
+        border:1px solid ${toolbar} !important;
+    }
+
       .card-info{
-        background:${data?.toolbar} !important;
-        color:${data?.font}  !important;
+        background:${cardsHome} !important;
       }
   
       mat-card-header{
-        background:${data?.toolbar} !important;
-        color:${data?.font}  !important;
+        background:${toolbar} !important;
       }
       mat-card-content{
         background:white!important;
@@ -83,27 +95,36 @@ export class ThemeService {
       }
 
       button[mat-button]{
-        background:${data?.toolbar}!important;
+        background:${toolbar}!important;
      
       }
 
       button[mat-fab]{
-        background:${data?.toolbar}!important;
+        background:${toolbar}!important;
      
       }
       
       .bagde-count{
-        background:${data?.toolbar}!important;
+        background:${toolbar}!important;
       }
 
       .iniciales{
-        color:${data?.toolbar}  !important;
+        color:${toolbar}  !important;
       }
     `;
-return css;
+    return css;
   }
 
 
-
+  getCustomConfiguration(configurations: any[], key: string){
+    if(configurations.length){
+      for (const config of configurations) {
+        if (config?.configuration_key === key) {
+          return config;
+        }
+      }
+      return null;
+    }
+    }
 
 }

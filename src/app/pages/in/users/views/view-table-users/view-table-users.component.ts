@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from '../../services/users.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-view-table-users',
@@ -12,12 +13,15 @@ import { UsersService } from '../../services/users.service';
 export class ViewTableUsersComponent implements AfterViewInit, OnChanges,OnInit{
   @Input() columns: any;
   @Input() data: any;
-
+  @Output() action = new EventEmitter()
   // MatTable
   public list = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
- constructor(private UserService: UsersService){}
+ constructor(
+  private UserService: UsersService,
+  private ToastService: ToastService
+  ){}
 
  ngOnInit(): void {
 
@@ -37,8 +41,9 @@ export class ViewTableUsersComponent implements AfterViewInit, OnChanges,OnInit{
  }
  
  statusUser(status:number, userId: number){
-  this.UserService.setStatus({ status: status, user_id: userId }).then((status)=>{
-
+  this.UserService.setStatus({ status: status, user_id: userId }).then((status:any)=>{
+    this.ToastService.showToastNew( '',status?.message,'success' );
+    this.action.emit();
   }).catch(e =>{})
  }
 

@@ -1,10 +1,13 @@
 @import '../../../styles.scss';
 .title-dialog{
     padding:20px;
-    background: map-get($md-mcgpalette0, 500 );
+    background-color: map-get($md-mcgpalette0, 500 );
     color:white;
 }
 
 .description{
     font-size: 15px;
+}
+.confirm-dialog{
+    border:1px solid map-get($md-mcgpalette0, 500 );
 }

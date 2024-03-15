@@ -1,5 +1,5 @@
 <div class="mt-1 d-flex  div-employees">
-    <mat-card class="col-md-6 employees" *ngFor="let employe of shifts?.users">
+    <mat-card class="employees" *ngFor="let employe of shifts?.users" [ngClass]="{'col-md-12' : shifts?.users.length == 1, 'width-card': shifts?.users.length > 1}">
         <mat-card-header>
             <span>
                 {{employe?.name}} ({{employe?.shifts.length}})

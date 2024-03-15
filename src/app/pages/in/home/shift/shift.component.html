@@ -2,9 +2,9 @@
     <div *ngFor="let shift of employe?.shifts"
         [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
         <mat-list-item lines="">
-            <div class="d-flex list-shifts">
-                <mat-checkbox class="example-margin" (change)="checkbokShift($event.checked, shift)"
-                    *ngIf="edit"></mat-checkbox>
+            <div class="d-flex list-shifts" >
+                <mat-checkbox color="primary" (change)="checkbokShift($event.checked, shift)"
+                    *ngIf="edit">
                 <div class="description" [matTooltip]="getTootlip(shift)">
                     <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
                     <span class="">
@@ -13,11 +13,13 @@
                     <span class="client-name" [routerLink]="['/in/profile/']"
                         [queryParams]="{client: shift?.client?.id}">
                         <b>{{shift?.client?.name}}</b>
+                        <mat-icon>link</mat-icon>
                     </span>
                     <span *ngIf="!edit">
                         | {{shift?.description ? shift?.description : 'Sin observaciones'}}
                     </span>
                 </div>
+            </mat-checkbox>
                 <div class="actions">
                     <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,1)">
                         <span class="material-icons">done</span>

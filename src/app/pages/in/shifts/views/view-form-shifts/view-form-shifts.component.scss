@@ -1,3 +1,4 @@
+@import '../../../../../../styles.scss';
 .search-mat {
     width: 100%;
 }
@@ -20,6 +21,8 @@
             height: 30px;
             text-align: center;
             margin: 10px;
+            background: map-get($md-mcgpalette0 ,500);
+            color:transparent;
 
             .size-add {
                 font-size: 15px !important;

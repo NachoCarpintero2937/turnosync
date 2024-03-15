@@ -27,6 +27,6 @@
     </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-    <button mat-button  (click)="onClose(false)">Cancelar</button>
-    <button mat-button color="primary" (click)="onClose(true);">Confirmar</button>
+    <a mat-button  (click)="onClose(false)">Cancelar</a>
+    <a mat-button class="confirm-dialog" (click)="onClose(true);">Confirmar</a>
 </mat-dialog-actions>

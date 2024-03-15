@@ -34,7 +34,6 @@
     align-items: center;
 
     .description {
-        width: 60%;
         font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
@@ -42,8 +41,9 @@
         display: flex;
         align-items: center;
         .client-name{
+            display: flex;
+            align-items: center;
             text-transform: capitalize;
-            text-decoration:  underline;
             cursor: pointer;
             color:#4949d5;
 
@@ -77,12 +77,15 @@
         .btn-action {
             background-color: transparent;
             border: 0px;
-            color: #333 !important;
             display: flex;
             align-items: center;
+            color:transparent;
             width: 50px;
         }
     }
+}
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+    background-color: map-get($md-mcgpalette0, 500);
 }
 
 .no-shifts {

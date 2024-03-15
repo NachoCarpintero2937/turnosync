@@ -12,12 +12,27 @@
                 </mat-form-field>
 
             </form>
-            <div clas="pd-5">
-                <ngx-colors ngx-colors-trigger [(ngModel)]="toolbar"></ngx-colors>
+            <div class="d-flex">
+                <div class="pd-5 d-flex">
+                    <div class="p-2">
+                        <ngx-colors ngx-colors-trigger [(ngModel)]="toolbar" (change)="changeColor($event, 'toolbar')"></ngx-colors>
+                    </div>
+                    <mat-label class="p-2 d-flex align-items-center">
+                        Color general del sistema
+                    </mat-label>
+                </div>
+                <div class="pd-5 d-flex">
+                    <div class="p-2">
+                        <ngx-colors ngx-colors-trigger [(ngModel)]="cardsHome" (change)="changeColor($event, 'cardsHome')"></ngx-colors>
+                    </div>
+                    <mat-label class="p-2 d-flex align-items-center">
+                        Color tarjetas del inicio
+                    </mat-label>
+                </div>
             </div>
         </mat-card-content>
         <mat-card-footer>
-            <button mat-button color="primary" [disabled]="!form.valid"
+            <button mat-button color="primary" [disabled]="!form.valid" (click)="submitForm();"
                 class="btn-custom col-12">Enviar</button>
         </mat-card-footer>
     </mat-card>

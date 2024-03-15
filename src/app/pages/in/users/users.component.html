@@ -8,9 +8,9 @@
         </span>
     </div>
     <div class="pd-5">
-        <app-view-table-users [columns]="columns" [data]="users"></app-view-table-users>
+        <app-view-table-users [columns]="columns" [data]="users" (action)="getUsers()"></app-view-table-users>
     </div>
 </div>
 <div class="add_work">
-    <button mat-fab (click)="goToNewUser();"><span class="material-icons">add</span></button>
+    <button mat-fab (click)="goToNewUser();"><span class="material-icons text-white">add</span></button>
 </div>

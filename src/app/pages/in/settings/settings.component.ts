@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
+import { SettingsService } from './services/settings.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-settings',
@@ -9,6 +11,8 @@ import { ThemeService } from 'src/app/services/theme.service';
 export class SettingsComponent implements OnInit {
   constructor(
     private ThemeService: ThemeService,
+    private SettingsService: SettingsService,
+    private ToastService: ToastService
 ) { }
   company: any;
   ngOnInit(): void {
@@ -21,9 +25,18 @@ export class SettingsComponent implements OnInit {
     }).catch((e) => { })
   }
 
-  setColor(color: string) {
-
+  setColor(cfg: Object) {
+    this.ThemeService.color.emit(cfg);
   }
 
-
+  submitSettings(data:any){
+    const formData = this.SettingsService.mapData(data);
+    this.SettingsService.setSettings(formData).then((data:any)=>{
+      this.ToastService.showToastNew(
+        '',
+        data?.message,
+        'success'
+      );
+    }).catch(() =>{})
+  }
 }

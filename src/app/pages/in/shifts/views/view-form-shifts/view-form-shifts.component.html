@@ -55,8 +55,8 @@
                         </mat-select>
                       </mat-form-field>
                       <div class="div-btn-add-client">
-                        <a mat-fab class="btn-client" *ngIf="form.get('client_id')?.value" [routerLink]="['/in/profile/']" [queryParams]="{client: form.get('client_id')?.value}"><span class="material-icons  size-add">person</span></a>
-                        <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons  size-add">add</span></button>
+                        <button mat-fab class="btn-client" *ngIf="form.get('client_id')?.value" [routerLink]="['/in/profile/']" [queryParams]="{client: form.get('client_id')?.value}"><span class="material-icons text-white size-add">person</span></button>
+                        <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons text-white  size-add">add</span></button>
 
                       </div>
                 </div>

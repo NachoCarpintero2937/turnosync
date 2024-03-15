@@ -13,7 +13,9 @@
     mat-card-header {
       display: flex;
       flex-direction: column;
-
+      background-color: map-get($md-mcgpalette0, 500);
+      padding:16px 16px 16px;
+      
       .text-header {
         display: flex;
         justify-content: center;

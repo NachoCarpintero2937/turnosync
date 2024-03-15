@@ -5,7 +5,7 @@
     border-radius: 1px;
     box-shadow: none !important;
     display: flex;
-    width: 48%;
+    // width: 48%;
 
 
     mat-card-header {
@@ -36,4 +36,9 @@
     .employees {
         width: 100%;
     }
+}
+
+
+.width-card{
+    width: 48%;
 }

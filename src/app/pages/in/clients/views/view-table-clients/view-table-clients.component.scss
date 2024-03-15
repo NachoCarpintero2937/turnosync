@@ -29,6 +29,7 @@ mat-expansion-panel {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: map-get($md-mcgpalette0 , 500);
+    color: transparent;
     cursor: pointer;
+    border:none!important;
 }
