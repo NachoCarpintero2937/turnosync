@@ -26,7 +26,7 @@ mapData(data:any){
   }
   formData['configurations'] = [];
   formData['configurations'].push({ toolbar : data?.toolbar});
-  formData['configurations'].push({ font : data?.toolbar});
+  formData['configurations'].push({ cardHome : data?.cardHome});
   return formData;
 }    
 }

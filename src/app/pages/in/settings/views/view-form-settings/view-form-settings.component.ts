@@ -9,7 +9,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 })
 export class ViewFormSettingsComponent implements OnChanges{
   toolbar: string = '';
-  cardsHome: string = '';
+  cardHome: string = '';
   @Input() data : any;
   @Output() color = new EventEmitter();
   @Output() submit = new EventEmitter();
@@ -34,7 +34,7 @@ setValues(){
     this.form.get('name')?.setValue(this.data?.name);
     this.form.get('address')?.setValue(this.data?.address);
     this.toolbar = this.ThemeService.getCustomConfiguration(this.data?.configurations, 'toolbar')?.configuration_value;
-    this.cardsHome = this.ThemeService.getCustomConfiguration(this.data?.configurations, 'cardHome')?.configuration_value;
+    this.cardHome = this.ThemeService.getCustomConfiguration(this.data?.configurations, 'cardHome')?.configuration_value;
     this.form.get('toolbar')?.setValue(this.data?.toolbar);
 }
 

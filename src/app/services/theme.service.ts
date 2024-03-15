@@ -58,7 +58,7 @@ export class ThemeService {
 
   setClassPropeties(data: any) {
     let toolbar = sessionStorage.getItem('toolbar');
-    let cardsHome = sessionStorage.getItem('cardsHome');
+    let cardHome = sessionStorage.getItem('cardHome');
     // Simulación de estilos CSS
     const css = `
       .mat-toolbar{
@@ -77,7 +77,7 @@ export class ThemeService {
     }
 
       .card-info{
-        background:${cardsHome} !important;
+        background:${cardHome} !important;
       }
   
       mat-card-header{
