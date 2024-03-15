@@ -6,11 +6,17 @@
     .mobile-menu-btn {
         display: none;
     }
+    .url-logo{
+        text-decoration: none;
+        .name-company{
+            color:white!important;
+        }
+        .img-logo {
+            width: 100px
+        }
 
-
-    .img-logo {
-        width: 100px
     }
+
 
     .material-icons {
         color: white !important;

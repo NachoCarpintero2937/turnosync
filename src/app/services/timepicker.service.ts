@@ -9,17 +9,18 @@ export class TimepickerService {
 
 
   getConfiguration()   {
+   var toolbar = sessionStorage.getItem('toolbar');
     return {
       container: {
         bodyBackgroundColor: '#fff',
-        buttonColor: '#e1b6b6',
+        buttonColor:toolbar !== null ? toolbar : '',
       },
       dial: {
-        dialBackgroundColor: '#e1b6b6',
+        dialBackgroundColor:toolbar !== null ? toolbar : '',
   
       },
       clockFace: {
-        clockFaceBackgroundColor: '#e1b6b6',
+        clockFaceBackgroundColor:toolbar !== null ? toolbar : '',
         clockHandColor: '#a58171',
         clockFaceTimeInactiveColor: '#fff',
       }

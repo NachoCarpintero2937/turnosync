@@ -12,7 +12,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private ThemeService: ThemeService,
     private SettingsService: SettingsService,
-    private ToastService: ToastService
+    private ToastService: ToastService,
+    private SettingService:SettingsService
 ) { }
   company: any;
   ngOnInit(): void {
@@ -28,6 +29,10 @@ export class SettingsComponent implements OnInit {
   setColor(cfg: Object) {
     this.ThemeService.color.emit(cfg);
   }
+
+getNameCompany(name:string){
+  this.SettingService.name.emit(name)
+}
 
   submitSettings(data:any){
     const formData = this.SettingsService.mapData(data);

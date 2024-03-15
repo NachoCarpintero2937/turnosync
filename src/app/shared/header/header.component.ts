@@ -4,8 +4,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
 import { EnviromentService } from 'src/app/services/enviroment.service';
 import { ViewNotificationsComponent } from './views/view-notifications/view-notifications.component';
-import { ToastService } from 'src/app/services/toast.service';
 import { ThemeService } from 'src/app/services/theme.service';
+import { SettingsService } from 'src/app/pages/in/settings/services/settings.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
     private ThemeService: ThemeService,
     private renderer: Renderer2,
     private elementRef: ElementRef,
+    private SettingsService: SettingsService
     ) {
     const notif  = JSON.parse(localStorage.getItem('notifications')!);
     this.LoginService.dataUserSubject.subscribe(data =>{
@@ -38,13 +39,14 @@ export class HeaderComponent implements OnInit {
       if(data?.type && data?.cfg){
         this.removeStyle();
         let cfg = this.ThemeService.mapStyleToConfiguration(data);
-        console.log(cfg)
         let style = this.ThemeService.setClassPropeties(cfg);
        this.initTheme(style);
       }
     })
   }
   isMobileMenuOpen = false;
+  imgLogo : any;
+  companyData:any;
   userData: any;
   hour!: string;
   url:any;
@@ -67,7 +69,9 @@ export class HeaderComponent implements OnInit {
       this.onCheckPageUrl();
       }
     });
-
+    this.SettingsService.name.subscribe((name:string)=>{
+      this.companyData.name = name;
+    })
   }
   onCheckPageUrl() {
     const page = this.EnviromentService.getExcludePagesHeader().some(excludedPage => this.url.startsWith(excludedPage));
@@ -114,9 +118,13 @@ export class HeaderComponent implements OnInit {
 
   getSettings() {
     this.ThemeService.getSettings().then((settings: any) => {
-      const originalTemplate = settings?.data?.companies?.configurations.find((settings:any)=> settings?.configuration_key =='originalTemplate')?.configuration_value;
+      const originalTemplate =  this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'originalTemplate');
+      this.companyData = settings?.data?.companies;
+      this.imgLogo = this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'imgLogo');
       if(!parseInt(originalTemplate)){
        let configurations = this.ThemeService.mapStyleToConfiguration(settings?.data?.companies?.configurations);
+       sessionStorage.setItem('toolbar', configurations?.toolbar);
+       sessionStorage.setItem('cardHome', configurations?.cardHome);
        let style = this.ThemeService.setClassPropeties(configurations);
        this.initTheme(style);
      }else{

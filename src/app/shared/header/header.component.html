@@ -7,8 +7,13 @@
             </button>
         </div>
         <div class="btns-logo-header">
-            <a [routerLink]="['/logged/home']">
-                <img src="./assets/img/logo_blanco.png" class="img-logo" alt="">
+            <a [routerLink]="['/logged/home']" class="url-logo">
+                <img [src]="imgLogo" class="img-logo" alt="" *ngIf="imgLogo;else noImg">
+                <ng-template #noImg>
+                    <span class="name-company">
+                        {{companyData?.name}}
+                    </span>
+                </ng-template>
             </a>
                 <div class="d-flex m-3 buttons-desktop">
                     <div class="div-btns">

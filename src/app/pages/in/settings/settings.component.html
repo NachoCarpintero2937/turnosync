@@ -10,6 +10,6 @@
         </div>
     </div>
     <div class="pd-5">
-        <app-view-form-settings [data]="company" (color)="setColor($event);" (submit)="submitSettings($event)"></app-view-form-settings>
+        <app-view-form-settings [data]="company" (color)="setColor($event);" (submit)="submitSettings($event)" (nameCompany)="getNameCompany($event)"></app-view-form-settings>
     </div>
 </div>  

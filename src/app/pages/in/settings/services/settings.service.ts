@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { EnviromentService } from 'src/app/services/enviroment.service';
 
@@ -11,7 +11,7 @@ export class SettingsService {
         private EnviromentService : EnviromentService
         ){}
 
-    
+public name = new EventEmitter();
 setSettings(data:any){
         return this.ApiService.post(
           this.EnviromentService.getEndpoints().endpoints.settings.update,

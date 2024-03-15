@@ -33,6 +33,7 @@ export class LoginService {
   logout(path: string = '/login'): Promise<object> {
     return new Promise((resolve, reject) => {
       localStorage.removeItem('currentUser');
+      sessionStorage.clear();
       this.dataUserSubject.next(null);
       this.Router.navigate([path])
         .then(() => {
