@@ -23,7 +23,8 @@ export class ViewFormSettingsComponent implements OnChanges , OnInit{
     toolbar: [''],
     cardHome: [''],
     name : ['', Validators.required],
-    address: ['']
+    address: [''],
+    originalTemplate: [0,Validators.required]
   })
 
 ngOnChanges(): void {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -6,20 +6,34 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './view-form-user.component.html',
   styleUrls: ['./view-form-user.component.scss']
 })
-export class ViewFormUserComponent {
-  @Input() roles : any;
+export class ViewFormUserComponent implements OnChanges {
+  @Input() roles: any;
   @Output() submit = new EventEmitter();
-  constructor(private FormBuilder: FormBuilder){}
-  
+  @Input() data : any;
+  constructor(private FormBuilder: FormBuilder) { }
+
   form = this.FormBuilder.group({
-    name : ['',Validators.required],
-    email : ['',Validators.required],
-    password : ['',Validators.required],
-    role : ['',Validators.required],
+    id: [''],
+    name: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+    role: ['', Validators.required],
   })
 
+  ngOnChanges(): void {
+    if(this.data)
+    this.setValues()
+  }
 
-  submitForm(){
+  setValues() {
+    console.log(this.data.roles[0].name)
+    this.form.get('id')?.setValue(this.data?.id);
+    this.form.get('name')?.setValue(this.data?.name);
+    this.form.get('email')?.setValue(this.data?.email);
+    this.form.get('role')?.setValue(this.data?.roles[0].name);
+   }
+
+  submitForm() {
     this.submit.emit(this.form.getRawValue());
   }
 }

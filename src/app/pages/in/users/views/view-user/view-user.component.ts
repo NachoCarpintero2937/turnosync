@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-user',
@@ -9,13 +10,28 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class ViewUserComponent implements OnInit{
   roles : any[] = [];
+  id!: string;
+  user: any;
   constructor(
     private UsersService: UsersService,
-    private ToastService : ToastService
+    private ToastService : ToastService,
+    private ActivateRoute: ActivatedRoute
     ){}
 
   ngOnInit(): void {
-  this.getRoles();
+    this.ActivateRoute.queryParams.subscribe((params:any)=>{
+      this.id = params?.id;
+      if(this.id)
+      this.getUsers();
+
+      this.getRoles();
+    })
+  }
+
+  getUsers(){
+    this.UsersService.getUsers({id: this.id}).then((data:any) =>{
+      this.user = data?.data?.users[0];
+    })
   }
 
   getRoles(){

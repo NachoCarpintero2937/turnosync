@@ -10,6 +10,7 @@ import { NotifierModule } from 'angular-notifier';
 import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData,DatePipe } from '@angular/common';
+import { NgxPermissionsModule } from 'ngx-permissions';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,6 +20,7 @@ import { registerLocaleData,DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     HttpClientModule,
     NotifierModule,
+    NgxPermissionsModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [

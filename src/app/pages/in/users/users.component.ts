@@ -20,7 +20,7 @@ export class UsersComponent {
 
   constructor(
     private UsersService :  UsersService,
-    private Router : Router
+    private Router : Router,
     ){}
   
   ngOnInit(): void {

@@ -61,7 +61,7 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" >
-               <a mat-button [routerLink]="['view-client']" [matTooltip]="'Ver usuario'" [queryParams]="{id: element?.id}" color="primary"><span class="material-icons" >visibility</span></a>
+               <a mat-button [routerLink]="['view-user']" [matTooltip]="'Ver usuario'" [queryParams]="{id: element?.id}" color="primary"><span class="material-icons" >visibility</span></a>
                <a mat-button (click)="statusUser(element?.status == 1 ? 0 : 1, element?.id);" [matTooltip]="element?.status == 1 ? 'Suspender usuario' : 'Reactivar usuario'">
                 <mat-icon>{{element?.status == 1 ? 'shield_moon' : 'check' }}</mat-icon>
                </a>

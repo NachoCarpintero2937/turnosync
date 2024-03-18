@@ -144,6 +144,10 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.ServicesService.getServices().then((services: any) => {
       this.services = services.data?.services;
       this.getClients();
+    }).catch(e =>{
+      this.getClients();
+      this.loadingForm = false;
+      this.loading.emit(false);
     })
   }
 
@@ -151,6 +155,9 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.ClientService.getClients().then((clients: any) => {
       this.clients = clients?.data?.clients;
       this.getUsers();
+    }).catch(e =>{
+      this.getUsers();
+      this.loading.emit(false);
     })
   }
 
@@ -158,9 +165,13 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.UsersService.getUsers().then((users: any) => {
       this.users = users?.data?.users;
       this.searchMat();
-      this.loading.emit(false);
       this.loadingForm = false;
-    })
+      this.loading.emit(false);
+    }).catch(e =>{
+      this.loadingForm = false;
+      this.loading.emit(false);
+    });
+
   }
 
 

@@ -1,6 +1,7 @@
 import {  Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { CryptoService } from 'src/app/common/services/crypto.service';
 import { ApiService } from 'src/app/services/api.service';
 import { EnviromentService } from 'src/app/services/enviroment.service';
 
@@ -11,7 +12,8 @@ export class LoginService {
   constructor(
     private ApiService: ApiService,
     private EnviromentService: EnviromentService,
-    private Router: Router
+    private Router: Router,
+    private CryptoService : CryptoService
   ) {}
   public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject(this.getDataUser());
   login(data: any) {
@@ -23,11 +25,16 @@ export class LoginService {
 
   setUserData(data: any) {
     localStorage.setItem('notifications', JSON.stringify({notifications: true}));
-    localStorage.setItem('currentUser', JSON.stringify(data));
+    localStorage.setItem('currentUser', this.CryptoService.encryptData(data));
   }
 
   getDataUser() {
-    return JSON.parse(localStorage.getItem('currentUser')!);
+    const local = localStorage.getItem('currentUser');
+    if (local)
+    return JSON.parse(this.CryptoService.decryptData(local));
+  else
+    return null;
+  
   }
 
   logout(path: string = '/login'): Promise<object> {

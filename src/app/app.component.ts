@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { LoginService } from './pages/public/login/services/login.service';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { EnviromentService } from './services/enviroment.service';
-import { ThemeService } from './services/theme.service';
+import {  Router } from '@angular/router';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(
     private LoginService: LoginService,
     private Router: Router,
-
+    private NgxPermissionsService: NgxPermissionsService
   ) {
 
   }
@@ -28,9 +27,15 @@ export class AppComponent implements OnInit {
   initComponent() {
     this.Router.url
     this.userData = this.LoginService.getDataUser()?.data;
+    this.initPermiss();
   }
 
-
+initPermiss(){
+  console.log(this.userData)
+  const permissToStorage = this.userData?.role?.permissions;
+  const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
+  this.NgxPermissionsService.loadPermissions(permissionNames);
+}
 
 
 }

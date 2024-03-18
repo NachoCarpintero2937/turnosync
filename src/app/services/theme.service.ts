@@ -86,6 +86,9 @@ export class ThemeService {
       mat-card-content{
         background:white!important;
       }
+      mat-icon{
+        color:${toolbar} !important;
+      }
       button>span.material-icons{
         color:${toolbar} !important;
       }
