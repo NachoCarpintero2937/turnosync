@@ -5,6 +5,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
 import { MaterialModule } from 'src/app/common/modules/material/material.module';
 import { ViewFormSettingsModule } from './views/view-form-settings/view-form-settings.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ViewFormSettingsModule } from './views/view-form-settings/view-form-set
     ViewFormSettingsModule,
     CommonModule,
     MaterialModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    NgxPermissionsModule
   ]
 })
 export class SettingsModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UrlService } from 'src/app/services/url.service';
+import { SettingsService } from '../../in/settings/services/settings.service';
 
 @Component({
   selector: 'app-clients',
@@ -10,11 +11,13 @@ import { UrlService } from 'src/app/services/url.service';
 export class ClientsComponent implements OnInit {
   constructor(
     private UrlService: UrlService,
-    private ActivatedRoute: ActivatedRoute
+    private ActivatedRoute: ActivatedRoute,
+    private SettingsService : SettingsService
   ) { }
   id!: any;
   showForm = false;
   loading = false;
+  settings:any;
   ngOnInit(): void {
     this.initComponent();
   }
@@ -25,6 +28,10 @@ export class ClientsComponent implements OnInit {
       if (this.id)
         this.getValidUrl();
     });
+
+    this.SettingsService.getInfoCompany.subscribe((settings: any)=>{
+        this.settings = settings;
+    })
   }
 
   getValidUrl() {

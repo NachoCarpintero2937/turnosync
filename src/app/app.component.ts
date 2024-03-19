@@ -34,7 +34,6 @@ initPermiss(){
   if(this.userData){
     const permissToStorage = this.userData?.role?.permissions;
     const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
-    console.log(permissionNames)
     this.NgxPermissionsService.loadPermissions(permissionNames);
   }
 }

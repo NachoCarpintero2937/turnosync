@@ -37,12 +37,12 @@ export class LoginService {
   
   }
 
-  logout(path: string = '/login'): Promise<object> {
+  logout(path: string = '/login', companyId :string): Promise<object> {
     return new Promise((resolve, reject) => {
       localStorage.removeItem('currentUser');
       sessionStorage.clear();
       this.dataUserSubject.next(null);
-      this.Router.navigate([path])
+      this.Router.navigate([path+'/'+companyId])
         .then(() => {
           resolve({
             status: true,

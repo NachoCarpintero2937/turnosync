@@ -11,6 +11,6 @@
         <app-view-table-services [columns]="columns" [data]="services"></app-view-table-services>
     </div>
 </div>
-<div class="add_work">
+<div class="add_work" *ngxPermissionsOnly="['CREATE_SERVICE']">
     <button mat-fab (click)="addService();"><span class="material-icons text-white">add</span></button>
 </div>

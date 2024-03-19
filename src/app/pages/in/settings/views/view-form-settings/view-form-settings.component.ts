@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -16,13 +17,14 @@ export class ViewFormSettingsComponent implements OnChanges , OnInit{
   @Output() nameCompany = new EventEmitter();
   constructor(
     private FormBuilder: FormBuilder,
-    private ThemeService : ThemeService
+    private ThemeService : ThemeService,
+    private NgxPermissionsService: NgxPermissionsService
     ){}
 
   form = this.FormBuilder.group({
     toolbar: [''],
     cardHome: [''],
-    name : ['', Validators.required],
+    name : [''],
     address: [''],
     originalTemplate: [0,Validators.required]
   })
@@ -36,6 +38,9 @@ ngOnInit(): void {
   this.form.get('name')?.valueChanges.subscribe(e =>{
     this.nameCompany.emit(e)
   })
+  if(this.NgxPermissionsService.getPermission('VIEW_INPUT_COMPANY_NAME')){
+    this.form.get('name')?.setValidators(Validators.required)
+  }
 }
 
 setValues(){

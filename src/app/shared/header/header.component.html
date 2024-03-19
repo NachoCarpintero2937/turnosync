@@ -54,7 +54,7 @@
             <div>
          <span [matBadge]="notifications.length"  matTooltip="Notificaciones" (click)="openBottomSheet()"   matBadgeColor="warn" class="material-icons notifications">notifications</span>
             </div>
-            <div>
+            <div  *ngxPermissionsOnly="['VIEW_SETTINGS']">
                 <a mat-icon-button matTooltip="Configuración" [routerLink]="['/in/settings/']">
                 <span class="material-icons">settings</span>
                 </a>
@@ -64,7 +64,7 @@
                     <app-iniciales color="primary" class="iniciales-nav" color="#eaeaea" size="15px" [text]="userData?.data?.name" width="40px" height="40px"></app-iniciales>
                 </div>
                 <div class="action-exit">
-                    <button mat-icon-button matTooltip="Cerrar sesión" (click)="logout()">
+                    <button mat-icon-button matTooltip="Cerrar sesión" (click)="logout(companyData?.id)">
                         <span class="material-icons">input</span>
                     </button>
                 </div>

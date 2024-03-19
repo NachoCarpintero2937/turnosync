@@ -53,12 +53,17 @@
                                   </div>
                                 </div>
                                 <div class="actions">
-                                    <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,1)">
-                                        <span class="material-icons"  >done</span>
-                                    </button>
-                                    <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,2)">
-                                        <span class="material-icons" >close</span>
-                                    </button>
+                                    <div *ngxPermissionsOnly="['CONFIRM_SHIFT']">
+                                        <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,1)">
+                                            <span class="material-icons"  >done</span>
+                                        </button>
+                                    </div>
+                                    <div *ngxPermissionsOnly="['CANCEL_SHIFT']">
+                                        <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,2)">
+                                            <span class="material-icons" >close</span>
+                                        </button>
+                                    </div>
+                               
                                     <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
                                             alt="" width="20"></button>
                                     <a class="btn-action"  [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons">search</span></a>

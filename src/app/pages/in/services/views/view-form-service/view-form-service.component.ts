@@ -3,6 +3,7 @@ import { ServicesService } from '../../services/services.service';
 import { FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
   selector: 'app-view-form-service',
   templateUrl: './view-form-service.component.html',
@@ -13,7 +14,8 @@ export class ViewFormServiceComponent implements OnChanges{
     private ServiceService : ServicesService,
     private fb : FormBuilder,
     private Router : Router,
-    private LoginService : LoginService
+    private LoginService : LoginService,
+    private NgxPermissionsService: NgxPermissionsService
     ){}
 
 @Input() service: any;
@@ -33,6 +35,9 @@ ngOnChanges(){
 
 InitComponent(){
   this.setValue();
+}
+hasPermission(permission: string) {
+  return this.NgxPermissionsService.getPermission(permission);
 }
 
 setValue(){

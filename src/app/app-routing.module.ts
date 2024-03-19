@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './pages/public/login/login.component';
 
 const routes: Routes = [
   {
@@ -16,9 +17,16 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'login/:companyId',
+    loadChildren: () =>
+      import('./pages/public/login/login.module').then((m) => m.LoginModule),
+    component: LoginComponent // Puedes especificar el componente aquí si necesitas pasar el parámetro opcional a un componente
+  },
+  {
     path: 'login',
     loadChildren: () =>
       import('./pages/public/login/login.module').then((m) => m.LoginModule),
+    component: LoginComponent // Puedes especificar el componente aquí si necesitas manejar la ruta sin parámetros
   },
   {
     path: 'clients/:id',

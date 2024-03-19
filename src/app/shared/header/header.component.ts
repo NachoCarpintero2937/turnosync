@@ -25,11 +25,12 @@ export class HeaderComponent implements OnInit {
     private SettingsService: SettingsService,
     public NgxPermissionsService: NgxPermissionsService
     ) {
-    const notif  = JSON.parse(localStorage.getItem('notifications')!);
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
-      if(this.userData){
+      if(this.userData?.data?.id){
         this.getNotifications();
+        this.getSettings();
+      }else if(this.userData?.companyId){
         this.getSettings();
       }
     })
@@ -63,7 +64,6 @@ export class HeaderComponent implements OnInit {
   
 
   initHeader(){
-    console.log(this.NgxPermissionsService.getPermissions())
     this.getUserData();
     this.getNotifications();
     setInterval(() => {
@@ -99,8 +99,8 @@ export class HeaderComponent implements OnInit {
     return `${hour}:${minute}`;
   }
 
-  logout(){
-    this.LoginService.logout().then(data =>{
+  logout(companyId: string){
+    this.LoginService.logout('/login',companyId).then(data =>{
       this.removeStyle();
     }).catch(e =>{
       
@@ -123,7 +123,11 @@ export class HeaderComponent implements OnInit {
   }
 
   getSettings() {
-    this.ThemeService.getSettings().then((settings: any) => {
+    let data;
+    if(this.userData?.companyId)
+    data = { company_id : this.userData?.companyId };
+
+    this.ThemeService.getSettings(data).then((settings: any) => {
       const originalTemplate =  this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'originalTemplate');
       this.companyData = settings?.data?.companies;
       this.imgLogo = this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'imgLogo');
@@ -133,6 +137,9 @@ export class HeaderComponent implements OnInit {
        sessionStorage.setItem('cardHome', configurations?.cardHome);
        let style = this.ThemeService.setClassPropeties(configurations);
        this.initTheme(style);
+       if(this.userData.companyId){
+        this.SettingsService.getInfoCompany.next({settings: settings,imgLogo :this.imgLogo});
+       }
      }else{
       this.removeStyle();
      }

@@ -6,7 +6,15 @@
                     <div class="d-flex">
                         <div class="login">
                             <div class="d-flex justify-content-center">
-                                <img src="./assets/img/logo_rosa.png" alt="Logo via bariloche" class="logo">
+                                <span class="no-logo-login" *ngIf="!settingsCompany?.settings">
+                                    TurnoSync
+                                </span>
+                                <img [src]="settingsCompany?.imgLogo" *ngIf="settingsCompany?.imgLogo;else noImg" class="logo">
+                                <ng-template #noImg>
+                                    <span class="no-logo-login">
+                                        {{settingsCompany?.settings?.data?.companies?.name}}
+                                    </span>
+                                </ng-template>
                                 <div class="loading-login" *ngIf="submitForm">
                                     <mat-spinner  class="loading-spinner" diameter="20"></mat-spinner>
                                 </div>
@@ -29,8 +37,8 @@
                     </div>
                 </mat-card-content>
             </form>
-            <div class="d-flex justify-content-center col-12 ">
-                <button mat-button color="primary" (click)="submit()" [disabled]="!form.valid || submitForm" class="btn-custom col-12">Ingresar</button>
+            <div class="d-flex justify-content-center col-12">
+                <button mat-button   (click)="submit()" [disabled]="!form.valid || submitForm" class=" btn-log col-12">Ingresar</button>
             </div>
         </mat-card>
     </div>

@@ -11,6 +11,6 @@
         <app-view-table-clients [columns]="columns" [data]="clients" (delete)="destroy($event)"></app-view-table-clients>
     </div>
 </div>
-<div class="add_work">
+<div class="add_work" *ngxPermissionsOnly="['CREATE_CLIENT']">
     <button mat-fab (click)="addClient();"><span class="material-icons text-white">add</span></button>
 </div>

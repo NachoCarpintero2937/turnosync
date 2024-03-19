@@ -64,7 +64,12 @@ export class ThemeService {
       .mat-toolbar{
         background: ${toolbar};
       }
-
+      .dybella-text{
+        color:${cardHome} !important;
+      }
+      .line>hr{
+        border-color:${cardHome} !important;
+      }
       .inicial_muro,
       .border-inicials{
         border-color: ${toolbar}!important;
@@ -74,6 +79,9 @@ export class ThemeService {
       }
       .confirm-dialog{
         border:1px solid ${toolbar} !important;
+    }
+    .no-logo-login{
+      color:${toolbar} !important;
     }
 
       .card-info{
@@ -99,6 +107,7 @@ export class ThemeService {
 
       button[mat-button]{
         background:${toolbar}!important;
+        color:white!important;
      
       }
 

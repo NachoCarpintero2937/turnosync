@@ -2,6 +2,14 @@
 
 .login-container {
     height: 90vh;
+    .no-logo-login{
+        font-size: 50px;
+        color: map-get($md-mcgpalette0, 500);
+        margin:30px;
+    }
+    .login{
+        width: 100%;
+    }
 
     .material-icons {
         color: map-get($md-mcgpalette0, 500);
@@ -11,11 +19,19 @@
         width: 50%;
         margin: 20px;
     }
+    .inputs{
+        width: 100%;
+    }
 
     .loading-login {
         position: absolute;
         right: 0;
         margin-right: 25px;
         margin-top: 5px;
+    }
+
+    button[mat-button]{
+        background-color: map-get($md-mcgpalette0, 500);
+        color:white;
     }
 }

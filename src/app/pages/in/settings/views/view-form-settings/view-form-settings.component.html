@@ -2,11 +2,11 @@
     <mat-card>
         <mat-card-content>
             <form [formGroup]="form" class="m-3">
-                <mat-form-field appearance="fill" class="col-12 mt-3">
+                <mat-form-field appearance="fill" class="col-12 mt-3" *ngxPermissionsOnly="['VIEW_INPUT_COMPANY_NAME']">
                     <mat-label>Nombre de la empresa </mat-label>
                     <input matInput formControlName="name">
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="col-12 mt-3">
+                <mat-form-field appearance="fill" class="col-12 mt-3" *ngxPermissionsOnly="['VIEW_INPUT_ADDRESS_COMPANY']">
                     <mat-label>Dirección</mat-label>
                     <input matInput formControlName="address">
                 </mat-form-field>

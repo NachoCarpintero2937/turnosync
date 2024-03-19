@@ -4,6 +4,7 @@ import { ClientsService } from '../../services/clients.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UrlService } from 'src/app/services/url.service';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
   selector: 'app-view-form-clients',
   templateUrl: './view-form-clients.component.html',
@@ -16,7 +17,8 @@ export class ViewFormClientsComponent implements OnChanges, OnInit {
     private Router: Router,
     private UrlService: UrlService,
     private LoginService: LoginService,
-    private ActivateRoute: ActivatedRoute
+    private ActivateRoute: ActivatedRoute,
+    private NgxPermissionsService: NgxPermissionsService
   ) { }
   @Input() client!: any
   @Input() idUrl!: any;
@@ -40,7 +42,9 @@ export class ViewFormClientsComponent implements OnChanges, OnInit {
       this.toShift = data?.toShift;
     })
   }
-
+  hasPermission(permission: string) {
+    return this.NgxPermissionsService.getPermission(permission);
+  }
   initComponent() {
     if (this.client) {
       this.setValue();

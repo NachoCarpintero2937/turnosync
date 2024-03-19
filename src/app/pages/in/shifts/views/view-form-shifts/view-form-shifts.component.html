@@ -96,7 +96,9 @@
             </form>
         </mat-card-content>
         <mat-card-footer>
-            <button mat-button [disabled]="!form.valid || submitForm || loadingForm" (click)="submit()" class="btn-custom col-12">Enviar</button>
+            <button mat-button
+             [disabled]="!form.valid || submitForm || loadingForm" (click)="submit()"
+              class="col-12">Guardar</button>
         </mat-card-footer>
     </mat-card>
 </div>

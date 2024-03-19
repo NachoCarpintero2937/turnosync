@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/common/modules/material/material.module'
 import { ViewServiceComponent } from './views/view-service/view-service.component';
 import { ViewFormServiceComponent } from './views/view-form-service/view-form-service.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ServicesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPermissionsModule
   ]
 })
 export class ServicesModule { }

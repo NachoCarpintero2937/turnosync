@@ -4,6 +4,7 @@ import { MaterialModule } from 'src/app/common/modules/material/material.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewFormSettingsComponent } from './view-form-settings.component';
 import { NgxColorsModule } from 'ngx-colors';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgxColorsModule } from 'ngx-colors';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxColorsModule
+    NgxColorsModule,
+    NgxPermissionsModule
   ],
   exports:[ViewFormSettingsComponent]
 })

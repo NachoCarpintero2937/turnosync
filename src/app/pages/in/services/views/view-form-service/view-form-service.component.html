@@ -12,8 +12,9 @@
                 </mat-form-field>
             </form>
         </mat-card-content>
-        <mat-card-footer>
+        <mat-card-footer *ngIf="hasPermission('CREATE_SERVICE') || hasPermission('UPDATE_SERVICE')">
             <button mat-button color="primary" (click)="submit()" class="btn-custom col-12">Guardar</button>
         </mat-card-footer>
+        
     </mat-card>
 </div>

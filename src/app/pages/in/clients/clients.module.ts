@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/common/modules/material/material.module'
 import { ViewClientsComponent } from './views/view-clients/view-clients.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ViewFormClientsModule } from './views/view-form-clients/view-form-clients.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ViewFormClientsModule } from './views/view-form-clients/view-form-clien
     ClientsRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    ViewFormClientsModule
+    ViewFormClientsModule,
+    NgxPermissionsModule
   ]
 })
 export class ClientsModule { }
