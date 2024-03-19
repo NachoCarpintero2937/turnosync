@@ -22,12 +22,17 @@
                 </div>
            
                 <div class="actions">
-                    <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,1)">
-                        <span class="material-icons">done</span>
-                    </button>
+                    
+                    <div *ngxPermissionsOnly="['CONFIRM_SHIFT']">
+                        <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,1)">
+                            <span class="material-icons">done</span>
+                        </button>
+                    </div>
+                    <div *ngxPermissionsOnly="['CANCEL_SHIFT']">
                     <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,2)">
                         <span class="material-icons">close</span>
                     </button>
+                </div>
                     <button class="btn-action" (click)="sendWsp(shift)" *ngIf="edit"><img src="./assets/img/wsp.png"
                             alt="" width="20"></button>
                     <a class="btn-action" [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}">

@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private LoginService: LoginService,
-    private Router: Router,
     private NgxPermissionsService: NgxPermissionsService
   ) {
 
@@ -25,16 +24,19 @@ export class AppComponent implements OnInit {
   }
 
   initComponent() {
-    this.Router.url
-    this.userData = this.LoginService.getDataUser()?.data;
-    this.initPermiss();
+    this.LoginService.dataUserSubject.subscribe(() =>{
+      this.userData = this.LoginService.getDataUser()?.data;
+      this.initPermiss();
+    });
   }
 
 initPermiss(){
-  console.log(this.userData)
-  const permissToStorage = this.userData?.role?.permissions;
-  const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
-  this.NgxPermissionsService.loadPermissions(permissionNames);
+  if(this.userData){
+    const permissToStorage = this.userData?.role?.permissions;
+    const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
+    console.log(permissionNames)
+    this.NgxPermissionsService.loadPermissions(permissionNames);
+  }
 }
 
 

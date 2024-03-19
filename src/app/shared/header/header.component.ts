@@ -6,6 +6,7 @@ import { EnviromentService } from 'src/app/services/enviroment.service';
 import { ViewNotificationsComponent } from './views/view-notifications/view-notifications.component';
 import { ThemeService } from 'src/app/services/theme.service';
 import { SettingsService } from 'src/app/pages/in/settings/services/settings.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
     private ThemeService: ThemeService,
     private renderer: Renderer2,
     private elementRef: ElementRef,
-    private SettingsService: SettingsService
+    private SettingsService: SettingsService,
+    public NgxPermissionsService: NgxPermissionsService
     ) {
     const notif  = JSON.parse(localStorage.getItem('notifications')!);
     this.LoginService.dataUserSubject.subscribe(data =>{
@@ -55,9 +57,13 @@ export class HeaderComponent implements OnInit {
   flagnotifications = JSON.parse(localStorage.getItem('notifications')!);
   
   ngOnInit(): void {
-    this.initHeader()
+    this.initHeader();
   }
+
+  
+
   initHeader(){
+    console.log(this.NgxPermissionsService.getPermissions())
     this.getUserData();
     this.getNotifications();
     setInterval(() => {

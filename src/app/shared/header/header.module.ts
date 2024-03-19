@@ -6,10 +6,18 @@ import { RouterModule } from '@angular/router';
 import { InicialesModule } from '../iniciales/iniciales.module';
 import { ViewNotificationsComponent } from './views/view-notifications/view-notifications.component';
 import { ShiftModule } from 'src/app/pages/in/home/shift/shift.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [HeaderComponent,ViewNotificationsComponent],
-  imports: [CommonModule, MaterialModule, RouterModule, InicialesModule,ShiftModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    InicialesModule,
+    ShiftModule,
+    NgxPermissionsModule,
+      ],
   exports: [HeaderComponent],
 })
 export class HeaderModule {}

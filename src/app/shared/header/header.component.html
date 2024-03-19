@@ -16,31 +16,31 @@
                 </ng-template>
             </a>
                 <div class="d-flex m-3 buttons-desktop">
-                    <div class="div-btns">
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_HOME']">
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
                             matTooltip="Inicio">Inicio</a>
                     </div>
-                    <div class="div-btns">
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_CLIENTS']">
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
                             matTooltip="Clientes">Clientes</a>
                     </div>
-                    <div class="div-btns">
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_DIARY']">
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
                             matTooltip="Agenda">Agenda</a>
                     </div>
-                    <div class="div-btns">
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_SHIFTS']">
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
                             matTooltip="Turnos">Turnos</a>
                     </div>
-                    <div class="div-btns">
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_SERVICES']">
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
                             matTooltip="Turnos">Servicios</a>
                     </div>
-                    <div class="div-btns">
+                    <div class="div-btns" *ngxPermissionsOnly="['VIEW_USERS']">
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
                             matTooltip="Usuarios">Usuarios</a>
                     </div>
-                    <div class="div-btns">
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_REPORTS']" >
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/reports'] "
                             matTooltip="Reportes">Reportes</a>
                     </div>

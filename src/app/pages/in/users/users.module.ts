@@ -7,6 +7,7 @@ import { ViewTableUsersComponent } from './views/view-table-users/view-table-use
 import { MaterialModule } from 'src/app/common/modules/material/material.module';
 import { ViewUserComponent } from './views/view-user/view-user.component';
 import { ViewFormUserModule } from './views/view-form-user/view-form-user.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ViewFormUserModule } from './views/view-form-user/view-form-user.module
     CommonModule,
     UsersRoutingModule,
     ViewFormUserModule,
-    MaterialModule
+    MaterialModule,
+    NgxPermissionsModule
   ]
 })
 export class UsersModule { }
