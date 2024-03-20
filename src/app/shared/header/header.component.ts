@@ -132,10 +132,7 @@ export class HeaderComponent implements OnInit {
       this.companyData = settings?.data?.companies;
       this.imgLogo = this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'imgLogo');
       if(!parseInt(originalTemplate)){
-       let configurations = this.ThemeService.mapStyleToConfiguration(settings?.data?.companies?.configurations);
-       sessionStorage.setItem('toolbar', configurations?.toolbar);
-       sessionStorage.setItem('cardHome', configurations?.cardHome);
-       let style = this.ThemeService.setClassPropeties(configurations);
+        let style = this.ThemeService.initColorTheme(settings)
        this.initTheme(style);
        if(this.userData.companyId){
         this.SettingsService.getInfoCompany.next({settings: settings,imgLogo :this.imgLogo});

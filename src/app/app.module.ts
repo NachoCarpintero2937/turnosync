@@ -11,6 +11,7 @@ import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData,DatePipe } from '@angular/common';
 import { NgxPermissionsModule } from 'ngx-permissions';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

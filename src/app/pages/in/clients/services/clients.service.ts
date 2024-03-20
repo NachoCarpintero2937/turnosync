@@ -43,7 +43,8 @@ export class ClientsService {
       email: data?.email,
       cod_area: data?.cod_area,
       phone: data?.phone,
-      date_birthday: this.DatePipe.transform(data?.date_birthday, 'yyyy-MM-dd HH:mm:ss')
+      date_birthday: this.DatePipe.transform(data?.date_birthday, 'yyyy-MM-dd HH:mm:ss'),
+      company_id: data?.company_id
     }
   }
 }

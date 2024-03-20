@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
     <div class="d-flex col-12 justify-content-center">
-            <img src="./assets/img/logo_blanco.png" class="img-logo" alt="">
+            <!-- <img src="./assets/img/logo_blanco.png" class="img-logo" alt=""> -->
+            <span class="name-company" *ngIf="settings?.name">
+                {{settings?.name}}
+            </span>
     </div>
 </mat-toolbar>
 
@@ -10,7 +13,7 @@
     ¡Hola!, necesitamos algunos datos tuyos para asignarte tus próximos turnos
 </span>
 </div>
-    <app-view-form-clients [idUrl]="id"></app-view-form-clients>
+    <app-view-form-clients [idUrl]="id" [companyId]="companyId"></app-view-form-clients>
 </div>
 <div *ngIf="!loading && !showForm">
     <div class="d-flex justify-content-center align-items-center h-100">

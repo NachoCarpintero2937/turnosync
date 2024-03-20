@@ -139,4 +139,11 @@ export class ThemeService {
     }
     }
 
+    initColorTheme(settings:any){
+      let configurations = this.mapStyleToConfiguration(settings?.data?.companies?.configurations);
+      sessionStorage.setItem('toolbar', configurations?.toolbar);
+      sessionStorage.setItem('cardHome', configurations?.cardHome);
+      let style = this.setClassPropeties(configurations);
+      return style;
+    }
 }

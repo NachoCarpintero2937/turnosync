@@ -22,16 +22,20 @@ export class ViewFormClientsComponent implements OnChanges, OnInit {
   ) { }
   @Input() client!: any
   @Input() idUrl!: any;
+  @Input() companyId !: string
   submitForm = false;
   loading = true;
   toShift = false;
+  dateNow = new Date();
   form = this.fb.group({
     id: [null],
     name: [null, Validators.required],
     email: [null, [Validators.email]],
+    confirm_email: [null,[Validators.email]],
     phone: [null, [Validators.required, Validators.pattern(/^\d{8}$/)]],
     cod_area: ["11", [Validators.required, Validators.pattern(/^\d+$/)]],
-    date_birthday: [new Date()]
+    date_birthday: [new Date()],
+    company_id : ['']
   });
 
   ngOnChanges() {
@@ -40,7 +44,15 @@ export class ViewFormClientsComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((data: any) => {
       this.toShift = data?.toShift;
-    })
+    });
+
+  this.form.get('confirm_email')?.valueChanges.subscribe(email =>{
+    if(email !== this.form.get('email')?.value){
+      this.form.get('confirm_email')?.setErrors({ 'mismatch': true });
+    }else{
+      this.form.get('confirm_email')?.setErrors(null);
+    }
+  })
   }
   hasPermission(permission: string) {
     return this.NgxPermissionsService.getPermission(permission);
@@ -53,6 +65,8 @@ export class ViewFormClientsComponent implements OnChanges, OnInit {
     if (this.idUrl) {
       this.setValidators();
     }
+    // set company_id
+    this.form.get('company_id')?.setValue(this.companyId);
   }
 
   setValidators() {

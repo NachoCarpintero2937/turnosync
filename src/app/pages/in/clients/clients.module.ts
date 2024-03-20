@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule,DatePipe } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
@@ -9,6 +9,7 @@ import { ViewClientsComponent } from './views/view-clients/view-clients.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { ViewFormClientsModule } from './views/view-form-clients/view-form-clients.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     ReactiveFormsModule,
     ViewFormClientsModule,
     NgxPermissionsModule
-  ]
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },  { provide: LOCALE_ID, useValue: 'es' },], 
 })
 export class ClientsModule { }

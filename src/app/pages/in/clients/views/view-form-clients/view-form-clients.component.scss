@@ -23,3 +23,10 @@
     margin-right: 25px;
     margin-top: 15px;
 }
+
+
+button:disabled,
+button[disabled] {
+    background: #cccccc !important;
+    color: #666666;
+}

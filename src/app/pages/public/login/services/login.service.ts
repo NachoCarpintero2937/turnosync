@@ -25,11 +25,11 @@ export class LoginService {
 
   setUserData(data: any) {
     localStorage.setItem('notifications', JSON.stringify({notifications: true}));
-    localStorage.setItem('currentUser', this.CryptoService.encryptData(data));
+    localStorage.setItem('dybelladata', this.CryptoService.encryptData(data));
   }
 
   getDataUser() {
-    const local = localStorage.getItem('currentUser');
+    const local = localStorage.getItem('dybelladata');
     if (local)
     return JSON.parse(this.CryptoService.decryptData(local));
   else
@@ -39,7 +39,7 @@ export class LoginService {
 
   logout(path: string = '/login', companyId :string): Promise<object> {
     return new Promise((resolve, reject) => {
-      localStorage.removeItem('currentUser');
+      localStorage.removeItem('dybelladata');
       sessionStorage.clear();
       this.dataUserSubject.next(null);
       this.Router.navigate([path+'/'+companyId])
