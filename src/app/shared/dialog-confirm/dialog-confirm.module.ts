@@ -14,7 +14,6 @@ import { ArgentinePesoPipe } from 'src/app/pipes/argentinepeso.pipe';
     CommonModule,
     MaterialModule,
     FormsModule
-  ],
-  providers: [ArgentinePesoPipe]
+  ]
 })
 export class DialogConfirmModule { }
