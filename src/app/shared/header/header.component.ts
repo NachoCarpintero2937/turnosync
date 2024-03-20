@@ -27,7 +27,8 @@ export class HeaderComponent implements OnInit {
     ) {
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
-      if(this.userData?.data?.id){
+      console.log(this.userData)
+      if(this.userData?.status){
         this.getNotifications();
         this.getSettings();
       }else if(this.userData?.companyId){

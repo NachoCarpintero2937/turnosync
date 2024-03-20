@@ -8,7 +8,7 @@
     <mat-card-content>
         <mat-list>
             <div *ngFor="let client of clients">
-                <mat-list-item lines="">
+                <mat-list-item  *ngIf="calculateAge(client?.date_birthday) >0">
                     <div class="d-flex list-shifts">
                         <div class="description">
                             <span class="description-servicetoday">
@@ -16,12 +16,12 @@
                             </span>
                         </div>
                         <div class="price">
-                            <button mat-button (click)="sendWsp(client)"><img src="./assets/img/wsp.png" alt=""
-                                    width="20"></button>
+                            <a mat-button (click)="sendWsp(client)"><img src="./assets/img/wsp.png" alt=""
+                                    width="20"></a>
                         </div>
                     </div>
                 </mat-list-item>
-                <mat-divider></mat-divider>
+                <mat-divider *ngIf="calculateAge(client?.date_birthday) >0"></mat-divider>
             </div>
         </mat-list>
     </mat-card-content>

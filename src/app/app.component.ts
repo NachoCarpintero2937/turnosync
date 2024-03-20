@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { LoginService } from './pages/public/login/services/login.service';
 import {  Router } from '@angular/router';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { SettingsService } from './pages/in/settings/services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private LoginService: LoginService,
-    private NgxPermissionsService: NgxPermissionsService
+    private NgxPermissionsService: NgxPermissionsService,
+    private SettingsService : SettingsService
   ) {
 
   }
@@ -35,6 +37,7 @@ initPermiss(){
     const permissToStorage = this.userData?.role?.permissions;
     const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
     this.NgxPermissionsService.loadPermissions(permissionNames);
+    this.SettingsService.fetchSettings({company_id : this.userData?.data?.company_id}).subscribe(data =>{console.log(data) })
   }
 }
 

@@ -30,6 +30,9 @@ export class JwtInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
+          
+            
+    
           // cacheo de estado
           if (
             event &&
@@ -47,8 +50,8 @@ export class JwtInterceptor implements HttpInterceptor {
           this.EnviromentService.getErrorCodeHttp()[error.status] ||
           'Error: ' + error.message;
         if (error.status === 401 || error.status === 403) {
-          this.SettingsSerivce.getInfoCompany.subscribe((settings:any) =>{
-            this.LoginService.logout('/login' , settings?.settings?.data?.companies?.id).then((data: any) => {
+          let settings  = JSON.parse(this.SettingsSerivce.getCompanyData()!);
+            this.LoginService.logout('/login' , settings?.data?.companies?.id).then((data: any) => {
               this.ToastService.showToastNew(
                 'ERROR',
                 +error?.error?.message
@@ -57,7 +60,6 @@ export class JwtInterceptor implements HttpInterceptor {
                 'error'
               );
             });
-          })
         } else {
           this.ToastService.showToastNew(
             'ERROR',

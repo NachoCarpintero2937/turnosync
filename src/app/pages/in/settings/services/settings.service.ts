@@ -34,9 +34,6 @@ mapData(data:any){
   return formData;
 }    
 
-getSettings(): Observable<any> {
-  return this.getInfoCompany;
-}
 
 fetchSettings(data: any): Observable<any> {
   return new Observable((observer) => {
@@ -60,7 +57,7 @@ fetchSettings(data: any): Observable<any> {
   });
 }
 
-getCompanyData(): Observable<any> {
-  return this.getInfoCompany.asObservable();
+getCompanyData() {
+  return sessionStorage.getItem('settings');
 }
 }
