@@ -13,7 +13,6 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { ShiftModule } from '../home/shift/shift.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
-import { ArgentinePesoPipe } from 'src/app/pipes/argentinepeso.pipe';
 import { ViewSelectedShiftsComponent } from './views/view-selected-shifts/view-selected-shifts.component';
 
 @NgModule({
@@ -34,6 +33,6 @@ import { ViewSelectedShiftsComponent } from './views/view-selected-shifts/view-s
     ShiftModule,
     PipesModule
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },DatePipe,CurrencyPipe,ArgentinePesoPipe], 
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },DatePipe,CurrencyPipe], 
 })
 export class ShiftsModule { }

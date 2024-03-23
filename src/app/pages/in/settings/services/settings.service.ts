@@ -43,11 +43,11 @@ fetchSettings(data: any): Observable<any> {
         this.getInfoCompany.next(settings?.data?.companies);
         if (!parseInt(originalTemplate)) {
           const configurations = this.ThemeService.mapStyleToConfiguration(settings?.data?.companies?.configurations);
-          sessionStorage.setItem('toolbar', configurations?.toolbar);
-          sessionStorage.setItem('cardHome', configurations?.cardHome);
+          localStorage.setItem('toolbar', configurations?.toolbar);
+          localStorage.setItem('cardHome', configurations?.cardHome);
         }
         // Guardar settings en sessionStorage
-        sessionStorage.setItem('settings', JSON.stringify(settings));
+        localStorage.setItem('settings', JSON.stringify(settings));
         observer.next(settings);
         observer.complete();
       })
@@ -58,6 +58,6 @@ fetchSettings(data: any): Observable<any> {
 }
 
 getCompanyData() {
-  return sessionStorage.getItem('settings');
+  return localStorage.getItem('settings');
 }
 }

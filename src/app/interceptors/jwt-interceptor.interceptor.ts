@@ -46,29 +46,15 @@ export class JwtInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        const errorMessage =
-          this.EnviromentService.getErrorCodeHttp()[error.status] ||
-          'Error: ' + error.message;
+        let settings  = JSON.parse(this.SettingsSerivce.getCompanyData()!);
+        this.LoginService.logout('/login' , settings?.data?.companies?.id).then((data: any) => {
+        const errorMessage =  this.EnviromentService.getErrorCodeHttp()[error.status] || 'Error, intente nuevamente más tarde';
         if (error.status === 401 || error.status === 403) {
-          let settings  = JSON.parse(this.SettingsSerivce.getCompanyData()!);
-            this.LoginService.logout('/login' , settings?.data?.companies?.id).then((data: any) => {
-              this.ToastService.showToastNew(
-                'ERROR',
-                +error?.error?.message
-                  ? 'Error: ' + error?.error?.message
-                  : 'Error: ' + errorMessage,
-                'error'
-              );
-            });
+          this.ToastService.showToastNew( 'ERROR','Error: ' + errorMessage,'error');
         } else {
-          this.ToastService.showToastNew(
-            'ERROR',
-            error?.error?.message
-              ? 'Error: ' + error?.error?.message
-              : 'Error: ' + errorMessage,
-            'error'
-          );
+          this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
         }
+      });
         return throwError(() => error.error.message);
       })
     );

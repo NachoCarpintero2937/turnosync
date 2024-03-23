@@ -28,7 +28,7 @@ export class ThemeService {
   mapStyleToConfiguration(data: any) {
     var cfg: any = {}
     if (data?.cfg) {
-     cfg[data?.type] = sessionStorage.getItem(data?.type);
+     cfg[data?.type] = localStorage.getItem(data?.type);
       return cfg;
     } else if (data?.length) {
       const toolbar = this.findConfiguration(data, 'toolbar');
@@ -57,8 +57,8 @@ export class ThemeService {
 
 
   setClassPropeties(data: any) {
-    let toolbar = sessionStorage.getItem('toolbar');
-    let cardHome = sessionStorage.getItem('cardHome');
+    let toolbar = localStorage.getItem('toolbar');
+    let cardHome = localStorage.getItem('cardHome');
     // Simulación de estilos CSS
     const css = `
       .mat-toolbar{
@@ -141,8 +141,8 @@ export class ThemeService {
 
     initColorTheme(settings:any){
       let configurations = this.mapStyleToConfiguration(settings?.data?.companies?.configurations);
-      sessionStorage.setItem('toolbar', configurations?.toolbar);
-      sessionStorage.setItem('cardHome', configurations?.cardHome);
+      localStorage.setItem('toolbar', configurations?.toolbar);
+      localStorage.setItem('cardHome', configurations?.cardHome);
       let style = this.setClassPropeties(configurations);
       return style;
     }

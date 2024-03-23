@@ -9,7 +9,7 @@ export class TimepickerService {
 
 
   getConfiguration()   {
-   var toolbar = sessionStorage.getItem('toolbar');
+   var toolbar = localStorage.getItem('toolbar');
     return {
       container: {
         bodyBackgroundColor: '#fff',

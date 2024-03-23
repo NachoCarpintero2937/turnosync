@@ -53,7 +53,7 @@ setValues(){
 
 changeColor(color:string,type: string){
  this.form.get(type)?.setValue(color);
- sessionStorage.setItem(type, color);
+ localStorage.setItem(type, color);
  this.color.emit({type: type , cfg:color});
 }
 

@@ -12,7 +12,6 @@ import { ToastService } from 'src/app/services/toast.service';
 import { TimepickerService } from 'src/app/services/timepicker.service';
 import { MobileService } from 'src/app/services/mobile.service';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
-import { ArgentinePesoPipe } from 'src/app/pipes/argentinepeso.pipe';
 @Component({
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
@@ -44,8 +43,7 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     private Router: Router,
     private ToastService: ToastService,
     private TimePicker: TimepickerService,
-    private MobileService: MobileService,
-    private ArgentinePesoPipe: ArgentinePesoPipe
+    private MobileService: MobileService
   ) { }
 
   form = this.fb.group({
@@ -97,12 +95,6 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     }
   }
 
-
-  formatInput(event: any) {
-    let value = event.target.value;
-    value = this.ArgentinePesoPipe.transform(value).replace(',00', "");
-    this.form.get('price')?.setValue(value)
-  }
 
   setValueFromShift() {
     this.form.get('id')?.setValue(this.shift?.id)
