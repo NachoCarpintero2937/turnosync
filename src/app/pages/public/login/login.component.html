@@ -9,7 +9,7 @@
                                 <span class="no-logo-login" *ngIf="!settingsCompany?.settings">
                                     TurnoSync
                                 </span>
-                                <img [src]="settingsCompany?.imgLogo" *ngIf="settingsCompany?.imgLogo;else noImg" class="logo">
+                                <img [src]="settingsCompany?.imgLogo?.configuration_value" *ngIf="settingsCompany?.imgLogo?.configuration_value;else noImg" class="logo">
                                 <ng-template #noImg>
                                     <span class="no-logo-login">
                                         {{settingsCompany?.settings?.data?.companies?.name}}

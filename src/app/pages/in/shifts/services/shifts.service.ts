@@ -37,7 +37,7 @@ export class ShiftsService {
       date_shift: date,
       description: data?.description,
       status: data?.status,
-      price: parseFloat(data?.price.replace('$', '').replace('.', '')),
+      price: data?.price.toString().replace('$', '').replace('.', '').replace(',', ''),
       service_id: data?.service_id,
       client_id: data?.client_id,
       user_id: data?.user_id

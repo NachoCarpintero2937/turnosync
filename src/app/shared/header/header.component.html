@@ -9,7 +9,7 @@
         </div>
         <div class="btns-logo-header">
             <a [routerLink]="['/logged/home']" class="url-logo">
-                <img [src]="imgLogo" class="img-logo" alt="" *ngIf="imgLogo;else noImg">
+                <img [src]="imgLogo?.configuration_value" class="img-logo" alt="" *ngIf="imgLogo?.configuration_value;else noImg">
                 <ng-template #noImg>
                     <span class="name-company">
                         {{companyData?.name}}

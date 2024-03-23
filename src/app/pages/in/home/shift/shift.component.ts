@@ -53,7 +53,7 @@ export class ShiftComponent {
       const dataStatus = {
         id: data?.id,
         status: status,
-        price: price,
+        price: price?.toString().replace('$', '').replace('.', '').replace(',', ''),
         description: description
       }
       this.DiaryService.setStatus(dataStatus).then((shift) => {
