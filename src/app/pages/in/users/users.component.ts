@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersService } from './services/users.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -16,14 +16,25 @@ export class UsersComponent {
     'created_at',
     'actions',
   ];
+  columnRoles = [
+    'name',
+    'actions'
+  ]
   users : any[]= [];
-
+  role!: boolean;
+  roles : any[] = [];
   constructor(
     private UsersService :  UsersService,
     private Router : Router,
+    private ActivateRoute: ActivatedRoute
     ){}
   
   ngOnInit(): void {
+    this.ActivateRoute.params.subscribe((params:any) => {
+      this.role = !!params?.role;
+      if(this.role)
+      this.getRoles();
+    });
    this.getUsers();
   }
 
@@ -35,7 +46,14 @@ export class UsersComponent {
     });
   }
 
-  goToNewUser(){
-    this.Router.navigate(['/in/users/view-user'])
+  getRoles(){
+    this.UsersService.getRoles().then((data:any) =>{
+      this.roles = data?.data?.roles;
+    }).catch(e =>{
+
+    });
+  }
+  goTo(path : string){
+    this.Router.navigate([path]);
   }
 }

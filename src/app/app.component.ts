@@ -37,7 +37,7 @@ initPermiss(){
     const permissToStorage = this.userData?.role?.permissions;
     const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
     this.NgxPermissionsService.loadPermissions(permissionNames);
-    this.SettingsService.fetchSettings({company_id : this.userData?.data?.company_id}).subscribe(data =>{console.log(data) })
+    this.SettingsService.fetchSettings({company_id : this.userData?.data?.company_id}).subscribe(data =>{ })
   }
 }
 

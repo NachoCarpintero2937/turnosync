@@ -34,8 +34,11 @@ export class LoginComponent implements OnInit {
   }
 
   initComponent() {
-    if(this.userData)
-    this.Router.navigate(['/in/home']);
+    if(this.userData){
+      this.Router.navigate(['/in/home']).then(() =>{
+        this.LoginService.dataUserSubject.next(this.userData);
+      })
+    }
 
     this.ActivateRoute.params.subscribe((params:any) => {
       this.companyId = params?.companyId;

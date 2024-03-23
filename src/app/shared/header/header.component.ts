@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, Renderer2 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
     ) {
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
-      console.log(this.userData)
       if(this.userData?.status){
         this.getNotifications();
         this.getSettings();
@@ -49,9 +48,10 @@ export class HeaderComponent implements OnInit {
     })
   }
   isMobileMenuOpen = false;
+
   imgLogo : any;
   companyData:any;
-  userData: any;
+  userData:any;
   hour!: string;
   url:any;
   excludePage:boolean =false;
@@ -59,12 +59,11 @@ export class HeaderComponent implements OnInit {
   flagnotifications = JSON.parse(localStorage.getItem('notifications')!);
   
   ngOnInit(): void {
-    this.initHeader();
+    this.userData = this.LoginService.getDataUser();
   }
 
-  
-
   initHeader(){
+    this.userData = this.LoginService.getDataUser();
     this.getUserData();
     this.getNotifications();
     setInterval(() => {

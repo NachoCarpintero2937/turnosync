@@ -1,3 +1,4 @@
+
 <mat-toolbar color="primary" *ngIf="userData?.status && !excludePage" >
     <div class="header-main">
         <div class="mobile-menu-btn">
@@ -24,7 +25,7 @@
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
                             matTooltip="Clientes">Clientes</a>
                     </div>
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_DIARY']">
+                    <div class="div-btns"  >
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
                             matTooltip="Agenda">Agenda</a>
                     </div>
@@ -54,14 +55,29 @@
             <div>
          <span [matBadge]="notifications.length"  matTooltip="Notificaciones" (click)="openBottomSheet()"   matBadgeColor="warn" class="material-icons notifications">notifications</span>
             </div>
-            <div  *ngxPermissionsOnly="['VIEW_SETTINGS']">
-                <a mat-icon-button matTooltip="Configuración" [routerLink]="['/in/settings/']">
+            <div >
+                <a mat-icon-button [matMenuTriggerFor]="menu">
                 <span class="material-icons">settings</span>
                 </a>
+                <mat-menu #menu="matMenu">
+                    <a mat-menu-item class="" matTooltip="Configuración" [routerLink]="['/in/settings/']" class="d-flex" *ngxPermissionsOnly="['VIEW_SETTINGS']">
+                       <div class="d-flex align-items-center">
+                           <span class="material-icons pd-1">settings</span>
+                           <span class="pd-1">Ajustes de la empresa</span>
+                       </div>
+                    </a>
+                    <mat-divider></mat-divider>
+                    <a mat-menu-item class="d-flex" [routerLink]="['/in/users/view-user']" [queryParams]="{id: userData?.data?.id}" matTooltip="Configuración de la cuenta">
+                        <div class="d-flex align-items-center">
+                            <span class="material-icons pd-1">person</span>
+                            <span class="pd-1">Cuenta</span>
+                        </div>
+                    </a>
+                  </mat-menu>
             </div>
             <div class="d-flex">
                 <div class="d-flex align-items-center incials">
-                    <app-iniciales color="primary" class="iniciales-nav" color="#eaeaea" size="15px" [text]="userData?.data?.name" width="40px" height="40px"></app-iniciales>
+                    <app-iniciales color="primary" [matMenuTriggerFor]="menu" class="iniciales-nav" color="#eaeaea" size="15px" [text]="userData?.data?.name" width="40px" height="40px"></app-iniciales>
                 </div>
                 <div class="action-exit">
                     <button mat-icon-button matTooltip="Cerrar sesión" (click)="logout(companyData?.id)">
@@ -73,31 +89,31 @@
     </div>
 </mat-toolbar>
 <mat-toolbar color="primary"  class="mobile-menu h-100"  [ngClass]="{'show-menu': isMobileMenuOpen}">
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_HOME']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
             matTooltip="Inicio">Inicio</a>
     </div>
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_CLIENTS']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
             matTooltip="Clientes">Clientes</a>
     </div>
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_DIARY']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
             matTooltip="Agenda">Agenda</a>
     </div>
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_SHIFTS']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
             matTooltip="Turnos">Turnos</a>
     </div>
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_SERVICES']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
             matTooltip="Turnos">Servicios</a>
     </div>
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_USERS']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
             matTooltip="Usuarios">Usuarios</a>
     </div>
-    <div class="div-btns">
+    <div class="div-btns" *ngxPermissionsOnly="['VIEW_REPORTS']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/reports'] "
             matTooltip="Reportes">Reportes</a>
     </div>

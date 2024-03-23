@@ -13,7 +13,7 @@
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
                 </mat-form-field>
-                <mat-form-field class="col-12 mt-3">
+                <mat-form-field class="col-12 mt-3" *ngIf="!data">
                     <mat-label>Password</mat-label>
                     <input matInput formControlName="password" type="password">
                 </mat-form-field>

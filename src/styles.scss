@@ -186,3 +186,14 @@ button[disabled] {
     background: #cccccc !important;
     color: #666666;
 }
+
+.float-buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        margin-bottom: 10px;
+        width: 50px;
+        height: 50px;
+    }
+}

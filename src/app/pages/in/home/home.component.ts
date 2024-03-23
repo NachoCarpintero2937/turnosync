@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   showResetDate = false;
   loading: Boolean = false;
   @ViewChild('picker') picker!: MatDatepicker<Date>;
+  timer: any;
   ngOnInit(): void {
     this.getShifts();
     this.getClientsToBirthday();
@@ -60,16 +61,22 @@ export class HomeComponent implements OnInit {
     this.showResetDate = true;
     const date = new Date(this.date.setDate(this.date.getDate() + 1));
     this.date = new Date(date.setHours(0, 0, 0, 0))
-    this.getShifts();
-    this.getClientsToBirthday();
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.getShifts();
+        this.getClientsToBirthday();
+      }, 1000);
   }
 
   BeforeDay() {
     this.showResetDate = true;
     const date = new Date(this.date.setDate(this.date.getDate() - 1));
     this.date = new Date(date.setHours(0, 0, 0, 0))
-    this.getShifts();
-    this.getClientsToBirthday();
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.getShifts();
+        this.getClientsToBirthday();
+      }, 1000);
   }
 
   goDate() {

@@ -1,0 +1,29 @@
+<div class="container mt-3 mb-5">
+    <mat-card id="top">
+            <div class="loading-login" >
+                <!-- <mat-spinner  diameter="20"></mat-spinner> -->
+            </div>
+        <mat-card-content>
+            <form [formGroup]="formRole">
+                <mat-form-field class="col-12 mt-3">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+                <div clas="pd-5">
+                    <mat-label>Permisos</mat-label>
+                </div>
+                <div class="pd-5">
+                    <mat-chip-listbox  multiple formControlName="permissions">
+                        <mat-chip-option *ngFor="let permiss of permissions" [value]="permiss?.name" [selected]="selected(permiss?.name)">
+                            {{permiss?.description}}
+                        </mat-chip-option>
+                      </mat-chip-listbox>
+                </div>
+                </form>
+        </mat-card-content>
+        <mat-card-footer>
+            <button mat-button class="btn-custom col-12" (click)="submit()" [disabled]="!formRole.valid">
+                Guardar
+            </button>
+        </mat-card-footer>
+    </mat-card>

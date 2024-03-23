@@ -34,6 +34,7 @@
     align-items: center;
 
     .description {
+        // width: 60%;
         font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
@@ -41,13 +42,12 @@
         display: flex;
         align-items: center;
         .client-name{
-            display: flex;
-            align-items: center;
             text-transform: capitalize;
+            text-decoration:  underline;
             cursor: pointer;
             color:#4949d5;
-
-
+            align-items: center;
+            display: flex;
         }
         >span {
             font-size: 15px;
@@ -71,15 +71,15 @@
 
     .actions {
         display: flex;
-        width: 40%;
+        // width: 40%;
         justify-content: flex-end;
 
         .btn-action {
             background-color: transparent;
             border: 0px;
+            color: transparent !important;
             display: flex;
             align-items: center;
-            color:transparent;
             width: 50px;
         }
     }

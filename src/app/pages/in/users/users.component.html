@@ -4,13 +4,20 @@
         <div class="line">
             <hr>
         </div>
-        <span class="title d-flex align-items-center dybella-text">Usuarios
+        <span class="title d-flex align-items-center dybella-text">{{role ? 'Roles' : 'Usuarios'}}
         </span>
     </div>
-    <div class="pd-5">
+    <div class="pd-5" *ngIf="!role">
         <app-view-table-users [columns]="columns" [data]="users" (action)="getUsers()"></app-view-table-users>
     </div>
+    <div class="pd-5" *ngIf="role">
+        <app-view-table-roles [columns]="columnRoles" [data]="roles"></app-view-table-roles>
+    </div>
+    
 </div>
 <div class="add_work">
-    <button mat-fab (click)="goToNewUser();"><span class="material-icons text-white">add</span></button>
+    <div class="float-buttons">
+    <button mat-fab *ngIf="!role" (click)="goTo('/in/users/roles');" [matTooltip]="'Roles y permisos'"><span class="material-icons text-white">admin_panel_settings</span></button>
+    <button mat-fab (click)="goTo(role ? '/in/users/view-role' : '/in/users/view-user');" [matTooltip]="role ? 'Agregar Rol' : 'Agregar usuario'"><span class="material-icons text-white">add</span></button>
+    </div>
 </div>

@@ -70,6 +70,17 @@ const routes: Routes = [
       }
   },
   {
+    path: 'users/:role',
+    loadChildren: () =>
+      import('../../pages/in/users/users.module').then((m) => m.UsersModule),
+      canActivate: [PermissOnly],
+      data: {
+        permissions: {
+          only: ['VIEW_USERS']
+        }
+      }
+  },
+  {
     path: 'reports',
     loadChildren: () =>
       import('../../pages/in/reports/reports.module').then((m) => m.ReportsModule),

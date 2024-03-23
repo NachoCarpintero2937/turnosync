@@ -24,9 +24,22 @@ export class UsersService {
       data
     );
   }
+  getPermiss(data?: any) {
+    return this.ApiService.get(
+      this.EnviromentService.getEndpoints().endpoints.users.getPermiss,
+      data
+    );
+  }
   setUser(data: any) {
     return this.ApiService.post(
       this.EnviromentService.getEndpoints().endpoints.users.create,
+      data
+    );
+  }
+
+  setRole(data:any){
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.users.createRole,
       data
     );
   }

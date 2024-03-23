@@ -26,7 +26,6 @@ export class ViewFormUserComponent implements OnChanges {
   }
 
   setValues() {
-    console.log(this.data.roles[0].name)
     this.form.get('id')?.setValue(this.data?.id);
     this.form.get('name')?.setValue(this.data?.name);
     this.form.get('email')?.setValue(this.data?.email);

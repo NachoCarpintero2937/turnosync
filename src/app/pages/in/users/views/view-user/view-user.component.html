@@ -1,11 +1,11 @@
 <div class="container">
-<div class="pd-5 d-flex mt-5 align-items-center">
-    <div class="line">
-        <hr>
+    <div class="pd-5 d-flex mt-5 align-items-center">
+        <div class="line">
+            <hr>
+        </div>
+        <span class="title d-flex align-items-center dybella-text">{{user ? 'Crear' : 'Editar'}} Usuario
+        </span>
     </div>
-    <span class="title d-flex align-items-center dybella-text">Crear Usuario
-    </span>
-</div>
 </div>
 <div class="pd-5">
     <app-view-form-user [roles]="roles" (submit)="goToApi($event)" [data]="user"></app-view-form-user>
