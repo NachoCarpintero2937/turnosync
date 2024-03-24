@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -6,13 +6,17 @@ import { ModalService } from 'src/app/services/modal.service';
   templateUrl: './clients-birthday.component.html',
   styleUrls: ['./clients-birthday.component.scss']
 })
-export class ClientsBirthdayComponent {
+export class ClientsBirthdayComponent  implements OnChanges{
   @Input() clients!: any;
   constructor(private ModalService: ModalService) { }
 
-
+  showBirthdayCard:any
   sendWsp(client: any) {
     this.ModalService.getModalWsp(client);
+  }
+
+  ngOnChanges(): void {
+    this.showBirthdayCard = this.clients.some((client:any) => this.calculateAge(client.date_birthday) > 0);
   }
 
   calculateAge(birthdate: Date): number {

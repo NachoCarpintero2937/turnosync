@@ -92,6 +92,7 @@ export class HomeComponent implements OnInit {
     this.date = event?.value;
     this.getFormattedDate();
     this.getShifts();
+    this.getClientsToBirthday();
     const date = new Date();
     const dateNow = new Date(date.setHours(0, 0, 0, 0))
     const datePage = new Date(this.date);

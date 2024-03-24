@@ -21,7 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
     private EnviromentService: EnviromentService,
     private SettingsSerivce: SettingsService
   ) {}
-
+  logoutExecuted : Boolean = false;
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -47,14 +47,17 @@ export class JwtInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         let settings  = JSON.parse(this.SettingsSerivce.getCompanyData()!);
-        this.LoginService.logout('/login' , settings?.data?.companies?.id).then((data: any) => {
         const errorMessage =  this.EnviromentService.getErrorCodeHttp()[error.status] || 'Error, intente nuevamente más tarde';
-        if (error.status === 401 || error.status === 403) {
+        if (error.status === 401 || error.status === 403 && !this.logoutExecuted) {
+          if( !this.logoutExecuted )
+          this.LoginService.logout('/login' , settings?.data?.companies?.id).then((data: any) => {
           this.ToastService.showToastNew( 'ERROR','Error: ' + errorMessage,'error');
+          this.logoutExecuted = true
+        });
         } else {
+          if( !this.logoutExecuted )
           this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
         }
-      });
         return throwError(() => error.error.message);
       })
     );
