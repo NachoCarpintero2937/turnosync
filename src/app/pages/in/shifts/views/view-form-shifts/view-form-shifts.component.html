@@ -60,12 +60,17 @@
 
                       </div>
                 </div>
-                <div class="col-12 pd-5" *ngIf="shiftsToClient.shifts.length > 0">
+                <div class="col-12 pd-5" *ngIf="shiftsToClient.shifts.length > 0 && shiftsToClient.shifts[0].id != shift?.id;else lastShift">
                     <span class="last-shift">
                         Último turno
                     </span>
                     <dy-shift [employe]="shiftsToClient" [edit]="false"></dy-shift>
                 </div>
+                <ng-template #lastShift>
+                    <span class="last-shift">
+                       <b>Este es el último turno de {{shift?.client?.name}}</b>
+                    </span>
+                </ng-template>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Usuario a asignar turno</mat-label>
                     <mat-select  formControlName="user_id" (selectionChange)="onSelect('user');">
