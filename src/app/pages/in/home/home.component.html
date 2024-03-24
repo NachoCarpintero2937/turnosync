@@ -6,7 +6,7 @@
     </button>
     <input #dateInput [matDatepicker]="picker" (dateChange)="setDate($event)" class="input-date-home">
     <mat-datepicker #picker></mat-datepicker>
-    <button class="btn-date" (click)="nextDay()"> <span class="material-icons">navigate_next</span></button>
+    <button class="btn-date" (click)="nextDay()" > <span class="material-icons">navigate_next</span></button>
     <button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span
             class="material-icons">close</span></button>
 

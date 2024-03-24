@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getShifts();
     this.getClientsToBirthday();
+    document.addEventListener('keydown', this.onKeyDown.bind(this));
   }
 
   getShifts() {
@@ -80,12 +81,15 @@ export class HomeComponent implements OnInit {
   }
 
   goDate() {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
     this.showResetDate = false;
     const date = new Date();
     this.date = new Date(date.setHours(0, 0, 0, 0));
     this.getShifts();
     this.getClientsToBirthday();
     this.picker.select(this.date)
+  }, 1000);
   }
 
   setDate(event: any) {
@@ -153,4 +157,15 @@ export class HomeComponent implements OnInit {
   goToViewShifts() {
     this.Router.navigate(['/in/shifts/view-shift'], { queryParams: { shifts: btoa(JSON.stringify(this.shiftIdSelected)) } })
   }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft') {
+      this.BeforeDay();
+      // Tu lógica aquí...
+    } else if (event.key === 'ArrowRight') {
+      this.nextDay();
+    }else if (event.key === 'Delete' || event.key === 'Backspace') {
+      this.goDate();
+  }
+}
 }
