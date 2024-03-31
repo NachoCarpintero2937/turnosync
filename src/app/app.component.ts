@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from './pages/public/login/services/login.service';
-import {  Router } from '@angular/router';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { SettingsService } from './pages/in/settings/services/settings.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -16,11 +16,11 @@ export class AppComponent implements OnInit {
   constructor(
     private LoginService: LoginService,
     private NgxPermissionsService: NgxPermissionsService,
-    private SettingsService : SettingsService
-  ) {
-
-  }
+    private SettingsService : SettingsService,
+    private Title: Title
+  ) {}
   userData: any;
+
   ngOnInit() {
     this.initComponent();
   }
@@ -37,7 +37,10 @@ initPermiss(){
     const permissToStorage = this.userData?.role?.permissions;
     const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
     this.NgxPermissionsService.loadPermissions(permissionNames);
-    this.SettingsService.fetchSettings({company_id : this.userData?.data?.company_id}).subscribe(data =>{ })
+    this.SettingsService.fetchSettings({company_id : this.userData?.data?.company_id}).subscribe(data =>{
+      this.Title.setTitle(data?.data?.companies?.name + " - TurnosSync"); 
+      });
+
   }
 }
 

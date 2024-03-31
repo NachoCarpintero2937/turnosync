@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UsersComponent {
   columns = [
-    'id',
     'name',
     'email',
     'rol',

@@ -16,7 +16,6 @@ export class ServicesComponent {
   }
 
   columns = [
-    'id',
     'name',
     'price',
     'user',

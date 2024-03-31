@@ -55,8 +55,7 @@ export class JwtInterceptor implements HttpInterceptor {
           this.logoutExecuted = true
         });
         } else {
-          if( !this.logoutExecuted )
-          this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
+            this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
         }
         return throwError(() => error.error.message);
       })

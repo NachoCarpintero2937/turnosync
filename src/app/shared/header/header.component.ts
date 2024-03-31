@@ -7,6 +7,7 @@ import { ViewNotificationsComponent } from './views/view-notifications/view-noti
 import { ThemeService } from 'src/app/services/theme.service';
 import { SettingsService } from 'src/app/pages/in/settings/services/settings.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { HeaderService } from './services/header.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private SettingsService: SettingsService,
-    public NgxPermissionsService: NgxPermissionsService
+    public NgxPermissionsService: NgxPermissionsService,
+    private HeaderService : HeaderService
     ) {
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
@@ -45,7 +47,11 @@ export class HeaderComponent implements OnInit {
         let style = this.ThemeService.setClassPropeties(cfg);
        this.initTheme(style);
       }
-    })
+    });
+
+    this.HeaderService.status.subscribe(() => {
+      this.getNotifications(true); 
+    });
   }
   isMobileMenuOpen = false;
 
@@ -106,10 +112,13 @@ export class HeaderComponent implements OnInit {
       
     })
   }
-  getNotifications(){
+  getNotifications(openNotif?:boolean){
     if(this.userData){
       this.LoginService.getNotificactions().then((notifications :any)=>{
       this.notifications = notifications?.data;
+      if(openNotif){
+        this.openBottomSheet();
+      }
       }).catch((e)=>{
   
       })

@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class EnviromentService {
   constructor() { }
    secretKey = '!*TurnosSync*!';
-  // API_URL = 'http://localhost/dybella-api/public/api';
-  API_URL = 'https://dybella.com.ar/tenancy/dybella-api/public/api';
+  // API_URL = 'https://www.turnosync.com.ar/api/public/api';
+  API_URL = 'http://localhost/dybella-api/public/api';
 
   getEndpoints() {
     return {
@@ -39,6 +39,7 @@ export class EnviromentService {
           users: this.API_URL + '/users',
           getRoles : this.API_URL + '/users/getRoles',
           create:this.API_URL + '/users/create',
+          update:this.API_URL + '/users/update',
           status : this.API_URL + '/users/suspend',
           getPermiss : this.API_URL + '/users/getPermiss',
           createRole : this.API_URL + '/users/createRole'

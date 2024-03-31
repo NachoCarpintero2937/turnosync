@@ -30,6 +30,7 @@ export class ViewFormUserComponent implements OnChanges {
     this.form.get('name')?.setValue(this.data?.name);
     this.form.get('email')?.setValue(this.data?.email);
     this.form.get('role')?.setValue(this.data?.roles[0].name);
+    this.form.get('password')?.clearValidators();
    }
 
   submitForm() {

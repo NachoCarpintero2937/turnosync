@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ShiftsComponent implements OnInit{
   columns = [
-    'id',
     'client',
     'date_shift',
     'description',
