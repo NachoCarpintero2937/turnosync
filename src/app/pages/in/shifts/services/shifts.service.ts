@@ -80,4 +80,13 @@ export class ShiftsService {
     return formattedIntegerPart + formattedDecimalPart;
   }
 
+
+  sendWspApi(data: any) {
+    const dataWsp = {
+      phone: data?.data?.cod_area+data?.data?.phone,
+      message : data?.message
+    }
+    return this.ApiService.post(this.EnviromentService.getEndpoints().endpoints.shifts.sendWsp, dataWsp);
+  }
+
 }

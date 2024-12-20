@@ -113,6 +113,17 @@ const routes: Routes = [
         }
       }
   },
+  {
+    path: 'campaigns',
+    loadChildren: () =>
+      import('../../pages/in/campaings/campaings.module').then((m) => m.CampaingsModule),
+      canActivate: [PermissOnly],
+      data: {
+        permissions: {
+          only: ['VIEW_CAMPAIGNS']
+        }
+      }
+  },
 ];
 
 @NgModule({

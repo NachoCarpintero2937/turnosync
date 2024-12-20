@@ -47,4 +47,21 @@ export class ClientsService {
       company_id: data?.company_id
     }
   }
+
+
+  getPhonesByClients(clients: any[]) {
+    const phones = clients
+      .map((client) => client?.phone)
+      .filter(
+        (phone, index, self) =>
+          phone !== null &&
+          phone !== '0' &&
+          self.indexOf(phone) === index
+      );
+
+    const total = phones.length;
+
+    return { total, phones };
+  }
+
 }

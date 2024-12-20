@@ -45,6 +45,10 @@
                         <a mat-button class="toolbar-btn" [routerLink]="['/in/reports'] "
                             matTooltip="Reportes">Reportes</a>
                     </div>
+                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_CAMPAIGNS']" >
+                        <a mat-button class="toolbar-btn" [routerLink]="['/in/campaigns'] "
+                            matTooltip="Reportes">Campañas</a>
+                    </div>
                 </div>
             </div>
       
@@ -52,6 +56,29 @@
             <div class="hour">
                 {{ hour }}
             </div>
+            <div class="d-flex align-items-center justify-content-center mr-2" *ngIf="tasksData?.length">
+                <div class="d-flex align-items-center " [matMenuTriggerFor]="menu">
+                  <mat-spinner class="loading-spinner" diameter="20"></mat-spinner>
+                  <span class="description-work cursor-pointer" *ngIf="tasksData[0]?.status === 'processing'">
+                    {{tasksData?.length}} Tarea(s) corriendo
+                    <mat-icon>more_vert</mat-icon>
+                  </span>
+                  <span class="description-work cursor-pointer" *ngIf="tasksData[0]?.status === 'pending' || tasksData[0]?.process">
+                    {{tasksData?.length}} Tarea(s) en espera
+                  </span>
+                </div>
+                <mat-menu #menu="matMenu">
+                  <div mat-menu-item *ngFor="let task of tasksData">
+                    <span *ngIf="task?.status === 'processing'; else notProcess">
+                      <img src="./assets/img/loading.gif" width="15" class="m-2" alt="">
+                      Enviando campaña de {{task?.type == 'email' ? 'emails' : 'Wsp'}} ({{task?.percentage_completed}}%)
+                    </span>
+                    <ng-template #notProcess>
+                      Campaña de {{task?.type == 'email' ? 'emails' : 'wsp'}} en espera
+                    </ng-template>
+                  </div>
+                </mat-menu>
+              </div>
             <div>
          <span [matBadge]="notifications.length"  matTooltip="Notificaciones" (click)="openBottomSheet()"   matBadgeColor="warn" class="material-icons notifications">notifications</span>
             </div>
@@ -116,5 +143,9 @@
     <div class="div-btns" *ngxPermissionsOnly="['VIEW_REPORTS']">
         <a mat-button class="toolbar-btn" [routerLink]="['/in/reports'] "
             matTooltip="Reportes">Reportes</a>
+    </div>
+    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_CAMPAIGNS']" >
+        <a mat-button class="toolbar-btn" [routerLink]="['/in/campaigns'] "
+            matTooltip="Reportes">Campañas</a>
     </div>
 </mat-toolbar>

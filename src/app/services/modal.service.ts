@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DialogWspComponent } from '../shared/dialog-wsp/dialog-wsp.component';
-import { EnviromentService } from './enviroment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { IntModalWsp } from '../interfaces/int-modal-wsp';
+import { ShiftsService } from '../pages/in/shifts/services/shifts.service';
+import { DialogWspComponent } from '../shared/dialog-wsp/dialog-wsp.component';
+import { ToastService } from './toast.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,8 +11,9 @@ import { IntModalWsp } from '../interfaces/int-modal-wsp';
 export class ModalService {
 
   constructor(
-    private EnviromentService : EnviromentService,
-    private dialog: MatDialog
+    private ShiftService : ShiftsService,
+    private dialog: MatDialog,
+    private ToastService: ToastService
     ) { }
   
   getModalWsp(data:any){
@@ -27,8 +29,16 @@ export class ModalService {
     });
     dialogRef.afterClosed().subscribe((data: any) => {
       if(data)
-        this.EnviromentService.goToWsp(data);
+        this.sendWsp(data);
      
     });
+  }
+
+  sendWsp(data:any){
+    this.ShiftService.sendWspApi(data).then((data : any) => {
+      this.ToastService.showToastNew('',  data?.message, 'success');
+    }).catch(error => {
+      this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
+    })
   }
 }

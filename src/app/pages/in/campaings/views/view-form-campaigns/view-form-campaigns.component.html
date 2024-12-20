@@ -1,0 +1,45 @@
+<div class=" mt-5 mb-5">
+    <mat-card>
+        <form [formGroup]="form">
+        <mat-card-content>
+                <mat-form-field class="col-12 pd-5" *ngIf="type !== 'wsp'">
+                    <mat-label>Subject del email</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
+                <mat-form-field class="col-12 pd-5">
+                    <mat-label>Mensaje</mat-label>
+                    <textarea rows="6" cols="60"  matInput formControlName="message"></textarea>
+                </mat-form-field>
+
+                <div class="d-flex flex-column  mt-3 ml-3">
+                    <mat-label><b>Imagen de la campaña</b></mat-label>
+                    <div class="d-flex justify-content-center mt-3">
+                        <img *ngIf="imageSrc"  [src]="imageSrc" width="200" />
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <button type="button" class="btn-custom" mat-raised-button (click)="fileInput.click()">Seleccionar
+                            imagen</button>
+                        <input hidden (change)="handleInputChange($event)" #fileInput type="file">
+                        <span class="file-name">{{selectedFile?.name}}</span>
+                    </div>
+                </div>
+    
+        </mat-card-content>
+        <div *ngIf="phones?.length || emails?.length" class="mt-5">
+            <span class="m-3" *ngIf="phones?.length">
+            Se van a enviar aproximadamente <b>{{phones?.length}}</b> whatsapp
+            </span>
+            <span class="m-3" *ngIf="emails?.length">
+            Se van a enviar aproximadamente <b>{{emails?.length}}</b> Emails
+            </span>
+        </div>
+        <div class="m-3"  *ngIf="type !== 'wsp'">
+            <mat-slide-toggle formControlName="showButton" >Activar boton comprar</mat-slide-toggle>
+        </div>
+    </form>
+        <mat-card-footer class="mt-3">
+            <button mat-button color="primary" [disabled]="submitFormFlag"  (click)="submitForm();"
+                class="btn-custom col-md-12">Enviar</button>
+        </mat-card-footer>
+    </mat-card>
+</div>

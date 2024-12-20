@@ -30,9 +30,6 @@ export class JwtInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          
-            
-    
           // cacheo de estado
           if (
             event &&

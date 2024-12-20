@@ -69,7 +69,7 @@ export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChang
 
   sendWsp(data: any) {
     const newData = { "data": data };
-    this.EnviromentService.goToWsp(newData)
+    // this.EnviromentService.goToWsp(newData)
   }
 
   destroy(element: any) {

@@ -7,6 +7,8 @@ import { ViewNotificationsComponent } from './views/view-notifications/view-noti
 import { ThemeService } from 'src/app/services/theme.service';
 import { SettingsService } from 'src/app/pages/in/settings/services/settings.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { TaskService } from 'src/app/services/task.service';
+import { IntTasks } from 'src/app/interfaces/IntTasks.interface';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +25,8 @@ export class HeaderComponent implements OnInit {
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private SettingsService: SettingsService,
-    public NgxPermissionsService: NgxPermissionsService
+    public NgxPermissionsService: NgxPermissionsService,
+    private TaksService: TaskService
     ) {
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
@@ -48,7 +51,7 @@ export class HeaderComponent implements OnInit {
     })
   }
   isMobileMenuOpen = false;
-
+  tasksData!: IntTasks[];
   imgLogo : any;
   companyData:any;
   userData:any;
@@ -60,6 +63,10 @@ export class HeaderComponent implements OnInit {
   
   ngOnInit(): void {
     this.userData = this.LoginService.getDataUser();
+    this.initTasks();
+
+    this.initHeader();
+    
   }
 
   initHeader(){
@@ -78,10 +85,29 @@ export class HeaderComponent implements OnInit {
     this.SettingsService.name.subscribe((name:string)=>{
       this.companyData.name = name;
     })
+
+
   }
   onCheckPageUrl() {
     const page = this.EnviromentService.getExcludePagesHeader().some(excludedPage => this.url.startsWith(excludedPage));
     this.excludePage = page;
+  }
+
+  initTasks(): void {
+    setInterval(() => {
+      this.getTaks();
+    }, 5000);
+
+    this.TaksService.taskCheck.subscribe((data) => {
+      this.tasksData.push(data);
+    });
+  }
+
+  
+  getTaks(): void {
+    this.TaksService.getTasks({ status: ['processing', 'pending'] }).then((data: any) => {
+      this.tasksData = data?.data;
+    });
   }
 
 

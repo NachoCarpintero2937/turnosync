@@ -109,3 +109,19 @@
 .mobile-menu {
     display: none;
 }
+
+
+.mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
+
+
+.description-work{
+    color:white;
+    margin-left: 10px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.color-white{
+    color:white;
+}

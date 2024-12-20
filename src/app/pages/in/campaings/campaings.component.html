@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="pd-5 d-flex mt-5 align-items-center">
+        <div class="line">
+            <hr>
+        </div>
+        <span class="title d-flex align-items-center dybella-text">Campaña de publicidad
+        </span>
+    </div>
+    <mat-tab-group>
+        <mat-tab label="WhatSapp">   
+             <app-view-form-campaigns [type]="'wsp'" [phones]="phones?.phones" [submitFormFlag]="submitForm" (submit)="submit($event)"></app-view-form-campaigns>
+            </mat-tab>
+      </mat-tab-group>
+
+</div>

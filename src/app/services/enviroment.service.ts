@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ShiftsService } from '../pages/in/shifts/services/shifts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ export class EnviromentService {
   constructor() { }
    secretKey = '!*TurnosSync*!';
   // API_URL = 'http://localhost/dybella-api/public/api';
-  API_URL = 'https://dybella.com.ar/tenancy/dybella-api/public/api';
+  API_URL = 'https://turnosync.com.ar/api/public/api';
 
   getEndpoints() {
     return {
@@ -23,6 +24,7 @@ export class EnviromentService {
           updateStatus: this.API_URL + '/shifts/updateStatus',
           notifications: this.API_URL + '/shifts/notifications',
           createToShift: this.API_URL + '/shifts/createToShift',
+          sendWsp : this.API_URL + '/shifts/send-wsp'
         },
         clients: {
           clients: this.API_URL + '/clients',
@@ -54,7 +56,11 @@ export class EnviromentService {
         settings: {
           settings: this.API_URL + '/companies',
           update : this.API_URL + '/companies/update'
-        }
+        },
+        campaign: {
+          send: this.API_URL + '/campaign/send',
+          list: this.API_URL + '/campaign/list',
+        },
       },
     };
   }
@@ -75,13 +81,7 @@ export class EnviromentService {
     return ['/login', '/clients', '/home', '/thanks'];
   }
 
-  goToWsp(data: any) {
-    const url = 'https://api.whatsapp.com/send'
-    const phone = `?phone=54${data?.data?.cod_area}${data?.data?.phone}`;
-    const message = data?.message ? `&text=${data?.message}` : '';
-    window.open(
-      url + phone + message
-    );
 
-  }
+  
 }
+
