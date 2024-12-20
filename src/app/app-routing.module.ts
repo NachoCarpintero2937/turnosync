@@ -38,6 +38,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/public/thanks/thanks.module').then((m) => m.ThanksModule),
   },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./pages/public/register/register.module').then((m) => m.RegisterModule),
+  },
   // all routes logged
   {
     path: 'in',

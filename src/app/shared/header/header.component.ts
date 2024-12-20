@@ -9,6 +9,7 @@ import { SettingsService } from 'src/app/pages/in/settings/services/settings.ser
 import { NgxPermissionsService } from 'ngx-permissions';
 import { TaskService } from 'src/app/services/task.service';
 import { IntTasks } from 'src/app/interfaces/IntTasks.interface';
+import { HeaderService } from './services/header.service';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit {
     private elementRef: ElementRef,
     private SettingsService: SettingsService,
     public NgxPermissionsService: NgxPermissionsService,
-    private TaksService: TaskService
+    private TaksService: TaskService,
+    private HeaderService: HeaderService
     ) {
     this.LoginService.dataUserSubject.subscribe(data =>{
       this.userData = data;
@@ -48,7 +50,11 @@ export class HeaderComponent implements OnInit {
         let style = this.ThemeService.setClassPropeties(cfg);
        this.initTheme(style);
       }
-    })
+    });
+
+    this.HeaderService.status.subscribe(() => {
+      this.getNotifications(true); 
+    });
   }
   isMobileMenuOpen = false;
   tasksData!: IntTasks[];
@@ -132,10 +138,13 @@ export class HeaderComponent implements OnInit {
       
     })
   }
-  getNotifications(){
+  getNotifications(openNotif?:boolean){
     if(this.userData){
       this.LoginService.getNotificactions().then((notifications :any)=>{
       this.notifications = notifications?.data;
+      if(openNotif){
+        this.openBottomSheet();
+      }
       }).catch((e)=>{
   
       })

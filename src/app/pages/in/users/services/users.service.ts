@@ -32,8 +32,9 @@ export class UsersService {
   }
   setUser(data: any) {
     return this.ApiService.post(
-      this.EnviromentService.getEndpoints().endpoints.users.create,
-      data
+      data?.id ? this.EnviromentService.getEndpoints().endpoints.users.update :
+        this.EnviromentService.getEndpoints().endpoints.users.create,
+        data
     );
   }
 

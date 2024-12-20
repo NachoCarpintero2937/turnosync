@@ -1,0 +1,52 @@
+<div class="container login-container">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <mat-card class="col-md-6">
+            <form [formGroup]="form">
+                <mat-card-content>
+                    <div class="d-flex">
+                        <div class="login">
+                            <div class="d-flex justify-content-center">
+                                <span class="no-logo-login">
+                                    TurnoSync
+                                </span>
+                                <div class="loading-login">
+                                    <mat-spinner  class="loading-spinner" *ngIf="loading" diameter="20"></mat-spinner>
+                                </div>
+                            </div>
+                            <div class="inputs">
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Nombre y apellido</mat-label>
+                                    <input matInput formControlName="name">
+                                </mat-form-field>
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Nombre de la empresa</mat-label>
+                                    <input matInput formControlName="company_name">
+                                </mat-form-field>
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Dirección</mat-label>
+                                    <input matInput formControlName="address">
+                                </mat-form-field>
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email">
+                                </mat-form-field>
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input matInput formControlName="password" type="password">
+                                </mat-form-field>
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Confirmar contraseña</mat-label>
+                                    <input matInput formControlName="confirmPassword"  type="password">
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </form>
+            <div class="d-flex justify-content-center col-12">
+                <button mat-button  class=" btn-log col-12" (click)="submit()" [disabled]="!form.valid || loading">Registarse</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

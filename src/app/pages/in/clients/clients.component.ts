@@ -16,7 +16,6 @@ constructor(
   ){}
 
 columns = [
-  'id',
   'name',
   'email',
   'phone',
