@@ -19,10 +19,16 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <form [formGroup]="form">
-                <mat-form-field class="col-12 pd-5">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="name" (input)="filter()">
-                </mat-form-field>
+                <div class="d-flex ">
+                    <mat-form-field class="col-6 pd-5 m-2" >
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="name" (input)="filter()">
+                    </mat-form-field>
+                    <mat-form-field class="col-6 pd-5 m-2">
+                        <mat-label>Numero</mat-label>
+                        <input matInput formControlName="phone" (input)="filter()">
+                    </mat-form-field>
+                </div>
             </form>
 
         </mat-expansion-panel>

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ShiftsService } from '../pages/in/shifts/services/shifts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,13 +6,8 @@ import { ShiftsService } from '../pages/in/shifts/services/shifts.service';
 export class EnviromentService {
   constructor() { }
    secretKey = '!*TurnosSync*!';
-<<<<<<< HEAD
   // API_URL = 'http://localhost/dybella-api/public/api';
   API_URL = 'https://turnosync.com.ar/api/public/api';
-=======
-  // API_URL = 'https://www.turnosync.com.ar/api/public/api';
-  API_URL = 'http://localhost/dybella-api/public/api';
->>>>>>> a31c98b000b0ef292fd9ec7265b0d926d410ccee
 
   getEndpoints() {
     return {

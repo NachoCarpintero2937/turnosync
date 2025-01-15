@@ -113,6 +113,8 @@ export class HeaderComponent implements OnInit {
   getTaks(): void {
     this.TaksService.getTasks({ status: ['processing', 'pending'] }).then((data: any) => {
       this.tasksData = data?.data;
+      console.log(this.tasksData)
+      
     });
   }
 

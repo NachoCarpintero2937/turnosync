@@ -32,7 +32,8 @@ export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChang
   }
 
   form = this.fb.group({
-    name: ['']
+    name: [''],
+    phone: ['']
   })
 
   ngAfterViewInit(): void {
@@ -55,13 +56,26 @@ export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChang
   }
 
   filter() {
-    const name = this.form.get('name')?.value!;
-    if (!name) {
+    const name = this.form.get('name')?.value || ''; // Valor del campo 'name'
+    const phone = this.form.get('phone')?.value || ''; // Valor del campo 'phone'
+  
+    if (!name && !phone) {
+      // Si ambos filtros están vacíos, restaurar la lista original
       this.list.data = this.originalObject;
+      return;
     }
-    const regex = new RegExp(name, 'i');
-    this.list.data = this.list.data.filter((filter: any) => regex.test(filter.name))
+  
+    const nameRegex = new RegExp(name, 'i'); // Expresión regular para el nombre
+    const phoneRegex = new RegExp(phone, 'i'); // Expresión regular para la combinación de cod_area y phone
+  
+    this.list.data = this.originalObject.filter((item: any) => {
+      const matchesName = name ? nameRegex.test(item.name) : true; // Coincidencia por nombre
+      const fullPhone = `${item.cod_area}${item.phone}`; // Concatenar cod_area y phone
+      const matchesPhone = phone ? phoneRegex.test(fullPhone) : true; // Coincidencia por cod_area + phone
+      return matchesName && matchesPhone; // Debe coincidir con ambos criterios
+    });
   }
+  
 
   reset() {
     this.list.data = this.originalObject;
