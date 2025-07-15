@@ -1,0 +1,93 @@
+<mat-card class="mt-5">
+    <mat-card-content>
+        <mat-expansion-panel #filtrosPanel class="mat-elevation-z0"  [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title style="align-items: center;">
+                    <div class="title-general">
+                        <div>
+                            <mat-icon color="primary">
+                                filter_alt
+                            </mat-icon> Filtros
+
+                        </div>
+                        <div>
+                            <button mat-button class="btn_reset" color="primary"
+                                (click)="$event.stopPropagation();reset();">Resetear
+                                filtros</button>
+                        </div>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header> 
+            <form  [formGroup]="form">
+                <mat-form-field class="col-12 pd-5">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" (input)="filter()">
+                </mat-form-field>
+            </form>
+        </mat-expansion-panel>
+        <mat-table matSort [dataSource]="list" class="mt-5">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header># ID
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.id}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="client">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Cliente
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.client?.name">
+                    {{element?.client?.name}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.description">
+                    {{element?.description}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="service">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Servicio
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.service?.name">
+                    {{element?.service?.name}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="date_shift">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de turno
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="tooltipDate(element?.date_shift)">
+                    <b>{{element?.date_shift | date: 'dd/MM/yyyy HH:mm'}}</b>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="created_at">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de creación
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="tooltipDate(element?.created_at)">
+                    {{element?.created_at | date: 'dd/MM/yyyy'}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Turno creado por
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.user?.name">
+                    {{element?.user?.name}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+               <button mat-button color="primary" [routerLink]="['view-shift']" [queryParams]="{id: element?.id}"><span class="material-icons" >visibility</span></button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="columns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;let i= index" [ngClass]="{'show' : row?.status == 1  ? true : false , 'pending': row?.status == 0 ? true : false , 'no-show' : row?.status == 2 }">
+            </mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,35 @@
+.img-logo{
+    width: 5%;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .img-logo{
+        width: 30%;
+    }
+}
+
+.text-description{
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span{
+        font-size: 20px;
+    }
+}
+
+.description{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top:60px;
+    .title{
+        font-size: 35px;
+    }
+    .title-description{
+        font-size: 20px;
+        margin-top:15px;
+    }
+}

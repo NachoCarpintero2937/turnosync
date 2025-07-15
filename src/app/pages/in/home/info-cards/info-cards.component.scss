@@ -1,0 +1,76 @@
+@import '../../../../../styles.scss';
+
+.info-cards {
+    justify-content: space-between;
+}
+
+// .div-cards-info-father {
+//     width: 33% !important;
+// }
+
+.card-info {
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $dyblleaColor;
+
+    .card-description {}
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 15px;
+
+        >span {
+            color: white;
+            font-size: 70px;
+        }
+    }
+
+    .number {
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 20px;
+        }
+    }
+
+    .description {
+        display: flex;
+        align-items: center;
+
+        >span {
+            font-size: 15px;
+            color: white;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .info-cards {
+        flex-direction: column !important;
+    }
+
+    .div-cards-info-father {
+        width: 100%;
+
+        .children-cards {
+            width: 80%;
+        }
+    }
+
+    .card-info {
+        margin: 10px;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 960px) and (min-height: 768px) {
+    .div-cards-info-father {
+        width: 20%;
+    }
+}

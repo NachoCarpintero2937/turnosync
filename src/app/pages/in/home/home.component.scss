@@ -1,0 +1,54 @@
+@import '../../../../styles.scss';
+
+
+.div-employees {
+    width: 100% !important;
+}
+
+.float-buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        margin-bottom: 10px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.date-text {
+    font-size: 25px;
+    // color: $dyblleaColor;
+    text-transform: capitalize;
+    width: 400px;
+    text-align: center;
+}
+
+.btn-date {
+    color: grey;
+}
+
+.remove-date {
+    color: red;
+}
+
+.input-date-home {
+    background: transparent;
+    border: none;
+    width: 0px;
+}
+
+.home-loading {
+    position: absolute;
+    right: 0;
+    margin-right: 70px;
+    top: 0;
+    margin-top: 100px;
+}
+
+@media only screen and (max-width: 767px) {
+    .date-text {
+        font-size: 15px;
+        font-weight: 600;
+    }
+}

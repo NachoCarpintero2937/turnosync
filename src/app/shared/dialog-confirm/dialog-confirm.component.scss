@@ -1,0 +1,10 @@
+@import '../../../styles.scss';
+.title-dialog{
+    padding:20px;
+    background: map-get($md-mcgpalette0, 500 );
+    color:white;
+}
+
+.description{
+    font-size: 15px;
+}

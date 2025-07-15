@@ -1,0 +1,37 @@
+<div class="container login-container">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <mat-card class="col-md-6">
+            <form [formGroup]="form">
+                <mat-card-content>
+                    <div class="d-flex">
+                        <div class="login">
+                            <div class="d-flex justify-content-center">
+                                <img src="./assets/img/logo_rosa.png" alt="Logo via bariloche" class="logo">
+                                <div class="loading-login" *ngIf="submitForm">
+                                    <mat-spinner  class="loading-spinner" diameter="20"></mat-spinner>
+                                </div>
+                            </div>
+                            <div class="inputs">
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email">
+                                </mat-form-field>
+                                <mat-form-field class="col-12 pd-5">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input matInput [type]="viewPass ? 'text' : 'password'"  formControlName="password">
+                                    <button  mat-icon-button matSuffix
+                                    (click)="viewPass= !viewPass;">
+                                    <span class="material-icons">{{viewPass ? 'visibility' : 'visibility_off'}}</span>
+                                  </button>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </form>
+            <div class="d-flex justify-content-center col-12 ">
+                <button mat-button color="primary" (click)="submit()" [disabled]="!form.valid || submitForm" class="btn-custom col-12">Ingresar</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

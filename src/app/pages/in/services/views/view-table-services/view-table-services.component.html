@@ -1,0 +1,81 @@
+<mat-card class="mt-5">
+    <mat-card-content>
+        <mat-expansion-panel #filtrosPanel class="mat-elevation-z0">
+            <mat-expansion-panel-header>
+                <mat-panel-title style="align-items: center;">
+                    <div class="title-general">
+                        <div>
+                            <mat-icon color="primary">
+                                filter_alt
+                            </mat-icon> Filtros
+
+                        </div>
+                        <div>
+                            <!-- <button mat-button class="btn_reset" color="primary"
+                                (click)="$event.stopPropagation();reset();">Resetear
+                                filtros</button> -->
+                        </div>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header> 
+        </mat-expansion-panel>
+        <mat-table matSort [dataSource]="list" class="mt-5">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header># ID
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.id}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.name">
+                    {{element?.name}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Precio
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.price">
+                    {{element?.price?.price | currency:'$':'symbol':'1.2-2'}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Creado por
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.id">
+                    {{element?.user?.name}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="created_at">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de alta
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.created_at">
+                    {{element?.created_at | date : 'dd/MM/yyy HH:mm'}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="updated_at">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Última modificación
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element?.updated_at">
+                    {{element?.updated_at | date : 'dd/MM/yyy HH:mm'}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                    <button mat-button [routerLink]="['view-service']" [queryParams]="{id: element?.id}" color="primary"><span class="material-icons" >visibility</span></button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="columns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;let i= index">
+            </mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>
+
