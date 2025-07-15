@@ -36,7 +36,7 @@
                   </mat-form-field>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Precio</mat-label>
-                    <input matInput   formControlName="price">
+                    <input matInput   formControlName="price" (change)="formatInput($event)">
                 </mat-form-field>
                 <div class="col-12 add-client">
                     <mat-form-field class="input-client mt-3">
@@ -59,6 +59,12 @@
                         <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons text-white  size-add">add</span></button>
 
                       </div>
+                </div>
+                <div class="col-12 pd-5" *ngIf="shiftsToClient.shifts.length > 0">
+                    <span class="last-shift">
+                        Último turno
+                    </span>
+                    <dy-shift [employe]="shiftsToClient" [edit]="false"></dy-shift>
                 </div>
                   <mat-form-field class="col-12 mt-3">
                     <mat-label>Usuario a asignar turno</mat-label>

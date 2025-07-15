@@ -7,7 +7,7 @@
                 </div>
                 <div class="photo_perfil">
                     <div class="d-flex nombres">
-                        <div>
+                        <div class="border-inicials">
                             <app-iniciales color="primary" color="#a58171" fuente="white" size="70px"
                                 [text]="client?.name" width="150px" height="150px" borde="5px solid #e1b6b6">
                             </app-iniciales>
@@ -62,6 +62,11 @@
                     </div>
                     <hr class="vertical_hr">
                     <div class="history">
+                        <div class="title-activity"> 
+                            <span>
+                                Actividad
+                            </span>
+                        </div>
                         <mat-list>
                             <cdk-virtual-scroll-viewport itemSize="5" class="example-viewport">
                                 <div *cdkVirtualFor="let shift of shifts" class="example-item">
@@ -77,6 +82,7 @@
                                                 </div>
                                                 <div class="nombre_muro">
                                                     <b>{{shift?.date_shift | date: 'dd/MM/yyyy HH:mm'}}&nbsp;</b>
+                                                    <span>{{shift?.service?.name}}</span>
                                                     <span>{{shift?.client?.name}} | {{shift?.description ? shift?.description : 'Sin observaciones'}}</span>
                                                 </div>
                                             </div>

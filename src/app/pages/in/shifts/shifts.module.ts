@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule ,DatePipe} from '@angular/common';
+import { CommonModule ,CurrencyPipe,DatePipe} from '@angular/common';
 
 import { ShiftsRoutingModule } from './shifts-routing.module';
 import { ShiftsComponent } from './shifts.component';
@@ -11,13 +11,18 @@ import { ViewFormShiftsComponent } from './views/view-form-shifts/view-form-shif
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ShiftModule } from '../home/shift/shift.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ArgentinePesoPipe } from 'src/app/pipes/argentinepeso.pipe';
+import { ViewSelectedShiftsComponent } from './views/view-selected-shifts/view-selected-shifts.component';
 
 @NgModule({
   declarations: [
     ShiftsComponent,
     ViewTableShiftsComponent,
     ViewShiftComponent,
-    ViewFormShiftsComponent
+    ViewFormShiftsComponent,
+    ViewSelectedShiftsComponent
   ],
   imports: [
     CommonModule,
@@ -25,8 +30,10 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     ClientsModule,
     MaterialModule,
     ReactiveFormsModule,
-    NgxMaterialTimepickerModule.setOpts('ar-ES', 'AR')
+    NgxMaterialTimepickerModule.setOpts('ar-ES', 'AR'),
+    ShiftModule,
+    PipesModule,
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },DatePipe]
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' },DatePipe,CurrencyPipe,ArgentinePesoPipe], 
 })
 export class ShiftsModule { }

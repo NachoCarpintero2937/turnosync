@@ -1,9 +1,12 @@
 @import '../../../../../styles.scss';
 
 .employees {
-    margin: 95px 20px 20px 20px;
+    margin: 20px 5px 20px 0px;
     border-radius: 1px;
     box-shadow: none !important;
+    display: flex;
+    width: 48%;
+
 
     mat-card-header {
         background-color: map-get($md-mcgpalette0, 500);
@@ -19,10 +22,18 @@
     }
 }
 
+.div-employees {
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
 
 @media only screen and (max-width: 767px) {
     .div-employees {
         flex-direction: column !important;
+    }
+
+    .employees {
+        width: 100%;
     }
 }

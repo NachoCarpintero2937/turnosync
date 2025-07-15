@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class EnviromentService {
-  constructor() {}
-  // API_URL = 'http://localhost/dybella-api/public/api';
-  API_URL = 'https://dybella.com.ar/api/public/api';
+  constructor() { }
+  API_URL = 'http://localhost/dybella-api/public/api';
+  // API_URL = 'https://dybella.com.ar/api/public/api';
 
   getEndpoints() {
     return {
@@ -20,29 +20,30 @@ export class EnviromentService {
           create: this.API_URL + '/shifts/create',
           update: this.API_URL + '/shifts/update',
           updateStatus: this.API_URL + '/shifts/updateStatus',
-          notifications: this.API_URL + '/shifts/notifications'
+          notifications: this.API_URL + '/shifts/notifications',
+          createToShift: this.API_URL + '/shifts/createToShift',
         },
-        clients : {
-          clients : this.API_URL + '/clients',
-          create :this.API_URL + '/clients/create',
+        clients: {
+          clients: this.API_URL + '/clients',
+          create: this.API_URL + '/clients/create',
           update: this.API_URL + '/clients/update',
           delete: this.API_URL + '/clients/delete'
         },
-        services : {
-          services : this.API_URL + '/services',
-          create : this.API_URL + '/services/create',
-          update : this.API_URL + '/services/update'
+        services: {
+          services: this.API_URL + '/services',
+          create: this.API_URL + '/services/create',
+          update: this.API_URL + '/services/update'
         },
         users: {
           users: this.API_URL + '/users'
         },
-        urls : {
+        urls: {
           urls: this.API_URL + '/urls',
-          create : this.API_URL + '/urls/create',
-          update : this.API_URL + '/urls/update'
+          create: this.API_URL + '/urls/create',
+          update: this.API_URL + '/urls/update'
         },
-        chart : {
-          reports : this.API_URL + '/shifts/reports'
+        chart: {
+          reports: this.API_URL + '/shifts/reports'
         }
       },
     };
@@ -58,21 +59,21 @@ export class EnviromentService {
     return HttpErrorCodes;
   }
 
-  getMonthly(){
-    return ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre' , 'Noviembre', 'Diciembre'];
+  getMonthly() {
+    return ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   }
 
-  getExcludePagesHeader(){
-    return ['/login','/clients','/home','/thanks'];
+  getExcludePagesHeader() {
+    return ['/login', '/clients', '/home', '/thanks'];
   }
 
-  goToWsp(data:any){
+  goToWsp(data: any) {
     const url = 'https://api.whatsapp.com/send'
     const phone = `?phone=54${data?.data?.cod_area}${data?.data?.phone}`;
-    const message =  data?.message ? `&text=${data?.message}` : '';
+    const message = data?.message ? `&text=${data?.message}` : '';
     window.open(
       url + phone + message
     );
-  
+
   }
 }
