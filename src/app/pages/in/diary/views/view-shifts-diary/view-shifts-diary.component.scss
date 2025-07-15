@@ -1,91 +1,210 @@
 @import '../../../../../../styles.scss';
 
-.list-shifts {
-  margin: 10px;
+.shifts-card {
+  height: 100%;
+  border-radius: 8px;
+  background-color: white;
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    @extend .mat-elevation-z3;
+  }
+}
+
+.shifts-header {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, $dyblleaColor, darken($dyblleaColor, 10%));
+  color: white;
+  padding: 24px;
+  border-radius: 8px 8px 0 0;
+
+  .header-title {
+    margin: 0 0 16px;
+    font-size: 24px;
+    font-weight: 400;
+  }
+}
+
+.status-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   justify-content: center;
-  // height: 100%;
 
-  mat-card {
-    max-width: 100%;
-    width: 100%;
-
-    mat-card-header {
-      display: flex;
-      flex-direction: column;
-      background-color: map-get($md-mcgpalette0, 500);
-      padding:16px 16px 16px;
-      
-      .text-header {
-        display: flex;
-        justify-content: center;
-        font-size: 20px;
-        margin: 10px;
-        font-weight: 60;
-      }
-
-      .introduction {
-        justify-content: center;
-
-        .box {
-          width: 20px;
-          height: 20px;
-          padding: 5px;
-          border: 1px solid transparent;
-        }
-
-        .text-introduction {
-          font-weight: 600;
-        }
-      }
-    }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .description {
-    width: 70%;
-    font-size: 12px;
+  .status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    &.show {
+      background-color: #4CAF50;
+    }
+
+    &.no-show {
+      background-color: #F44336;
+    }
+
+    &.pending {
+      background-color: #FFC107;
+    }
+  }
+}
+
+.shifts-content {
+  padding: 24px;
+}
+
+.date-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.shifts-list {
+  .shift-panel {
+    margin-bottom: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.24);
+    }
+  }
+}
+
+.panel-title {
+  .date-with-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.shift-item {
+  border-left: 4px solid transparent;
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.status-1 {
+    border-left-color: #4CAF50;
+  }
+
+  &.status-2 {
+    border-left-color: #F44336;
+  }
+
+  &.status-0 {
+    border-left-color: #FFC107;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.shift-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.shift-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+
+  .shift-time {
+    font-weight: 500;
+    color: $dyblleaColor;
+    min-width: 60px;
+  }
+
+  .shift-description {
+    flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .actions {
-    display: flex;
-    width: 30%;
-    justify-content: flex-end;
-
-    .btn-action {
-      background-color: transparent;
-      border: 0px;
-      display: flex;
-      color: #333 !important;
-      align-items: center;
-      width: 50px;
-    }
+  .shift-price {
+    background-color: $dyblleaColor;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
   }
+}
 
-  .price-shift {
-    span {
-      background-color: $dyblleaColor;
-      padding: 5px;
-      font-size: 12px;
-      color: white;
-      border-radius: 5px;
+.shift-actions {
+  display: flex;
+  gap: 8px;
+
+  [mat-icon-button] {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
     }
   }
 }
 
-.mat-badge-content {
-  color: white !important;
+.no-shifts-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 24px;
+  color: rgba(0, 0, 0, 0.6);
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+}
 
-@media only screen and (max-width: 767px) {
-  .text-introduction {
+@media (max-width: 768px) {
+  .shifts-header {
+    padding: 16px;
+
+    .header-title {
+      font-size: 20px;
+    }
+  }
+
+  .status-legend {
+    gap: 8px;
     font-size: 12px;
   }
 
-  .introduction {
+  .shift-content {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .shift-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .shift-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }

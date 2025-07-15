@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { HomeService } from './services/home.service';
 import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 import { UrlService } from 'src/app/services/url.service';
 import { LoginService } from '../../public/login/services/login.service';
@@ -9,6 +9,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { ClientsService } from '../clients/services/clients.service';
 import { DateService } from 'src/app/services/date.service';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DiaryService } from '../diary/services/diary.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,9 @@ export class HomeComponent implements OnInit {
     private ClipboardService: ClipboardService,
     private ClientService: ClientsService,
     @Inject(LOCALE_ID) private locale: string,
-    public DateService: DateService
+    public DateService: DateService,
+    private ActivatedRoute: ActivatedRoute,
+    private DiaryService: DiaryService
   ) { }
   shifts: any;
   clients: any[] = [];
@@ -38,10 +41,35 @@ export class HomeComponent implements OnInit {
   loading: Boolean = false;
   @ViewChild('picker') picker!: MatDatepicker<Date>;
   timer: any;
+  Allshift: [] = []
+  datesWithShifts: Set<string> = new Set();
+
   ngOnInit(): void {
+    this.ActivatedRoute.queryParams.subscribe((params) => {
+      const dateParam = params['date'];
+      if (dateParam) {
+        const [year, month, day] = dateParam.split('-').map(Number);
+        this.date = new Date(year, month - 1, day);
+        this.showResetDate = true;
+      }
+    });
+
     this.getShifts();
     this.getClientsToBirthday();
     document.addEventListener('keydown', this.onKeyDown.bind(this));
+    this.AllShifts();
+  }
+
+  AllShifts() {
+    this.DiaryService.getShifts()
+      .then((data: any) => {
+        this.Allshift = data?.data?.shifts;
+        this.loading = false;
+        this.updateDatesWithShifts()
+      })
+      .catch((e) => {
+        console.error("Error fetching shifts:", e);
+      });
   }
 
   getShifts() {
@@ -55,55 +83,77 @@ export class HomeComponent implements OnInit {
       this.shifts = data?.data;
     }).catch(e => {
       this.loading = false;
-    })
+    });
+  }
+
+  dateClass = (date: Date) => {
+    const dateString = this.DatePipe.transform(date, 'yyyy-MM-dd');
+    return dateString && this.datesWithShifts.has(dateString) ? 'date-with-shift' : '';
+  }
+
+  private updateDatesWithShifts() {
+    this.datesWithShifts.clear();
+    if (this.Allshift.length) {
+      this.Allshift.forEach((shift: any) => {
+        const shiftDate = this.DatePipe.transform(new Date(shift.date_shift), 'yyyy-MM-dd');
+        if (shiftDate) {
+          this.datesWithShifts.add(shiftDate);
+        }
+      });
+    }
+  }
+
+  updateUrl() {
+    // Actualiza la URL con la fecha actual
+    this.Router.navigate([], {
+      queryParams: { date: this.DatePipe.transform(this.date, 'yyyy-MM-dd') },
+      queryParamsHandling: 'merge', // Mantener otros parámetros existentes
+    });
   }
 
   nextDay() {
     this.showResetDate = true;
-    const date = new Date(this.date.setDate(this.date.getDate() + 1));
-    this.date = new Date(date.setHours(0, 0, 0, 0))
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.getShifts();
-        this.getClientsToBirthday();
-      }, 1000);
+    this.date.setDate(this.date.getDate() + 1);
+    this.date.setHours(0, 0, 0, 0);
+    this.updateUrl();
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.getShifts();
+      this.getClientsToBirthday();
+    }, 1000);
   }
 
   BeforeDay() {
     this.showResetDate = true;
-    const date = new Date(this.date.setDate(this.date.getDate() - 1));
-    this.date = new Date(date.setHours(0, 0, 0, 0))
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.getShifts();
-        this.getClientsToBirthday();
-      }, 1000);
+    this.date.setDate(this.date.getDate() - 1);
+    this.date.setHours(0, 0, 0, 0);
+    this.updateUrl();
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.getShifts();
+      this.getClientsToBirthday();
+    }, 1000);
   }
 
   goDate() {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-    this.showResetDate = false;
-    const date = new Date();
-    this.date = new Date(date.setHours(0, 0, 0, 0));
-    this.getShifts();
-    this.getClientsToBirthday();
-    this.picker.select(this.date)
-  }, 1000);
+      this.showResetDate = false;
+      this.date = new Date();
+      this.date.setHours(0, 0, 0, 0);
+      this.updateUrl();
+      this.getShifts();
+      this.getClientsToBirthday();
+    }, 1000);
   }
 
   setDate(event: any) {
     this.date = event?.value;
-    this.getFormattedDate();
+    this.date.setHours(0, 0, 0, 0);
+    this.updateUrl();
     this.getShifts();
     this.getClientsToBirthday();
-    const date = new Date();
-    const dateNow = new Date(date.setHours(0, 0, 0, 0))
-    const datePage = new Date(this.date);
-    if (dateNow.getTime() == datePage.getTime())
-      this.showResetDate = false;
-    else
-      this.showResetDate = true;
+    this.showResetDate = this.date.toDateString() !== new Date().toDateString();
   }
   getFormattedDate() {
     const dateFormat = "EEEE, d 'de' MMMM 'del' yyyy";
@@ -164,8 +214,8 @@ export class HomeComponent implements OnInit {
       // Tu lógica aquí...
     } else if (event.key === 'ArrowRight') {
       this.nextDay();
-    }else if (event.key === 'Delete' || event.key === 'Backspace') {
+    } else if (event.key === 'Delete' || event.key === 'Backspace') {
       this.goDate();
+    }
   }
-}
 }

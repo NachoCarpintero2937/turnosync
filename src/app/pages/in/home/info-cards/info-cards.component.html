@@ -1,40 +1,31 @@
-<div class=" d-flex info-cards">
-    <div class="col-md-4 d-flex div-cards-info-father">
-        <div class="d-flex  children-cards ">
-            <div class="card-info ">
-                <div class="card-description">
-                    <h3 class="text-white">{{data?.all_clients_count}} Cliente(s)</h3>
+<div class="info-cards-grid">
+    <mat-card class="info-card">
+        <div class="info-card-content">
+            <div class="info-card-text">
+                <h3>{{data?.all_clients_count || 0}}</h3>
+                <p>Clientes</p>
+            </div>
+            <mat-icon class="info-card-icon">group</mat-icon>
+        </div>
+    </mat-card>
 
-                </div>
-                <div class="icon">
-                    <span class="material-icons">group</span>
-                </div>
+    <mat-card class="info-card">
+        <div class="info-card-content">
+            <div class="info-card-text">
+                <h3>{{data?.all_services_count || 0}}</h3>
+                <p>Servicios</p>
             </div>
+            <mat-icon class="info-card-icon">spa</mat-icon>
         </div>
-    </div>
-    <div class="col-md-4 d-flex div-cards-info-father">
-        <div class="d-flex children-cards m-left-1">
-            <div class="card-info">
-                <div class="card-description">
-                    <h3 class="text-white">{{data?.all_services_count}} Servicio(s)</h3>
+    </mat-card>
 
-                </div>
-                <div class="icon">
-                    <span class="material-icons">info</span>
-                </div>
+    <mat-card class="info-card">
+        <div class="info-card-content">
+            <div class="info-card-text">
+                <h3>{{data?.all_shifts_count || 0}}</h3>
+                <p>Turnos</p>
             </div>
+            <mat-icon class="info-card-icon">event</mat-icon>
         </div>
-    </div>
-    <div class="col-md-4 d-flex div-cards-info-father">
-        <div class="d-flex children-cards m-left-1">
-            <div class="card-info">
-                <div class="card-description">
-                    <h3 class="text-white">{{data?.all_shifts_count}} Turno(s)</h3>
-                </div>
-                <div class="icon">
-                    <span class="material-icons">list</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    </mat-card>
 </div>

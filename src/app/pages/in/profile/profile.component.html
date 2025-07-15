@@ -1,101 +1,105 @@
-<div *ngIf="!loading">
-    <div class="d-flex justify-content-center">
-        <div class="perfil">
-            <div class="background">
-                <div class="portada">
+<div class="profile-container" *ngIf="!loading">
+    <div class="profile-header">
+        <div class="cover-photo"></div>
 
-                </div>
-                <div class="photo_perfil">
-                    <div class="d-flex nombres">
-                        <div class="border-inicials">
-                            <app-iniciales color="primary" color="#c7c7c7" fuente="white" size="70px"
-                                [text]="client?.name" width="150px" height="150px" borde="5px solid #e1b6b6">
-                            </app-iniciales>
-                        </div>
-                        <div class="nombre">
-                            <span>
-                                {{client?.name}} ({{quantityShifts?.show.length}})
-                            </span>
-                        </div>
-                    </div>
-                    <div class="botones_editar">
-                        <!-- <div>
-                            <button mat-icon-button color="primary" matTooltip="Editar">
-                                <mat-icon>mode_edit_outline</mat-icon>
-                            </button>
-                        </div>
-                        <div>
-                            <button mat-icon-button color="primary" matTooltip="Editar">
-                                <mat-icon>more_vert</mat-icon>
-                            </button>
-                        </div> -->
-
-                    </div>
-                </div>
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <app-iniciales [text]="client?.name" size="70px" color="#e1b6b6" fuente="white" width="150px"
+                    height="150px">
+                </app-iniciales>
             </div>
-            <div class="muro_div_principal">
-                <div class="muro">
-                    <div class="info">
-                        <mat-list>
-                            <mat-list-item class="descripcion">Fecha de nacimiento</mat-list-item>
-                            <mat-list-item >
-                                <span class="valor-profile">
-                                {{client?.date_birthday | date: 'dd/MM/yyyy'}}
-                                </span>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="descripcion">Último turno solicitado</mat-list-item>
-                            <mat-list-item > <span class="valor-profile">
-                                {{shifts[0]?.date_shift | date: 'dd/MM/yyyy HH:mm'}}
-                            </span> </mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="descripcion">Pendientes </mat-list-item>
-                            <mat-list-item > <span class="valor-profile">
-                              {{quantityShifts?.pending?.length}}
-                            </span> </mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="descripcion">Cancelados</mat-list-item>
-                            <mat-list-item > <span class="valor-profile">
-                              {{quantityShifts?.cancelled?.length}}
-                            </span> </mat-list-item>
-                        </mat-list>
+
+            <div class="profile-name">
+                <h1>{{client?.name}}
+                    <span class="appointment-count">({{quantityShifts?.show.length}})</span>
+                </h1>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <div class="info-section">
+            <mat-card>
+                <mat-card-content>
+                    <div class="info-item">
+                        <span class="info-label">Fecha de nacimiento</span>
+                        <span class="info-value">{{client?.date_birthday | date: 'dd/MM/yyyy'}}</span>
                     </div>
-                    <hr class="vertical_hr">
-                    <div class="history">
-                        <div class="title-activity"> 
-                            <span>
-                                Actividad
-                            </span>
-                        </div>
-                        <mat-list>
-                            <cdk-virtual-scroll-viewport itemSize="5" class="example-viewport">
-                                <div *cdkVirtualFor="let shift of shifts" class="example-item">
-                                    <mat-list-item  [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
-                                        <div class="d-flex listado_muro" [routerLink]="['/in/shifts/view-shift']"
-                                            [queryParams]="{id: shift?.id}">
-                                            <div class="nombre_inicial d-flex">
-                                                <div class="inicial_muro">
-                                                    <div class="border-inicials">
-                                                        <app-iniciales color="primary" color="#c7c7c7" fuente="white"
-                                                            size="11px" [text]="shift?.client?.name" width="30px"
-                                                            height="30px" borde="3px solid #ccc">
-                                                        </app-iniciales>
-                                                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <div class="info-item">
+                        <span class="info-label">Último turno</span>
+                        <span class="info-value">{{shifts[0]?.date_shift | date: 'dd/MM/yyyy HH:mm'}}</span>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <div class="info-item">
+                        <span class="info-label">Pendientes</span>
+                        <span class="info-value">
+                            <mat-chip color="warn" selected>{{quantityShifts?.pending?.length}}</mat-chip>
+                        </span>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <div class="info-item">
+                        <span class="info-label">Cancelados</span>
+                        <span class="info-value">
+                            <mat-chip color="accent" selected>{{quantityShifts?.cancelled?.length}}</mat-chip>
+                        </span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="activity-section">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Actividad</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <cdk-virtual-scroll-viewport itemSize="80" class="activity-viewport">
+                        <mat-nav-list>
+                            <ng-container *cdkVirtualFor="let shift of shifts">
+                                <a mat-list-item [routerLink]="['/in/shifts/view-shift']"
+                                    [queryParams]="{id: shift?.id}" [ngClass]="{
+                                       'status-show': shift?.status === 1,
+                                       'status-pending': shift?.status === 0,
+                                       'status-cancelled': shift?.status === 2
+                                   }">
+                                    <div class="activity-item">
+                                        <div class="activity-avatar">
+                                            <app-iniciales [text]="shift?.service?.name" size="11px" color="#e1b6b6"
+                                                fuente="white" width="40px" height="40px">
+                                            </app-iniciales>
+                                        </div>
+
+                                        <div class="activity-details">
+                                            <div class="activity-main">
+                                                <div class="activity-datetime">
+                                                    {{shift?.date_shift | date: 'dd/MM/yyyy HH:mm'}}
                                                 </div>
-                                                <div class="nombre_muro">
-                                                    <b>{{shift?.date_shift | date: 'dd/MM/yyyy HH:mm'}}&nbsp;</b>
-                                                    <span>{{shift?.service?.name}}</span>
-                                                    <span>{{shift?.client?.name}} | {{shift?.description ? shift?.description : 'Sin observaciones'}}</span>
+                                                <div class="activity-service">
+                                                    {{shift?.service?.name}}
                                                 </div>
                                             </div>
+
+                                            <div class="activity-description" [class.empty]="!shift?.description">
+                                                {{shift?.description || 'Sin observaciones'}}
+                                            </div>
                                         </div>
-                                    </mat-list-item>
-                                    <mat-divider></mat-divider>
-                                </div>
-                            </cdk-virtual-scroll-viewport>
-                        </mat-list>
-                    </div>
-                </div>
-            </div>
+                                    </div>
+                                </a>
+                                <mat-divider></mat-divider>
+                            </ng-container>
+                        </mat-nav-list>
+                    </cdk-virtual-scroll-viewport>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>

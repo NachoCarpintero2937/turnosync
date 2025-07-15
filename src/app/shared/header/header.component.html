@@ -1,151 +1,129 @@
-
-<mat-toolbar color="primary" *ngIf="userData?.status && !excludePage" >
-    <div class="header-main">
-        <div class="mobile-menu-btn">
-            <!-- Agrega un botón de menú para dispositivos móviles -->
-            <button mat-icon-button (click)="toggleMobileMenu()">
-                <span class="material-icons">menu</span>
+<mat-toolbar color="primary" *ngIf="userData?.status && !excludePage" class="main-toolbar">
+    <div class="header-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <button mat-icon-button class="menu-trigger" (click)="toggleMobileMenu()">
+                <mat-icon>{{ isMobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
             </button>
-        </div>
-        <div class="btns-logo-header">
-            <a [routerLink]="['/logged/home']" class="url-logo">
-                <img [src]="imgLogo?.configuration_value" class="img-logo" alt="" *ngIf="imgLogo?.configuration_value;else noImg">
-                <ng-template #noImg>
-                    <span class="name-company">
-                        {{companyData?.name}}
-                    </span>
-                </ng-template>
+
+            <a [routerLink]="['/logged/home']" class="logo-link">
+                <img *ngIf="imgLogo?.configuration_value" [src]="imgLogo?.configuration_value" alt="Logo"
+                    class="logo-image">
+                <span *ngIf="!imgLogo?.configuration_value" class="company-name">
+                    {{companyData?.name}}
+                </span>
             </a>
-                <div class="d-flex m-3 buttons-desktop">
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_HOME']">
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
-                            matTooltip="Inicio">Inicio</a>
-                    </div>
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_CLIENTS']">
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
-                            matTooltip="Clientes">Clientes</a>
-                    </div>
-                    <div class="div-btns"  >
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
-                            matTooltip="Agenda">Agenda</a>
-                    </div>
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_SHIFTS']">
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
-                            matTooltip="Turnos">Turnos</a>
-                    </div>
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_SERVICES']">
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
-                            matTooltip="Turnos">Servicios</a>
-                    </div>
-                    <div class="div-btns" *ngxPermissionsOnly="['VIEW_USERS']">
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
-                            matTooltip="Usuarios">Usuarios</a>
-                    </div>
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_REPORTS']" >
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/reports'] "
-                            matTooltip="Reportes">Reportes</a>
-                    </div>
-                    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_CAMPAIGNS']" >
-                        <a mat-button class="toolbar-btn" [routerLink]="['/in/campaigns'] "
-                            matTooltip="Reportes">Campañas</a>
-                    </div>
-                </div>
-            </div>
-      
-        <div class="d-flex align-items-center div-btn-exit">
-            <div class="hour">
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <a mat-button class="nav-link" *ngxPermissionsOnly="['VIEW_HOME']" [routerLink]="['/in/home']"
+                routerLinkActive="active">
+                <mat-icon>home</mat-icon>
+                <span>Inicio</span>
+            </a>
+            <a mat-button class="nav-link" *ngxPermissionsOnly="['VIEW_CLIENTS']" [routerLink]="['/in/clients']"
+                routerLinkActive="active">
+                <mat-icon>people</mat-icon>
+                <span>Clientes</span>
+            </a>
+            <a mat-button class="nav-link" [routerLink]="['/in/diary']" routerLinkActive="active">
+                <mat-icon>event_note</mat-icon>
+                <span>Agenda</span>
+            </a>
+            <!-- Otros enlaces de navegación... -->
+        </nav>
+
+        <!-- Actions Section -->
+        <div class="actions-section">
+            <!-- Time -->
+            <div class="time-display">
                 {{ hour }}
             </div>
-            <div class="d-flex align-items-center justify-content-center mr-2" *ngIf="tasksData?.length">
-                <div class="d-flex align-items-center " [matMenuTriggerFor]="menu">
-                  <mat-spinner class="loading-spinner" diameter="20"></mat-spinner>
-                  <span class="description-work cursor-pointer" *ngIf="tasksData[0]?.status === 'processing'">
-                    {{tasksData?.length}} Tarea(s) corriendo
-                    <mat-icon>more_vert</mat-icon>
-                  </span>
-                  <span class="description-work cursor-pointer" *ngIf="tasksData[0]?.status === 'pending' || tasksData[0]?.process">
-                    {{tasksData?.length}} Tarea(s) en espera
-                  </span>
-                </div>
-                <mat-menu #menu="matMenu">
-                  <div mat-menu-item *ngFor="let task of tasksData">
-                    <span *ngIf="task?.status === 'processing'; else notProcess">
-                      <img src="./assets/img/loading.gif" width="15" class="m-2" alt="">
-                      Enviando campaña de {{task?.type == 'email' ? 'emails' : 'Wsp'}} ({{task?.percentage_completed}}%)
-                    </span>
-                    <ng-template #notProcess>
-                      Campaña de {{task?.type == 'email' ? 'emails' : 'wsp'}} en espera
-                    </ng-template>
-                  </div>
-                </mat-menu>
-              </div>
-            <div>
-         <span [matBadge]="notifications.length"  matTooltip="Notificaciones" (click)="openBottomSheet()"   matBadgeColor="warn" class="material-icons notifications">notifications</span>
+
+            <!-- Tasks -->
+            <div class="tasks-indicator" *ngIf="tasksData?.length" [matMenuTriggerFor]="tasksMenu">
+                <mat-spinner diameter="20"></mat-spinner>
+                <span class="tasks-count">
+                    {{tasksData?.length}} Tarea(s)
+                    {{tasksData[0]?.status === 'processing' ? 'corriendo' : 'en espera'}}
+                    <mat-icon>expand_more</mat-icon>
+                </span>
             </div>
-            <div >
-                <a mat-icon-button [matMenuTriggerFor]="menu">
-                <span class="material-icons">settings</span>
-                </a>
-                <mat-menu #menu="matMenu">
-                    <a mat-menu-item class="" matTooltip="Configuración" [routerLink]="['/in/settings/']" class="d-flex" *ngxPermissionsOnly="['VIEW_SETTINGS']">
-                       <div class="d-flex align-items-center">
-                           <span class="material-icons pd-1">settings</span>
-                           <span class="pd-1">Ajustes de la empresa</span>
-                       </div>
-                    </a>
-                    <mat-divider></mat-divider>
-                    <a mat-menu-item class="d-flex" [routerLink]="['/in/users/view-user']" [queryParams]="{id: userData?.data?.id}" matTooltip="Configuración de la cuenta">
-                        <div class="d-flex align-items-center">
-                            <span class="material-icons pd-1">person</span>
-                            <span class="pd-1">Cuenta</span>
-                        </div>
-                    </a>
-                  </mat-menu>
-            </div>
-            <div class="d-flex">
-                <div class="d-flex align-items-center incials">
-                    <app-iniciales color="primary" [matMenuTriggerFor]="menu" class="iniciales-nav" color="#eaeaea" size="15px" [text]="userData?.data?.name" width="40px" height="40px"></app-iniciales>
-                </div>
-                <div class="action-exit">
-                    <button mat-icon-button matTooltip="Cerrar sesión" (click)="logout(companyData?.id)">
-                        <span class="material-icons">input</span>
-                    </button>
-                </div>
+
+            <!-- Notifications -->
+            <button mat-icon-button class="notification-btn" (click)="openBottomSheet()">
+                <mat-icon [matBadge]="notifications.length" matBadgeColor="warn"
+                    [matBadgeHidden]="!notifications.length">
+                    notifications
+                </mat-icon>
+            </button>
+
+            <!-- Settings -->
+            <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+                <mat-icon>settings</mat-icon>
+            </button>
+
+            <!-- User Menu -->
+            <div class="user-menu">
+                <app-iniciales [matMenuTriggerFor]="userMenu" [text]="userData?.data?.name" color="#eaeaea" size="15px"
+                    width="40px" height="40px">
+                </app-iniciales>
+                <button mat-icon-button class="logout-btn" (click)="logout(companyData?.id)">
+                    <mat-icon>logout</mat-icon>
+                </button>
             </div>
         </div>
     </div>
 </mat-toolbar>
-<mat-toolbar color="primary"  class="mobile-menu h-100"  [ngClass]="{'show-menu': isMobileMenuOpen}">
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_HOME']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/home'] "
-            matTooltip="Inicio">Inicio</a>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <mat-nav-list>
+        <a mat-list-item *ngFor="let item of navigationItems" [routerLink]="item.route" routerLinkActive="active"
+            (click)="toggleMobileMenu()" [ngxPermissionsOnly]="[item.permission]">
+            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+            <span matListItemTitle>{{item.label}}</span>
+        </a>
+    </mat-nav-list>
+</div>
+
+<!-- Menus -->
+<mat-menu #tasksMenu="matMenu" class="tasks-menu">
+    <div mat-menu-item *ngFor="let task of tasksData" class="task-item">
+        <mat-icon *ngIf="task?.status === 'processing'">sync</mat-icon>
+        <mat-icon *ngIf="task?.status !== 'processing'">schedule</mat-icon>
+        <span>
+            Campaña de {{task?.type === 'email' ? 'emails' : 'WhatsApp'}}
+            <small *ngIf="task?.status === 'processing'">({{task?.percentage_completed}}%)</small>
+        </span>
     </div>
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_CLIENTS']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/clients'] "
-            matTooltip="Clientes">Clientes</a>
+</mat-menu>
+
+<mat-menu #settingsMenu="matMenu">
+    <a mat-menu-item [routerLink]="['/in/settings/']" *ngxPermissionsOnly="['VIEW_SETTINGS']">
+        <mat-icon>settings</mat-icon>
+        <span>Ajustes de la empresa</span>
+    </a>
+    <mat-divider></mat-divider>
+    <a mat-menu-item [routerLink]="['/in/users/view-user']" [queryParams]="{id: userData?.data?.id}">
+        <mat-icon>person</mat-icon>
+        <span>Cuenta</span>
+    </a>
+</mat-menu>
+
+<mat-menu #userMenu="matMenu">
+    <div class="user-menu-header">
+        <app-iniciales [text]="userData?.data?.name" color="#eaeaea" size="20px" width="60px" height="60px">
+        </app-iniciales>
+        <div class="user-info">
+            <h4>{{userData?.data?.name}}</h4>
+            <small>{{userData?.data?.email}}</small>
+        </div>
     </div>
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_DIARY']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/diary'] "
-            matTooltip="Agenda">Agenda</a>
-    </div>
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_SHIFTS']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/shifts'] "
-            matTooltip="Turnos">Turnos</a>
-    </div>
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_SERVICES']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/services'] "
-            matTooltip="Turnos">Servicios</a>
-    </div>
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_USERS']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/users'] "
-            matTooltip="Usuarios">Usuarios</a>
-    </div>
-    <div class="div-btns" *ngxPermissionsOnly="['VIEW_REPORTS']">
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/reports'] "
-            matTooltip="Reportes">Reportes</a>
-    </div>
-    <div class="div-btns"  *ngxPermissionsOnly="['VIEW_CAMPAIGNS']" >
-        <a mat-button class="toolbar-btn" [routerLink]="['/in/campaigns'] "
-            matTooltip="Reportes">Campañas</a>
-    </div>
-</mat-toolbar>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout(companyData?.id)">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+    </button>
+</mat-menu>

@@ -1,87 +1,104 @@
-<div class="list-shifts mt-5">
-    <mat-card>
-   <mat-card-header>
-   <div class="text-header text-white">
-    Turnos de {{getMonthName()}}
-</div>
-    <div class="d-flex introduction">
-        <div class="d-flex m-2 align-items-center">
-            <div class="show box m-1 align-items-center"></div>
-            <span class="text-introduction m-1 text-white">Asistió</span>
+<mat-card class="shifts-card mat-elevation-z0">
+    <mat-card-header class="shifts-header">
+        <mat-card-title class="header-title">
+            Turnos de {{getMonthName()}}
+        </mat-card-title>
+
+        <div class="status-legend">
+            <div class="legend-item">
+                <div class="status-indicator show"></div>
+                <span>Asistió</span>
+            </div>
+            <div class="legend-item">
+                <div class="status-indicator no-show"></div>
+                <span>No asistió / Cancelada</span>
+            </div>
+            <div class="legend-item">
+                <div class="status-indicator pending"></div>
+                <span>Pendiente</span>
+            </div>
         </div>
-        <div class="d-flex m-2">
-            <div class="no-show box m-1 align-items-center"></div>
-            <span class="text-introduction m-1 text-white">No asistió / Cancelada</span>
-        </div>
-        <div class="d-flex m-2">
-            <div class="pending box m-1 align-items-center"></div>
-            <span class="text-introduction m-1 text-white">Pendiente</span>
-        </div>
-    </div>
-   </mat-card-header>     
-    <mat-card-content>
-        <div *ngIf="date" class="d-flex justify-content-center">
-            <button (click)="filterDate()"mat-raised-button color="primary" class="text-white"> 
+    </mat-card-header>
+
+    <mat-card-content class="shifts-content">
+        <div *ngIf="date" class="date-filter">
+            <button mat-flat-button color="primary" (click)="filterDate()">
                 <b>{{date | date : 'dd/MM'}}</b>
             </button>
         </div>
 
-        <div *ngIf="!loading;else spinner">
-            <mat-expansion-panel *ngFor="let dateShift of shifts" class="m-3">
-                <mat-expansion-panel-header>
-                  <mat-panel-title class="d-flex justify-content-center">
-                    <div class="m-3">
-                        <div [matBadge]="dateShift?.shifts?.length"  matBadgeOverlap="false"  matBadgeColor="primary">
-                           <b>{{dateShift?.date |date : 'dd/MM/yyyy'}}</b> 
-                        </div>
-                       </div>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                    <div *ngFor=" let shift of dateShift?.shifts" [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
-                       <mat-list>
-                        <mat-list-item>
-                            <div class="d-flex">
-                                <div class="description" [matTooltip]="getTootlip(shift)">
-                                    <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
-                                    {{shift?.service?.name}} a <b>{{shift?.client?.name}}</b>
-                                    el día {{ shift?.date_shift |
-                                    date:'dd/MM/YYYY' }}
+        <ng-container *ngIf="!loading; else loadingTpl">
+            <div class="shifts-list" *ngIf="shifts.length > 0; else noShifts">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let dateShift of shifts" class="shift-panel mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="panel-title">
+                                <div class="date-with-badge">
+                                    <span>{{dateShift?.date | date : 'dd/MM/yyyy'}}</span>
+                                    <mat-chip-listbox>
+                                        <mat-chip color="primary" selected>
+                                            {{dateShift?.shifts?.length}}
+                                        </mat-chip>
+                                    </mat-chip-listbox>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center">
-                                  <div class="price-shift">
-                                    <span> {{ shift?.price| currency:'$':'symbol':'1.2-2'  }}</span>
-                                  </div>
-                                </div>
-                                <div class="actions">
-                                    <div *ngxPermissionsOnly="['CONFIRM_SHIFT']">
-                                        <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,1)">
-                                            <span class="material-icons"  >done</span>
-                                        </button>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-list>
+                            <mat-list-item *ngFor="let shift of dateShift?.shifts"
+                                [class]="'shift-item status-' + shift?.status">
+                                <div class="shift-content">
+                                    <div class="shift-info">
+                                        <span class="shift-time">
+                                            {{ shift?.date_shift | date:'HH:mm' }}
+                                        </span>
+                                        <span class="shift-description" [matTooltip]="getTootlip(shift)">
+                                            {{shift?.service?.name}} - <b>{{shift?.client?.name}}</b>
+                                        </span>
+                                        <span class="shift-price">
+                                            {{ shift?.price | currency:'$':'symbol':'1.2-2' }}
+                                        </span>
                                     </div>
-                                    <div *ngxPermissionsOnly="['CANCEL_SHIFT']">
-                                        <button class="btn-action" *ngIf="shift?.status ==0" (click)="changeStatus(shift,2)">
-                                            <span class="material-icons" >close</span>
+
+                                    <div class="shift-actions">
+                                        <ng-container *ngIf="shift?.status === 0">
+                                            <button mat-icon-button color="primary"
+                                                *ngxPermissionsOnly="['CONFIRM_SHIFT']" (click)="changeStatus(shift,1)"
+                                                matTooltip="Confirmar">
+                                                <mat-icon>done</mat-icon>
+                                            </button>
+                                            <button mat-icon-button color="warn" *ngxPermissionsOnly="['CANCEL_SHIFT']"
+                                                (click)="changeStatus(shift,2)" matTooltip="Cancelar">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </ng-container>
+                                        <button mat-icon-button (click)="sendWsp(shift)" matTooltip="WhatsApp">
+                                            <img src="./assets/img/wsp.png" alt="WhatsApp" width="20">
                                         </button>
+                                        <a mat-icon-button [routerLink]="['/in/shifts/view-shift']"
+                                            [queryParams]="{id: shift?.id}" matTooltip="Ver detalle">
+                                            <mat-icon>search</mat-icon>
+                                        </a>
                                     </div>
-                               
-                                    <button class="btn-action" (click)="sendWsp(shift)"><img src="./assets/img/wsp.png"
-                                            alt="" width="20"></button>
-                                    <a class="btn-action"  [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}"> <span class="material-icons">search</span></a>
                                 </div>
-                            </div>
-                        </mat-list-item>
-                    </mat-list>
-                    </div>
-                </mat-expansion-panel>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </div>
-            <div *ngIf="shifts.length == 0 && !loading" class="m-5 d-flex justify-content-center">
-                Sin turnos para esta fecha
+        </ng-container>
+
+        <ng-template #noShifts>
+            <div class="no-shifts-message">
+                <mat-icon>event_busy</mat-icon>
+                <span>Sin turnos para esta fecha</span>
             </div>
-        <ng-template #spinner>
-            <div class="d-flex justify-content-center m-5">
-                <mat-spinner  class="loading-spinner"></mat-spinner>
+        </ng-template>
+
+        <ng-template #loadingTpl>
+            <div class="loading-container">
+                <mat-spinner diameter="40"></mat-spinner>
             </div>
         </ng-template>
     </mat-card-content>
 </mat-card>
-</div>

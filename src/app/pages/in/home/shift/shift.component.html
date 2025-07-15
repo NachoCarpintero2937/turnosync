@@ -1,55 +1,69 @@
-<mat-list role="list" *ngIf="employe?.shifts?.length >0;else notShifts">
-    <div *ngFor="let shift of employe?.shifts"
-        [ngClass]="{'show' : shift?.status == 1  ? true : false , 'pending': shift?.status == 0 ? true : false , 'no-show' : shift?.status == 2 }">
-        <mat-list-item lines="">
-            <div class="d-flex list-shifts" >
-                <div class="description" [matTooltip]="getTootlip(shift)">
-                    <mat-checkbox color="primary" (change)="checkbokShift($event.checked, shift)"
-                        *ngIf="edit">
+<div class="shifts-wrapper">
+    <div class="shifts-container" *ngIf="employe?.shifts?.length > 0; else noShifts">
+        <div class="shift-item" *ngFor="let shift of employe?.shifts" [ngClass]="{
+             'show': shift?.status === 1,
+             'pending': shift?.status === 0,
+             'no-show': shift?.status === 2
+           }">
+            <div class="shift-content">
+                <!-- Checkbox & Time -->
+                <div class="shift-left">
+                    <mat-checkbox *ngIf="edit" color="primary" (change)="checkbokShift($event.checked, shift)"
+                        class="shift-checkbox">
                     </mat-checkbox>
-                    <b>{{ shift?.date_shift | date:'HH:mm' }}</b>
-                    <span class="">
-                        {{shift?.service?.name}}
-                    </span>
-                    <span class="client-name" [routerLink]="['/in/profile/']"
-                        [queryParams]="{client: shift?.client?.id}">
-                        <b>{{shift?.client?.name}}</b>
-                        <mat-icon>link</mat-icon>
-                    </span>
-                    <span *ngIf="!edit">
-                        | {{shift?.description ? shift?.description : 'Sin observaciones'}}
-                    </span>
-                </div>
-           
-                <div class="actions">
-                    
-                    <div *ngxPermissionsOnly="['CONFIRM_SHIFT']">
-                        <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,1)">
-                            <span class="material-icons">done</span>
-                        </button>
+                    <div class="shift-time">
+                        {{ shift?.date_shift | date:'HH:mm' }}
                     </div>
-                    <div *ngxPermissionsOnly="['CANCEL_SHIFT']">
-                    <button class="btn-action" *ngIf="shift?.status ==0 && edit" (click)="changeStatus(shift,2)">
-                        <span class="material-icons">close</span>
-                    </button>
                 </div>
-                    <button class="btn-action" (click)="sendWsp(shift)" *ngIf="edit"><img src="./assets/img/wsp.png"
-                            alt="" width="20"></button>
-                    <a class="btn-action" [routerLink]="['/in/shifts/view-shift']" [queryParams]="{id: shift?.id}">
-                        <span class="material-icons">visibility</span></a>
+
+                <!-- Service & Client Info -->
+                <div class="shift-center" [matTooltip]="getTootlip(shift)">
+                    <div class="shift-details">
+                        <div class="service-name">{{shift?.service?.name}}</div>
+                        <div class="client-info">
+                            <a class="client-link" [routerLink]="['/in/profile/']"
+                                [queryParams]="{client: shift?.client?.id}">
+                                {{shift?.client?.name}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="shift-description" *ngIf="!edit">
+                        {{shift?.description || 'Sin observaciones'}}
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="shift-actions">
+                    <ng-container *ngIf="shift?.status === 0 && edit">
+                        <button mat-icon-button class="action-button confirm" *ngxPermissionsOnly="['CONFIRM_SHIFT']"
+                            (click)="changeStatus(shift, 1)" matTooltip="Confirmar">
+                            <mat-icon>done</mat-icon>
+                        </button>
+
+                        <button mat-icon-button class="action-button cancel" *ngxPermissionsOnly="['CANCEL_SHIFT']"
+                            (click)="changeStatus(shift, 2)" matTooltip="Cancelar">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </ng-container>
+
+                    <button mat-icon-button *ngIf="edit" class="action-button whatsapp" (click)="sendWsp(shift)"
+                        matTooltip="Enviar WhatsApp">
+                        <img src="./assets/img/wsp.png" alt="WhatsApp" width="20">
+                    </button>
+
+                    <a mat-icon-button class="action-button view" [routerLink]="['/in/shifts/view-shift']"
+                        [queryParams]="{id: shift?.id}" matTooltip="Ver detalle">
+                        <mat-icon>visibility</mat-icon>
+                    </a>
                 </div>
             </div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
+        </div>
     </div>
-</mat-list>
-<ng-template #notShifts>
-    <div class="d-flex justify-content-center align-items-center ">
-        <mat-list class="col-md-12">
-            <mat-list-item>
-                Sin turnos disponibles hoy
-            </mat-list-item>
-            <mat-divider></mat-divider>
-        </mat-list>
+</div>
+
+<ng-template #noShifts>
+    <div class="empty-state">
+        <mat-icon>event_busy</mat-icon>
+        <p>Sin turnos disponibles hoy</p>
     </div>
 </ng-template>

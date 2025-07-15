@@ -10,16 +10,33 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { TaskService } from 'src/app/services/task.service';
 import { IntTasks } from 'src/app/interfaces/IntTasks.interface';
 import { HeaderService } from './services/header.service';
-
+interface NavigationItem {
+  label: string
+  route: string
+  icon: string
+  permission: string
+}
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  navigationItems: NavigationItem[] = [
+    { label: "Inicio", route: "/in/home", icon: "home", permission: "VIEW_HOME" },
+    { label: "Clientes", route: "/in/clients", icon: "people", permission: "VIEW_CLIENTS" },
+    { label: "Agenda", route: "/in/diary", icon: "event_note", permission: "VIEW_DIARY" },
+    { label: "Turnos", route: "/in/shifts", icon: "schedule", permission: "VIEW_SHIFTS" },
+    { label: "Servicios", route: "/in/services", icon: "spa", permission: "VIEW_SERVICES" },
+    { label: "Usuarios", route: "/in/users", icon: "group", permission: "VIEW_USERS" },
+    { label: "Reportes", route: "/in/reports", icon: "assessment", permission: "VIEW_REPORTS" },
+    { label: "Campañas", route: "/in/campaigns", icon: "campaign", permission: "VIEW_CAMPAIGNS" },
+  ];
+
+
   constructor(
     private LoginService: LoginService,
-    private Router : Router,
+    private Router: Router,
     private EnviromentService: EnviromentService,
     private MatBottomSheet: MatBottomSheet,
     private ThemeService: ThemeService,
@@ -29,66 +46,66 @@ export class HeaderComponent implements OnInit {
     public NgxPermissionsService: NgxPermissionsService,
     private TaksService: TaskService,
     private HeaderService: HeaderService
-    ) {
-    this.LoginService.dataUserSubject.subscribe(data =>{
+  ) {
+    this.LoginService.dataUserSubject.subscribe(data => {
       this.userData = data;
-      if(this.userData?.status){
+      if (this.userData?.status) {
         this.getNotifications();
         this.getSettings();
-      }else if(this.userData?.companyId){
+      } else if (this.userData?.companyId) {
         this.getSettings();
       }
     })
-    this.Router.events.subscribe(() =>{
+    this.Router.events.subscribe(() => {
       this.isMobileMenuOpen = false;
     });
 
-    this.ThemeService.color.subscribe((data:any)=>{
-      if(data?.type && data?.cfg){
+    this.ThemeService.color.subscribe((data: any) => {
+      if (data?.type && data?.cfg) {
         this.removeStyle();
         let cfg = this.ThemeService.mapStyleToConfiguration(data);
         let style = this.ThemeService.setClassPropeties(cfg);
-       this.initTheme(style);
+        this.initTheme(style);
       }
     });
 
     this.HeaderService.status.subscribe(() => {
-      this.getNotifications(true); 
+      this.getNotifications(true);
     });
   }
   isMobileMenuOpen = false;
   tasksData!: IntTasks[];
-  imgLogo : any;
-  companyData:any;
-  userData:any;
+  imgLogo: any;
+  companyData: any;
+  userData: any;
   hour!: string;
-  url:any;
-  excludePage:boolean =false;
-  notifications :any[] = [];
+  url: any;
+  excludePage: boolean = false;
+  notifications: any[] = [];
   flagnotifications = JSON.parse(localStorage.getItem('notifications')!);
-  
+
   ngOnInit(): void {
     this.userData = this.LoginService.getDataUser();
     this.initTasks();
 
     this.initHeader();
-    
+
   }
 
-  initHeader(){
+  initHeader() {
     this.userData = this.LoginService.getDataUser();
     this.getUserData();
     this.getNotifications();
     setInterval(() => {
       this.hour = this.getHours();
     }, 1000);
-    this.Router.events.subscribe((page:any) => {
+    this.Router.events.subscribe((page: any) => {
       if (page instanceof NavigationEnd) {
-      this.url =  this.Router.url
-      this.onCheckPageUrl();
+        this.url = this.Router.url
+        this.onCheckPageUrl();
       }
     });
-    this.SettingsService.name.subscribe((name:string)=>{
+    this.SettingsService.name.subscribe((name: string) => {
       this.companyData.name = name;
     })
 
@@ -109,12 +126,12 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  
+
   getTaks(): void {
     this.TaksService.getTasks({ status: ['processing', 'pending'] }).then((data: any) => {
       this.tasksData = data?.data;
       console.log(this.tasksData)
-      
+
     });
   }
 
@@ -133,50 +150,50 @@ export class HeaderComponent implements OnInit {
     return `${hour}:${minute}`;
   }
 
-  logout(companyId: string){
-    this.LoginService.logout('/login',companyId).then(data =>{
+  logout(companyId: string) {
+    this.LoginService.logout('/login', companyId).then(data => {
       this.removeStyle();
-    }).catch(e =>{
-      
+    }).catch(e => {
+
     })
   }
-  getNotifications(openNotif?:boolean){
-    if(this.userData){
-      this.LoginService.getNotificactions().then((notifications :any)=>{
-      this.notifications = notifications?.data;
-      if(openNotif){
-        this.openBottomSheet();
-      }
-      }).catch((e)=>{
-  
+  getNotifications(openNotif?: boolean) {
+    if (this.userData) {
+      this.LoginService.getNotificactions().then((notifications: any) => {
+        this.notifications = notifications?.data;
+        if (openNotif) {
+          this.openBottomSheet();
+        }
+      }).catch((e) => {
+
       })
     }
   }
 
   openBottomSheet(): void {
     this.MatBottomSheet.open(ViewNotificationsComponent, {
-      data : this.notifications
+      data: this.notifications
     });
   }
 
   getSettings() {
     let data;
-    if(this.userData?.companyId)
-    data = { company_id : this.userData?.companyId };
+    if (this.userData?.companyId)
+      data = { company_id: this.userData?.companyId };
 
     this.ThemeService.getSettings(data).then((settings: any) => {
-      const originalTemplate =  this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'originalTemplate');
+      const originalTemplate = this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'originalTemplate');
       this.companyData = settings?.data?.companies;
       this.imgLogo = this.ThemeService.getCustomConfiguration(settings?.data?.companies?.configurations, 'imgLogo');
-      if(!parseInt(originalTemplate)){
+      if (!parseInt(originalTemplate)) {
         let style = this.ThemeService.initColorTheme(settings)
-       this.initTheme(style);
-       if(this.userData.companyId){
-        this.SettingsService.getInfoCompany.next({settings: settings,imgLogo :this.imgLogo});
-       }
-     }else{
-      this.removeStyle();
-     }
+        this.initTheme(style);
+        if (this.userData.companyId) {
+          this.SettingsService.getInfoCompany.next({ settings: settings, imgLogo: this.imgLogo });
+        }
+      } else {
+        this.removeStyle();
+      }
     }).catch((e) => { })
   }
 

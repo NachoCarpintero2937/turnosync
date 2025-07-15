@@ -1,44 +1,70 @@
-<div class="d-flex justify-content-center mt-5 align-items-center">
-    <button  class="btn-date" (click)="BeforeDay()"> <span
-            class="material-icons">navigate_before</span></button>
-    <button  class="btn-date-text" (click)="picker.open()">
-        <span class="date-text">{{getFormattedDate()}}</span>
-    </button>
-    <input #dateInput [matDatepicker]="picker" (dateChange)="setDate($event)" class="input-date-home">
-    <mat-datepicker #picker></mat-datepicker>
-    <button class="btn-date" (click)="nextDay()" > <span class="material-icons">navigate_next</span></button>
-    <button class="remove-date" (click)="goDate()" *ngIf="showResetDate"> <span
-            class="material-icons">close</span></button>
+<div class="home-wrapper">
+    <div class="dashboard-container">
+        <div class="date-navigation">
+            <mat-card>
+                <div class="navigation-content">
+                    <button mat-icon-button class="nav-button" (click)="BeforeDay()" matTooltip="Día anterior">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
 
-    <div>
-        <mat-spinner *ngIf="loading" class="loading-spinner home-loading" diameter="50"></mat-spinner>
-    </div>
-</div>
-<div class="container mt-5">
-    <div>
-        <app-info-cards [data]="shifts"></app-info-cards>
-    </div>
+                    <div class="date-display" (click)="picker.open()">
+                        <div class="date-text">
+                            {{getFormattedDate()}}
+                        </div>
+                    </div>
 
-    <div class="col-md-12 mt-5">
-        <app-services-today [shifts]="shifts"></app-services-today>
-    </div>
+                    <button mat-icon-button class="nav-button" (click)="nextDay()" matTooltip="Día siguiente">
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
 
-    <div class="col-md-12 mt-5" *ngIf="clients?.length">
-        <app-clients-birthday [clients]="clients"></app-clients-birthday>
-    </div>
+                    <button mat-icon-button *ngIf="showResetDate" class="reset-button" (click)="goDate()"
+                        matTooltip="Ir a hoy">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
 
-    <div>
-        <app-employees [shifts]="shifts" (shiftEvent)="getShifts()" (checked)="selectedShift($event)"></app-employees>
-    </div>
-</div>
+                <!-- Hidden datepicker input -->
+                <input [matDatepicker]="picker" (dateChange)="setDate($event)" class="date-input">
 
+                <mat-datepicker #picker (monthSelected)="getShifts()" [dateClass]="dateClass"
+                    (yearSelected)="getShifts()">
+                </mat-datepicker>
+            </mat-card>
 
-<div class="add_work">
-    <div class="float-buttons">
-        <button mat-fab (click)="goToViewShifts();" *ngIf="shiftIdSelected?.length"><span
-                class="material-icons text-white">event</span></button>
-        <button mat-fab (click)="createUrl();" [disabled]="submitUrl"><span
-                class="material-icons text-white">share</span></button>
-        <button mat-fab (click)="addShift();" *ngIf="date"><span class="material-icons text-white">add</span></button>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate" class="loading-indicator">
+            </mat-progress-bar>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Info Cards -->
+            <app-info-cards [data]="shifts"></app-info-cards>
+
+            <!-- Services Today -->
+            <app-services-today [shifts]="shifts"></app-services-today>
+
+            <!-- Birthdays -->
+            <app-clients-birthday *ngIf="clients?.length" [clients]="clients">
+            </app-clients-birthday>
+
+            <!-- Employees -->
+            <app-employees [shifts]="shifts" (shiftEvent)="getShifts()" (checked)="selectedShift($event)">
+            </app-employees>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button mat-fab color="primary" *ngIf="shiftIdSelected?.length" (click)="goToViewShifts()"
+                matTooltip="Ver turnos">
+                <span class="material-icons text-white">event</span>
+            </button>
+
+            <button mat-fab color="primary" [disabled]="submitUrl" (click)="createUrl()" matTooltip="Compartir">
+                <span class="material-icons text-white">share</span>
+            </button>
+
+            <button mat-fab color="primary" *ngIf="date" (click)="addShift()" matTooltip="Agregar turno">
+                <span class="material-icons text-white">add</span>
+            </button>
+        </div>
     </div>
 </div>

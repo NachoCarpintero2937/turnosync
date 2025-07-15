@@ -1,43 +1,105 @@
 @import '../../../../styles.scss';
 
-.mat-calendar {
-  width: 50%;
-}
+.calendar-layout {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 64px);
+  background-color: #fafafa;
 
-.list-shifts {
-  width: 50%;
-  height: 800px;
-  overflow: auto;
-}
-
-
-:host ::ng-deep mat-calendar .highlight-event {
-  border: 1px solid $dyblleaColor;
-  border-radius: 50%;
-  z-index: 99 !important;
-
-  span {
-    color: $dyblleaColor !important;
-    border: 0px !important;
-
-  }
-}
-
-:host ::ng-deep mat-calendar .event-content {
-  z-index: 99999;
-}
-
-@media only screen and (max-width: 767px) {
-  .div-father {
-    display: flex;
+  @media (max-width: 768px) {
     flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+.calendar-section {
+  flex: 1;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    @extend .mat-elevation-z3;
   }
 
+  .calendar-widget {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.shifts-section {
+  flex: 1;
+  max-height: calc(100vh - 88px);
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.26);
+    }
+  }
+}
+
+.add-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: $dyblleaColor;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:not([disabled]):hover {
+    transform: translateY(-2px);
+    @extend .mat-elevation-z6;
+  }
+
+  &[disabled] {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+:host ::ng-deep {
   .mat-calendar {
-    width: 100%;
-  }
+    .highlight-event {
+      position: relative;
 
-  .list-shifts {
-    width: 100%;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 36px;
+        height: 36px;
+        border: 2px solid $dyblleaColor;
+        border-radius: 50%;
+        transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .mat-calendar-body-cell-content {
+        color: $dyblleaColor;
+        font-weight: 500;
+      }
+
+      &:hover::after {
+        background-color: rgba($dyblleaColor, 0.04);
+      }
+    }
   }
 }

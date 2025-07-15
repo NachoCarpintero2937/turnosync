@@ -1,127 +1,260 @@
-.header-main {
+@import '../../../styles.scss';
+
+// Variables
+$header-height: 64px;
+$mobile-header-height: 56px;
+$transition-duration: 0.3s;
+
+// Main Toolbar
+.main-toolbar {
+    height: $header-height;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, $dyblleaColor, darken($dyblleaColor, 15%));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 960px) {
+        height: $mobile-header-height;
+    }
+}
+
+.header-container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+    height: 100%;
+}
 
-    .mobile-menu-btn {
+// Logo Section
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .menu-trigger {
         display: none;
-    }
-    .url-logo{
-        text-decoration: none;
-        .name-company{
-            color:white!important;
-        }
-        .img-logo {
-            width: 100px
-        }
+        margin-right: 8px;
 
-    }
-  
-    .material-icons {
-        color: white !important;
+        @media (max-width: 960px) {
+            display: flex;
+        }
     }
 
-    .btns-logo-header {
-        width: 70%;
-        margin: 20px;
+    .logo-link {
         display: flex;
         align-items: center;
+        text-decoration: none;
+        height: 40px;
 
-        .div-btns {
-            margin: 10px;
+        .logo-image {
+            height: 100%;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+        }
+
+        .company-name {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+    }
+}
+
+// Desktop Navigation
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    @media (max-width: 960px) {
+        display: none;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 16px;
+        height: 36px;
+        border-radius: 18px;
+        color: rgba(255, 255, 255, 0.9);
+        transition: all $transition-duration ease;
+
+        mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+    }
+}
+
+// Actions Section
+.actions-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .time-display {
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 500;
+
+        @media (max-width: 960px) {
+            display: none;
+        }
+    }
+
+    .tasks-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: background $transition-duration ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tasks-count {
+            color: white;
+            font-size: 0.875rem;
             display: flex;
             align-items: center;
+            gap: 4px;
+        }
 
-            button {
-                color: white !important;
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    .notification-btn {
+        position: relative;
+    }
+
+    .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .logout-btn {
+            @media (max-width: 960px) {
+                display: none;
             }
         }
     }
-
-    .div-btn-exit {
-        .incials {
-            margin: 10px;
-        }
-
-        .notifications {
-            margin-top: 12px;
-            margin-right: 12px;
-            cursor: pointer;
-        }
-
-        .action-exit {
-            display: flex;
-            align-items: center;
-        }
-
-        justify-content: flex-end;
-        width: 30%;
-
-        .hour {
-            color: white;
-            margin: 15px;
-            font-size: 25px
-        }
-    }
 }
 
-.toolbar-btn {
-    color: white !important;
-}
-
-.pd-1{
-    padding-right:5px;
-    }
-
-
-@media only screen and (max-width: 960px) {
-    .btns-logo-header {
-        display: none;
-    }
-
-    .mobile-menu-btn {
-        display: flex !important;
-        align-items: center;
-    }
-
-    .mobile-menu {
-        display: none;
-    }
-
-    .show-menu {
-        display: block !important;
-    }
-
-    .hour {
-        display: none;
-    }
-
-    .buttons-desktop {
-        display: none !important;
-    }
-
-    .div-btns {
-        padding: 10px;
-    }
-}
-
-
+// Mobile Menu
 .mobile-menu {
-    display: none;
+    position: fixed;
+    top: $mobile-header-height;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - $mobile-header-height);
+    background: white;
+    transform: translateX(-100%);
+    transition: transform $transition-duration ease;
+    z-index: 999;
+    overflow-y: auto;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    mat-nav-list {
+        padding: 8px;
+
+        [mat-list-item] {
+            border-radius: 8px;
+            margin-bottom: 4px;
+            height: 48px;
+
+            &.active {
+                background: rgba($dyblleaColor, 0.1);
+                color: $dyblleaColor;
+
+                mat-icon {
+                    color: $dyblleaColor;
+                }
+            }
+
+            mat-icon {
+                margin-right: 16px;
+            }
+        }
+    }
 }
 
+// Menu Styles
+.tasks-menu {
+    .task-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
 
-.mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
+        mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
 
+            &.sync {
+                animation: spin 2s linear infinite;
+            }
+        }
 
-.description-work{
-    color:white;
-    margin-left: 10px;
-    font-size: 15px;
+        small {
+            opacity: 0.7;
+        }
+    }
+}
+
+.user-menu-header {
+    padding: 16px;
     display: flex;
     align-items: center;
+    gap: 16px;
+
+    .user-info {
+        h4 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        small {
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }
 }
 
-.color-white{
-    color:white;
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

@@ -1,38 +1,32 @@
-<mat-card>
+<mat-card class="services-card">
     <mat-card-header>
-        <span class="title-service">
-            <span class="material-icons text-white">info</span>
-            <span class="text-white">
-                Servicios a prestar hoy
-            </span>
-          
-        </span>
+        <mat-card-title>
+            <mat-icon>today</mat-icon>
+            <span>Servicios del día</span>
+        </mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-        <mat-list *ngIf="shifts?.today_service.length >0;else noServiceToday">
-            <div *ngFor="let serviceToday of shifts?.today_service">
-                <mat-list-item lines="">
-                    <div class="d-flex list-shifts">
-                        <div class="description">
-                            <span class="description-servicetoday">
-                                {{serviceToday?.name}}
-                            </span>
-                            <div class="bagde-count">
-                                {{serviceToday?.count}}
-                            </div>
-                        </div>
-                        <div class="price">
-                            {{ serviceToday?.price?.price | currency:'$':'symbol':'1.2-2' }}
-                        </div>
+        <mat-nav-list *ngIf="shifts?.today_service?.length > 0; else noServices">
+            <mat-list-item *ngFor="let service of shifts?.today_service">
+                <div class="service-item">
+                    <div class="service-info">
+                        <span class="service-name">{{service?.name}}</span>
+                        <mat-chip-listbox>
+                            <mat-chip color="primary" selected>{{service?.count}}</mat-chip>
+                        </mat-chip-listbox>
                     </div>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-            </div>
-        </mat-list>
-        <ng-template #noServiceToday>
-            <div class="mt-3 pd-3 m-3">
-                Sin servicios a prestar hoy
-                <mat-divider></mat-divider>
+                    <span class="service-price">
+                        {{service?.price?.price | currency:'$':'symbol':'1.2-2'}}
+                    </span>
+                </div>
+            </mat-list-item>
+        </mat-nav-list>
+
+        <ng-template #noServices>
+            <div class="empty-state">
+                <mat-icon>event_busy</mat-icon>
+                <p>Sin servicios programados para hoy</p>
             </div>
         </ng-template>
     </mat-card-content>

@@ -1,53 +1,84 @@
 @import '../../../../../styles.scss';
 
-.title-service {
-    font-size: 30px;
+.services-card {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+
+    mat-card-header {
+        background: $dyblleaColor;
+        padding: 16px;
+        margin: 0;
+
+        mat-card-title {
+            margin: 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 400;
+
+            mat-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 24px;
+            }
+        }
+    }
 }
 
-.list-shifts {
-    width: 100%;
+.service-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    padding: 8px 16px;
 
-    .description {
-        width: 60%;
-        font-size: 12px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .service-info {
         display: flex;
         align-items: center;
+        gap: 12px;
 
-        >span {
-            font-size: 15px;
-            margin-left: 5px;
-        }
-
-        .bagde-count {
-            background-color: map-get($md-mcgpalette0, 500);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 5px;
+        .service-name {
+            font-size: 1rem;
         }
     }
 
+    .service-price {
+        font-weight: 500;
+        color: $dyblleaColor;
+    }
 }
 
-.material-icons {
-    color: map-get($md-mcgpalette0, 500)
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    color: rgba(0, 0, 0, 0.6);
+
+    mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+    }
+
+    p {
+        margin: 0;
+        text-align: center;
+    }
 }
 
-.description-servicetoday {
-    font-size: 17px;
-}
+@media (max-width: 768px) {
+    .service-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
 
-mat-card-header{
-    padding: 16px 16px 16px;
-    background-color: map-get($md-mcgpalette0, 500);
+        .service-price {
+            align-self: flex-end;
+        }
+    }
 }

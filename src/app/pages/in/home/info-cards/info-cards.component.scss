@@ -1,84 +1,59 @@
 @import '../../../../../styles.scss';
 
-.info-cards {
-    justify-content: space-between;
+.info-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
 }
 
-// .div-cards-info-father {
-//     width: 33% !important;
-// }
-.children-cards {
-    width: 100%;
-}
+.info-card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
-.m-left-1{
-    margin-left:20px;
-}
-.card-info {
-    width:100%;
-    padding: 15px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: $dyblleaColor;
+    &:hover {
+        transform: translateY(-2px);
+    }
 
-    .card-description {}
-
-    .icon {
+    .info-card-content {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        margin: 15px;
+        padding: 24px;
+        background: linear-gradient(135deg, $dyblleaColor, darken($dyblleaColor, 15%));
+        color: white;
+    }
 
-        >span {
-            color: white;
-            font-size: 70px;
+    .info-card-text {
+        h3 {
+            font-size: 2rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        p {
+            margin: 4px 0 0;
+            opacity: 0.9;
+            font-size: 1rem;
         }
     }
 
-    .number {
-        display: flex;
-        align-items: center;
-
-        >span {
-            font-size: 20px;
-        }
-    }
-
-    .description {
-        display: flex;
-        align-items: center;
-
-        >span {
-            font-size: 15px;
-            color: white;
-        }
+    .info-card-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        opacity: 0.8;
     }
 }
 
-
-@media only screen and (max-width: 767px) {
-    .info-cards {
-        flex-direction: column !important;
+@media (max-width: 768px) {
+    .info-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    .div-cards-info-father {
-        width: 100%;
-
-        .children-cards {
-            width: 80%;
-            margin-left: 30px;
-        }
-    }
-
-    .card-info {
-        margin: 10px;
-        width: 100%;
-    }
-}
-
-@media only screen and (min-width: 960px) and (min-height: 768px) {
-    .div-cards-info-father {
-        width: 20%;
+    .info-card .info-card-content {
+        padding: 20px;
     }
 }

@@ -1,41 +1,70 @@
 @import '../../../../../styles.scss';
 
-.title-service {
-    font-size: 30px;
+.birthday-card {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+
+    mat-card-header {
+        background: $dyblleaColor;
+        padding: 16px;
+        margin: 0;
+
+        mat-card-title {
+            margin: 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 400;
+
+            mat-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 24px;
+            }
+        }
+    }
 }
 
-.list-shifts {
-    width: 100%;
+.birthday-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    padding: 8px 16px;
 
-    .description {
-        width: 60%;
-        font-size: 12px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .client-info {
         display: flex;
         align-items: center;
+        gap: 12px;
 
-        >span {
-            font-size: 15px;
-            margin-left: 5px;
+        .client-name {
+            font-size: 1rem;
         }
     }
 
+    button[mat-icon-button] {
+        opacity: 0.8;
+        transition: opacity 200ms ease;
+
+        &:hover:not([disabled]) {
+            opacity: 1;
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+        }
+    }
 }
 
-.description-servicetoday {
-    font-size: 17px;
-}
-
-.material-icons {
-    color: map-get($md-mcgpalette0, 500)
-}
-
-mat-card-header{
-    background-color: map-get($md-mcgpalette0, 500);
-    padding:16px 16px 16px
+@media (max-width: 768px) {
+    .birthday-item {
+        .client-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+    }
 }

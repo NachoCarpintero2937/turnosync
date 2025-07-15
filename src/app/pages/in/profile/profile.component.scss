@@ -1,184 +1,303 @@
 @import '../../../../styles.scss';
 
-.line {
-    width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .header_hr {
-        // border: 0.1px solid mat-color(md-mcgpalette0 );
-        border: none;
-        // border-bottom: 1px solid mat-color(md-mcgpalette0);
-        width: 100px;
-    }
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
 }
 
-.title {
-    font-size: 30px;
-    margin: 5px;
-    color: #6d6868;
-}
+// Header Section
+.profile-header {
+    position: relative;
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-.container_perfil {
-    margin: 40px
-}
-
-.perfil {
-    // border:1px solid #ccc;
-    width: 100%;
-
-    .background {
-        display: flex;
-        // padding: 10px;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .portada {
-        height: 270px;
+    .cover-photo {
+        height: 240px;
         background-image: url('/assets/img/portada_2.jpg');
         background-size: cover;
         background-position: center;
-        // border-radius: 10px;
-        background-repeat: no-repeat;
-        width: 100%;
+        position: relative;
 
-    }
-
-    .photo_perfil {
-        margin-top: -20px;
-        display: flex;
-        margin: -70px 0px 0px 40px;
-        width: 70%;
-        padding-bottom: 10px;
-        .border-inicials{
-            border: 3px solid map-get($md-mcgpalette0,500 );
-            border-radius: 50%;
-        }
-
-        .nombres {
-            width: 100%;
-            text-transform: capitalize;
-        }
-
-        .botones_editar {
-            display: flex;
-            align-items: center;
-            margin: 10px;
-            margin-top: 40px;
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
         }
     }
+}
 
-    .nombre {
+.profile-info {
+    position: relative;
+    margin-top: -75px;
+    padding: 0 24px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .profile-avatar {
+        margin-right: 24px;
+        border: 5px solid white;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        background: white;
+        width: 150px;
+        height: 150px;
         display: flex;
         align-items: center;
-        margin: 10px;
-        margin-top: 50px;
-
-        span {
-            font-size: 25px;
-        }
-    }
-
-    .muro_div_principal {
-        width: 100%;
         justify-content: center;
-        align-items: center;
+
+        app-iniciales {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .profile-name {
+        flex: 1;
+        min-width: 200px;
+
+        h1 {
+            margin: 0;
+            color: #333;
+            font-size: 2rem;
+            font-weight: 500;
+            text-transform: capitalize;
+
+            .appointment-count {
+                font-size: 1.25rem;
+                color: $dyblleaColor;
+                margin-left: 8px;
+            }
+        }
+    }
+
+    .profile-actions {
         display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+}
 
-        .muro {
-            display: flex;
-            width: 70%;
-            margin: 15px;
+// Content Section
+.profile-content {
+    display: grid;
+    grid-template-columns: minmax(250px, 300px) 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
 
-            .info {
-                width: 20%;
+    mat-card {
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+}
 
-                // margin:10px;
-                .descripcion {
-                    font-size: 15px;
-                }
+// Info Section
+.info-section {
+    .info-item {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 
-                .valor {
-                    font-size: 14px;
-                    color: #979292
-                }
+        .info-label {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    }
+
+    mat-divider {
+        margin: 0;
+    }
+}
+
+// Activity Section
+.activity-section {
+    @media (max-width: 600px) {
+        // background: #2a2a2a;
+    }
+
+    mat-card {
+        border-radius: 12px;
+        overflow: hidden;
+
+        @media (max-width: 600px) {
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        mat-card-header {
+            background: $dyblleaColor;
+            padding: 16px 24px;
+            margin: 0;
+
+            @media (max-width: 600px) {
+                padding: 12px 16px;
             }
 
-            .vertical_hr {
-                border: none;
-                border-left: 1px solid #ccc;
-                width: 1px;
-            }
+            mat-card-title {
+                margin: 0;
+                color: white;
+                font-size: 1.25rem;
+                font-weight: 400;
 
-            .history {
-                width: 80%;
-                .title-activity{
-                    margin:6px 0px 5px 12px;
-                    span {
-                        color:grey;
-                    }
-                }
-                mat-list-item {
-                    padding: 8px;
-
-                    .listado_muro {
-                        cursor: pointer;
-
-                        .nombre_muro {
-                            display: flex;
-                            margin: 5px;
-                            align-items: center;
-                            // color: #979393;
-                            font-size: 14px;
-                        }
-
-                        .nombre_inicial {
-                            padding: 5px;
-
-                            .inicial_muro {
-                                display: flex;
-                                align-items: center;
-                                border: 2px solid map-get($md-mcgpalette0,500 );
-                                border-radius: 50%;
-                            }
-                        }
-
-                        .descripcion_muro {
-                            font-family: 'CaviarDreams' !important;
-                            display: flex;
-                            align-items: center;
-                            font-size: 14px;
-                            color: #979393;
-                        }
-
-                        .icono_accion {
-                            // color: mat-color(md-mcgpalette0);
-                        }
-                    }
+                @media (max-width: 600px) {
+                    font-size: 1rem;
                 }
             }
+        }
+
+        mat-card-content {
+            padding: 0;
         }
     }
 }
 
-.example-viewport {
-    height: 480px;
-    // width: 200px;
-    // border: 1px solid black;
+.activity-viewport {
+    height: 600px;
+
+    @media (max-width: 600px) {
+        height: calc(100vh - 200px);
+    }
 }
 
-.fecha_estado {
-    font-family: "CaviarDreams" !important;
+.activity-item {
     display: flex;
     align-items: center;
-    font-size: 14px;
-    color: #979393;
+    gap: 16px;
+    padding: 16px;
+
+    @media (max-width: 600px) {
+        padding: 12px;
+        margin-bottom: 1px;
+    }
+
+    .activity-avatar {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($dyblleaColor, 0.1);
+
+        @media (max-width: 600px) {
+            width: 32px;
+            height: 32px;
+            background: rgba($dyblleaColor, 0.2);
+        }
+    }
+
+    .activity-details {
+        flex: 1;
+        min-width: 0;
+
+        .activity-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+
+            @media (max-width: 600px) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .activity-datetime {
+                font-size: 0.9375rem;
+                font-weight: 500;
+                color: rgba(0, 0, 0, 0.87);
+                white-space: nowrap;
+
+                @media (max-width: 600px) {
+                    font-size: 0.875rem;
+                }
+            }
+
+            .activity-service {
+                font-size: 0.9375rem;
+                color: $dyblleaColor;
+
+                @media (max-width: 600px) {
+                    font-size: 0.875rem;
+                }
+            }
+        }
+
+        .activity-description {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 0.875rem;
+
+            @media (max-width: 600px) {
+                font-size: 0.8125rem;
+            }
+
+            &.empty {
+                font-style: italic;
+            }
+        }
+    }
 }
 
-.valor-profile {
-    font-size: 15px !important;
+// Status styles
+[mat-list-item] {
+    position: relative;
+    border-left: 4px solid transparent;
 
+    @media (max-width: 600px) {
+        border-left: none;
+        border-right: 4px solid transparent;
+    }
+
+    &.status-show {
+        border-color: #4CAF50;
+    }
+
+    &.status-pending {
+        border-color: #FFC107;
+    }
+
+    &.status-cancelled {
+        border-color: #F44336;
+    }
+}
+
+mat-divider {
+    margin: 0;
+
+    @media (max-width: 600px) {
+        display: none;
+    }
+}
+
+// Hide info section on mobile
+@media (max-width: 600px) {
+    .info-section {
+        display: none;
+    }
+
+    .profile-content {
+        gap: 0;
+    }
 }

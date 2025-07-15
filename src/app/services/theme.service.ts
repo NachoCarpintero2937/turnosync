@@ -28,7 +28,7 @@ export class ThemeService {
   mapStyleToConfiguration(data: any) {
     var cfg: any = {}
     if (data?.cfg) {
-     cfg[data?.type] = localStorage.getItem(data?.type);
+      cfg[data?.type] = localStorage.getItem(data?.type);
       return cfg;
     } else if (data?.length) {
       const toolbar = this.findConfiguration(data, 'toolbar');
@@ -120,16 +120,14 @@ export class ThemeService {
         background:${toolbar}!important;
       }
 
-      .iniciales{
-        color:${toolbar}  !important;
-      }
+
     `;
     return css;
   }
 
 
-  getCustomConfiguration(configurations: any[], key: string){
-    if(configurations.length){
+  getCustomConfiguration(configurations: any[], key: string) {
+    if (configurations.length) {
       for (const config of configurations) {
         if (config?.configuration_key === key) {
           return config;
@@ -137,13 +135,13 @@ export class ThemeService {
       }
       return null;
     }
-    }
+  }
 
-    initColorTheme(settings:any){
-      let configurations = this.mapStyleToConfiguration(settings?.data?.companies?.configurations);
-      localStorage.setItem('toolbar', configurations?.toolbar);
-      localStorage.setItem('cardHome', configurations?.cardHome);
-      let style = this.setClassPropeties(configurations);
-      return style;
-    }
+  initColorTheme(settings: any) {
+    let configurations = this.mapStyleToConfiguration(settings?.data?.companies?.configurations);
+    localStorage.setItem('toolbar', configurations?.toolbar);
+    localStorage.setItem('cardHome', configurations?.cardHome);
+    let style = this.setClassPropeties(configurations);
+    return style;
+  }
 }

@@ -86,8 +86,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    MatDatepickerModule,
+    MatDatepickerModule
+
   ],
   providers: [MatIconRegistry],
 })
-export class MaterialModule {}
+export class MaterialModule { }

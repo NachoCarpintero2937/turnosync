@@ -1,13 +1,18 @@
-<div class="d-flex div-father">
-    <mat-calendar #matcalendar class="mat-calendar " [dateClass]="dateClass" (selectedChange)="onDateSelect($event)"
-        (monthSelected)="onDateSelect($event)" (yearSelected)="onDateSelect($event)">
+<div class="calendar-layout">
+    <mat-card class="calendar-section">
+        <mat-calendar #matcalendar class="calendar-widget mat-elevation-z0" [dateClass]="dateClass"
+            (selectedChange)="onDateSelect($event)" (monthSelected)="onDateSelect($event)"
+            (yearSelected)="onDateSelect($event)">
         </mat-calendar>
+    </mat-card>
 
-    <div class="list-shifts">
-        <app-view-shifts-diary [shifts]="shifts" [date]="date" [loading]="loading" (status)="changeStatus($event)" (outDate)="getDate($event)"></app-view-shifts-diary>
+    <div class="shifts-section">
+        <app-view-shifts-diary [shifts]="shifts" [date]="date" [loading]="loading" (status)="changeStatus($event)"
+            (outDate)="getDate($event)">
+        </app-view-shifts-diary>
     </div>
 
-    <div class="add_work">
-        <button mat-fab (click)="addShift();" [disabled]="isDateBefore" ><span class="material-icons text-white">add</span></button>
-    </div>
+    <button mat-fab class="add-button mat-elevation-z4" [disabled]="isDateBefore" (click)="addShift();">
+        <mat-icon>add</mat-icon>
+    </button>
 </div>

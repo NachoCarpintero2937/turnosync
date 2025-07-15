@@ -1,28 +1,29 @@
-<mat-card *ngIf="showBirthdayCard">
+<mat-card class="birthday-card">
     <mat-card-header>
-        <span class="title-service">
-            <span class="material-icons text-white">celebration</span>
-            <span class="text-white">Cumpleaños</span>
-        </span>
+        <mat-card-title>
+            <mat-icon>cake</mat-icon>
+            <span>Cumpleaños</span>
+        </mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-        <mat-list>
-            <div *ngFor="let client of clients">
-                <mat-list-item  *ngIf="calculateAge(client?.date_birthday) >0">
-                    <div class="d-flex list-shifts">
-                        <div class="description">
-                            <span class="description-servicetoday">
-                                {{client?.name}}, {{calculateAge(client?.date_birthday)}} años
-                            </span>
+        <mat-nav-list>
+            <ng-container *ngFor="let client of clients">
+                <mat-list-item *ngIf="calculateAge(client?.date_birthday) > 0">
+                    <div class="birthday-item">
+                        <div class="client-info">
+                            <span class="client-name">{{client?.name}}</span>
+                            <mat-chip color="accent" selected>
+                                {{calculateAge(client?.date_birthday)}} años
+                            </mat-chip>
                         </div>
-                        <div class="price">
-                            <a mat-button (click)="sendWsp(client)"><img src="./assets/img/wsp.png" alt=""
-                                    width="20"></a>
-                        </div>
+                        <button mat-icon-button (click)="sendWsp(client)" [disabled]="!client?.phone"
+                            matTooltip="Enviar felicitación">
+                            <img src="./assets/img/wsp.png" alt="WhatsApp" width="20">
+                        </button>
                     </div>
                 </mat-list-item>
-                <mat-divider *ngIf="calculateAge(client?.date_birthday) >0"></mat-divider>
-            </div>
-        </mat-list>
+            </ng-container>
+        </mat-nav-list>
     </mat-card-content>
 </mat-card>

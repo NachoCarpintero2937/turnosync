@@ -1,12 +1,16 @@
-<div class="mt-1 d-flex  div-employees">
-    <mat-card class="employees" *ngFor="let employe of shifts?.users" [ngClass]="{'col-md-12' : shifts?.users.length == 1, 'width-card': shifts?.users.length > 1}">
+<div class="employees-grid">
+    <mat-card *ngFor="let employee of shifts?.users" class="employee-card"
+        [class.full-width]="shifts?.users?.length === 1">
         <mat-card-header>
-            <span>
-                {{employe?.name}} ({{employe?.shifts.length}})
-            </span>
+            <mat-card-title>
+                <span class="m-3">{{employee?.name}}</span>
+                <mat-chip color="primary" selected>{{employee?.shifts?.length || 0}}</mat-chip>
+            </mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
-            <dy-shift [employe]="employe" (shiftEvent)="shiftEvent.emit($event)" (checked)="checked.emit($event)"></dy-shift>
+            <dy-shift [employe]="employee" (shiftEvent)="shiftEvent.emit($event)" (checked)="checked.emit($event)">
+            </dy-shift>
         </mat-card-content>
     </mat-card>
 </div>
