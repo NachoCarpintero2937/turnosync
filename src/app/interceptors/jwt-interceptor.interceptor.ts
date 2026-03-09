@@ -19,12 +19,12 @@ export class JwtInterceptor implements HttpInterceptor {
     private ToastService: ToastService,
     private LoginService: LoginService,
     private EnviromentService: EnviromentService,
-    private SettingsSerivce: SettingsService
+    private SettingsSerivce: SettingsService,
   ) {}
-  logoutExecuted : Boolean = false;
+  logoutExecuted: Boolean = false;
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     request = this.addToken(request);
     return next.handle(request).pipe(
@@ -43,19 +43,33 @@ export class JwtInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        let settings  = JSON.parse(this.SettingsSerivce.getCompanyData()!);
-        const errorMessage =  this.EnviromentService.getErrorCodeHttp()[error.status] || 'Error, intente nuevamente más tarde';
-        if (error.status === 401 || error.status === 403 && !this.logoutExecuted) {
-          if( !this.logoutExecuted )
-          this.LoginService.logout('/login' , settings?.data?.companies?.id).then((data: any) => {
-          this.ToastService.showToastNew( 'ERROR','Error: ' + errorMessage,'error');
-          this.logoutExecuted = true
-        });
-        } else {
-            this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
+        if (
+          (error.status === 401 || error.status === 403) &&
+          !this.logoutExecuted
+        ) {
+          // Marcar como ejecutado inmediatamente para bloquear llamadas concurrentes
+          this.logoutExecuted = true;
+          const settings = JSON.parse(
+            this.SettingsSerivce.getCompanyData() || 'null',
+          );
+          const companyId = settings?.data?.companies?.id;
+          const loginPath = companyId ? '/login/' + companyId : '/login';
+          const errorMessage =
+            this.EnviromentService.getErrorCodeHttp()[error.status] ||
+            'Sesión expirada, ingrese nuevamente';
+          this.LoginService.logout(loginPath, companyId).then(() => {
+            this.ToastService.showToastNew('ERROR', errorMessage, 'error');
+          });
+        } else if (error.status !== 401 && error.status !== 403) {
+          // Solo mostrar toast para errores que NO sean de autenticación
+          this.ToastService.showToastNew(
+            'ERROR',
+            error?.error?.message || 'Error, intente nuevamente más tarde',
+            'error',
+          );
         }
-        return throwError(() => error.error.message);
-      })
+        return throwError(() => error?.error?.message);
+      }),
     );
   }
 

@@ -123,6 +123,30 @@
         &.method-tra  { background: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe; }
         &.method-none { background: #f1f5f9; color: #94a3b8; }
       }
+
+      @media (max-width: 768px) {
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .shift-date {
+          width: 100%;
+          font-weight: 600;
+          color: #94a3b8;
+        }
+
+        .shift-client, .shift-service {
+          flex: 1 1 100%;
+        }
+
+        .shift-price {
+          flex: 1 1 auto;
+          text-align: left;
+        }
+
+        .shift-method {
+          flex: 0 0 auto;
+        }
+      }
     }
   }
 }

@@ -15,11 +15,26 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { ShiftModule } from './shift/shift.module';
+
 registerLocaleData(localeEs);
 
 @NgModule({
-  declarations: [HomeComponent, InfoCardsComponent, ServicesTodayComponent, EmployeesComponent, ClientsBirthdayComponent],
-  imports: [CommonModule, HomeRoutingModule, MaterialModule, DialogWspModule,ClipboardModule,DialogConfirmModule,ShiftModule ],
+  declarations: [
+    HomeComponent,
+    InfoCardsComponent,
+    ServicesTodayComponent,
+    EmployeesComponent,
+    ClientsBirthdayComponent,
+  ],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    MaterialModule,
+    DialogWspModule,
+    ClipboardModule,
+    DialogConfirmModule,
+    ShiftModule,
+  ],
   providers: [{ provide: LOCALE_ID, useValue: 'es-ES' }],
 })
-export class HomeModule { }
+export class HomeModule {}

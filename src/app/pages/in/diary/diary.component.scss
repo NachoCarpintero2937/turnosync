@@ -1,25 +1,53 @@
 @import '../../../../styles.scss';
 
+.div-father {
+  padding: 20px;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .mat-calendar {
-  width: 50%;
+  width: 45%;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px;
 }
 
 .list-shifts {
-  width: 50%;
+  width: 55%;
   height: 800px;
   overflow: auto;
+  border-radius: 20px;
+  padding-right: 10px;
+  
+  /* Styling scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(165, 129, 113, 0.5); /* $dyblleaColor base */
+    border-radius: 4px;
+  }
 }
 
-
 :host ::ng-deep mat-calendar .highlight-event {
-  border: 1px solid $dyblleaColor;
+  border: 2px solid $dyblleaColor;
   border-radius: 50%;
+  background: rgba(165, 129, 113, 0.1);
   z-index: 99 !important;
+  font-weight: 600;
 
   span {
     color: $dyblleaColor !important;
     border: 0px !important;
-
   }
 }
 
@@ -27,10 +55,23 @@
   z-index: 99999;
 }
 
-@media only screen and (max-width: 767px) {
+.add_work {
+  button {
+    background: linear-gradient(135deg, $dyblleaColor 0%, darken($dyblleaColor, 10%) 100%) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+    
+    &:hover:not([disabled]) {
+      transform: scale(1.05);
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
   .div-father {
     display: flex;
     flex-direction: column;
+    padding: 15px;
   }
 
   .mat-calendar {
@@ -39,5 +80,8 @@
 
   .list-shifts {
     width: 100%;
+    height: auto;
+    max-height: 600px;
+    margin-top: 10px;
   }
 }

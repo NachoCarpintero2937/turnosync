@@ -1,110 +1,218 @@
-<div class="container mt-5 mb-5"  >
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="form" class="m-3">
-                <mat-form-field appearance="fill" class="col-12 mt-3">
-                    <mat-label>Fecha del turno </mat-label>
-                    <input matInput  [min]="dateNow"  [matDatepicker]="picker" formControlName="date_shift" (click)="picker.open();">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="col-12 mt-3" *ngIf="!isMobile;else mobileHour">
-                    <mat-label>Hora del turno </mat-label>
-                    <input matInput     [ngxTimepicker]="fullTime" [format]="24"  readonly formControlName="hour">
-                    <ngx-material-timepicker #fullTime [theme]="dybellaTheme"></ngx-material-timepicker>
-                </mat-form-field>
-                <ng-template #mobileHour>
-                    <mat-form-field class="col-12 mt-3">
-                        <mat-label>Hora</mat-label>
-                        <input matInput formControlName="hour" type="time">
-                    </mat-form-field>
-                </ng-template>
-                <mat-form-field class="col-12 mt-3">
-                    <mat-label>Servicio</mat-label>
-                    <mat-select formControlName="service_id"   (selectionChange)="onSelect('service');">
-                        <mat-form-field class="col-12 mt-3">
-                        <mat-label>Buscar Servicio</mat-label>
-                        <input matInput [formControl]="searchCtrlService" class="search-mat" >
-                    </mat-form-field>
-                        <mat-option *ngFor="let service of filteredService" [value]="service?.id">{{service?.name}}</mat-option>
-                        <mat-option class="add-client-option"*ngIf="!filteredService?.length">
-                            <span>
-                                Sin resultados para esta búsqueda
-                            </span>
-                        </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field class="col-12 mt-3">
-                    <mat-label>Precio</mat-label>
-                    <input matInput   formControlName="price" >
-                </mat-form-field>
-                <div class="col-12 add-client">
-                    <mat-form-field class="input-client mt-3">
-                        <mat-label>Cliente</mat-label>
-                        <mat-select formControlName="client_id"   (selectionChange)="onSelect('client');">
-                            <mat-form-field class="col-12 mt-3">
-                            <mat-label>Buscar Cliente</mat-label>
-                            <input matInput [formControl]="searchCtrlClient" class="search-mat" >
-                        </mat-form-field>
-                            <mat-option *ngFor="let client of filteredClients" [value]="client?.id" >{{client?.name}}</mat-option>
-                            <mat-option class="add-client-option"*ngIf="!filteredClients?.length">
-                                <span>
-                                    Sin resultados para esta búsqueda
-                                </span>
-                            </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <div class="div-btn-add-client">
-                        <button mat-fab class="btn-client" *ngIf="form.get('client_id')?.value" [routerLink]="['/in/profile/']" [queryParams]="{client: form.get('client_id')?.value}"><span class="material-icons text-white size-add">person</span></button>
-                        <button mat-fab class="btn-client" (click)="addClient();"><span class="material-icons text-white  size-add">add</span></button>
+<div class="container mt-5 mb-5">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" class="m-3">
+        <mat-form-field appearance="fill" class="col-12 mt-3">
+          <mat-label>Fecha del turno </mat-label>
+          <input
+            matInput
+            [min]="dateNow"
+            [matDatepicker]="picker"
+            formControlName="date_shift"
+            (click)="picker.open()"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field
+          appearance="fill"
+          class="col-12 mt-3"
+          *ngIf="!isMobile; else mobileHour"
+        >
+          <mat-label>Hora del turno </mat-label>
+          <input
+            matInput
+            [ngxTimepicker]="fullTime"
+            [format]="24"
+            readonly
+            formControlName="hour"
+          />
+          <ngx-material-timepicker
+            #fullTime
+            [theme]="dybellaTheme"
+          ></ngx-material-timepicker>
+        </mat-form-field>
+        <ng-template #mobileHour>
+          <mat-form-field class="col-12 mt-3">
+            <mat-label>Hora</mat-label>
+            <input matInput formControlName="hour" type="time" />
+          </mat-form-field>
+        </ng-template>
+        <mat-form-field class="col-12 mt-3">
+          <mat-label>Servicio</mat-label>
+          <mat-select
+            formControlName="service_id"
+            (selectionChange)="onSelect('service')"
+          >
+            <mat-form-field class="col-12 mt-3">
+              <mat-label>Buscar Servicio</mat-label>
+              <input
+                matInput
+                [formControl]="searchCtrlService"
+                class="search-mat"
+              />
+            </mat-form-field>
+            <mat-option
+              *ngFor="let service of filteredService"
+              [value]="service?.id"
+              >{{ service?.name }}</mat-option
+            >
+            <mat-option
+              class="add-client-option"
+              *ngIf="!filteredService?.length"
+            >
+              <span> Sin resultados para esta búsqueda </span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-12 mt-3">
+          <mat-label>Precio</mat-label>
+          <input matInput formControlName="price" />
+        </mat-form-field>
+        <div class="col-12 add-client">
+          <mat-form-field class="input-client mt-3">
+            <mat-label>Cliente</mat-label>
+            <mat-select
+              formControlName="client_id"
+              (selectionChange)="onSelect('client')"
+            >
+              <mat-form-field class="col-12 mt-3">
+                <mat-label>Buscar Cliente</mat-label>
+                <input
+                  matInput
+                  [formControl]="searchCtrlClient"
+                  class="search-mat"
+                />
+              </mat-form-field>
+              <mat-option
+                *ngFor="let client of filteredClients"
+                [value]="client?.id"
+                >{{ client?.name }}</mat-option
+              >
+              <mat-option
+                class="add-client-option"
+                *ngIf="!filteredClients?.length"
+              >
+                <span> Sin resultados para esta búsqueda </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="div-btn-add-client">
+            <button
+              mat-fab
+              class="btn-client"
+              *ngIf="form.get('client_id')?.value"
+              [routerLink]="['/in/profile/']"
+              [queryParams]="{ client: form.get('client_id')?.value }"
+            >
+              <span class="material-icons text-white size-add">person</span>
+            </button>
+            <button mat-fab class="btn-client" (click)="addClient()">
+              <span class="material-icons text-white size-add">add</span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="col-12 pd-5"
+          *ngIf="
+            shiftsToClient.shifts.length > 0 &&
+              shiftsToClient.shifts[0].id != shift?.id;
+            else lastShift
+          "
+        >
+          <span class="last-shift"> Último turno </span>
+          <dy-shift [employe]="shiftsToClient" [edit]="false"></dy-shift>
+        </div>
+        <ng-template #lastShift>
+          <span class="last-shift">
+            <b>Este es el último turno de {{ shift?.client?.name }}</b>
+          </span>
+        </ng-template>
+        <mat-form-field class="col-12 mt-3">
+          <mat-label>Usuario a asignar turno</mat-label>
+          <mat-select
+            formControlName="user_id"
+            (selectionChange)="onSelect('user')"
+          >
+            <mat-form-field class="col-12 mt-3">
+              <mat-label>Buscar Usuario</mat-label>
+              <input
+                matInput
+                [formControl]="searchCtrlUsers"
+                class="search-mat"
+              />
+            </mat-form-field>
+            <mat-option *ngFor="let user of filteredUsers" [value]="user?.id">{{
+              user?.name
+            }}</mat-option>
+            <mat-option
+              class="add-client-option"
+              *ngIf="!filteredUsers?.length"
+            >
+              <span> Sin resultados para esta búsqueda </span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-12 mt-3" *ngIf="shift">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="status">
+            <mat-option [value]="shiftStatus.PENDING">Pendiente</mat-option>
+            <mat-option [value]="shiftStatus.SHOW">Confirmado</mat-option>
+            <mat-option [value]="shiftStatus.CANCELLED">Cancelado</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-                      </div>
-                </div>
-                <div class="col-12 pd-5" *ngIf="shiftsToClient.shifts.length > 0 && shiftsToClient.shifts[0].id != shift?.id;else lastShift">
-                    <span class="last-shift">
-                        Último turno
-                    </span>
-                    <dy-shift [employe]="shiftsToClient" [edit]="false"></dy-shift>
-                </div>
-                <ng-template #lastShift>
-                    <span class="last-shift">
-                       <b>Este es el último turno de {{shift?.client?.name}}</b>
-                    </span>
-                </ng-template>
-                  <mat-form-field class="col-12 mt-3">
-                    <mat-label>Usuario a asignar turno</mat-label>
-                    <mat-select  formControlName="user_id" (selectionChange)="onSelect('user');">
-                        <mat-form-field class="col-12 mt-3">
-                        <mat-label>Buscar Usuario</mat-label>
-                        <input matInput [formControl]="searchCtrlUsers" class="search-mat" >
-                    </mat-form-field>
-                        <mat-option *ngFor="let user of filteredUsers" [value]="user?.id">{{user?.name}}</mat-option>
-                        <mat-option class="add-client-option"*ngIf="!filteredUsers?.length">
-                            <span>
-                                Sin resultados para esta búsqueda
-                            </span>
-                        </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field class="col-12 mt-3" *ngIf="shift">
-                    <mat-label>Estado</mat-label>
-                    <mat-select  formControlName="status">
-                        <mat-option [value]="shiftStatus.PENDING">Pendiente</mat-option>
-                        <mat-option [value]="shiftStatus.SHOW">Confirmado</mat-option>
-                        <mat-option [value]="shiftStatus.CANCELLED">Cancelado</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                <mat-form-field class="col-md-12 description mt-3">
-                    <mat-label>Descripcion</mat-label>
-                    <textarea matInput rows="5" cols="40" class="description" formControlName="description"  ></textarea>
-                </mat-form-field>
-            </form>
-        </mat-card-content>
-        <mat-card-footer>
-            <button mat-button
-             [disabled]="!form.valid || submitForm || loadingForm" (click)="submit()"
-              class="col-12">Guardar</button>
-        </mat-card-footer>
-    </mat-card>
+        <!-- Selector de método de pago -->
+        <div
+          class="payment-selector col-12 mt-2 mb-2"
+          *ngIf="showPaymentSelector"
+        >
+          <p class="payment-label">💳 ¿Cómo pagó el cliente?</p>
+          <div class="payment-options">
+            <button
+              type="button"
+              class="payment-btn"
+              [class.active]="form.get('payment_method')?.value === 'efectivo'"
+              (click)="selectPaymentMethod('efectivo')"
+            >
+              💵 Efectivo
+            </button>
+            <button
+              type="button"
+              class="payment-btn"
+              [class.active]="
+                form.get('payment_method')?.value === 'transferencia'
+              "
+              (click)="selectPaymentMethod('transferencia')"
+            >
+              📲 Transferencia
+            </button>
+          </div>
+        </div>
+        <mat-form-field class="col-md-12 description mt-3">
+          <mat-label>Descripcion</mat-label>
+          <textarea
+            matInput
+            rows="5"
+            cols="40"
+            class="description"
+            formControlName="description"
+          ></textarea>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-footer>
+      <button
+        mat-button
+        [disabled]="!form.valid || submitForm || loadingForm"
+        (click)="submit()"
+        class="col-12"
+      >
+        Guardar
+      </button>
+    </mat-card-footer>
+  </mat-card>
 </div>
-

@@ -8,7 +8,10 @@ import { LoginService } from '../../public/login/services/login.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { ClientsService } from '../clients/services/clients.service';
 import { DateService } from 'src/app/services/date.service';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerInputEvent,
+} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +29,8 @@ export class HomeComponent implements OnInit {
     private ClipboardService: ClipboardService,
     private ClientService: ClientsService,
     @Inject(LOCALE_ID) private locale: string,
-    public DateService: DateService
-  ) { }
+    public DateService: DateService,
+  ) {}
   shifts: any;
   clients: any[] = [];
   shiftIdSelected: any[] = [];
@@ -47,49 +50,52 @@ export class HomeComponent implements OnInit {
   getShifts() {
     this.loading = true;
     const date = {
-      start_date: this.DatePipe.transform(this.date, 'yyyy-MM-dd ') + '00:00:00',
-      end_date: this.DatePipe.transform(this.date, 'yyyy-MM-dd ') + '23:59:59'
+      start_date:
+        this.DatePipe.transform(this.date, 'yyyy-MM-dd ') + '00:00:00',
+      end_date: this.DatePipe.transform(this.date, 'yyyy-MM-dd ') + '23:59:59',
     };
-    this.HomeService.getShifts(date).then((data: any) => {
-      this.loading = false;
-      this.shifts = data?.data;
-    }).catch(e => {
-      this.loading = false;
-    })
+    this.HomeService.getShifts(date)
+      .then((data: any) => {
+        this.loading = false;
+        this.shifts = data?.data;
+      })
+      .catch((e) => {
+        this.loading = false;
+      });
   }
 
   nextDay() {
     this.showResetDate = true;
     const date = new Date(this.date.setDate(this.date.getDate() + 1));
-    this.date = new Date(date.setHours(0, 0, 0, 0))
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.getShifts();
-        this.getClientsToBirthday();
-      }, 1000);
+    this.date = new Date(date.setHours(0, 0, 0, 0));
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.getShifts();
+      this.getClientsToBirthday();
+    }, 1000);
   }
 
   BeforeDay() {
     this.showResetDate = true;
     const date = new Date(this.date.setDate(this.date.getDate() - 1));
-    this.date = new Date(date.setHours(0, 0, 0, 0))
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.getShifts();
-        this.getClientsToBirthday();
-      }, 1000);
+    this.date = new Date(date.setHours(0, 0, 0, 0));
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.getShifts();
+      this.getClientsToBirthday();
+    }, 1000);
   }
 
   goDate() {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-    this.showResetDate = false;
-    const date = new Date();
-    this.date = new Date(date.setHours(0, 0, 0, 0));
-    this.getShifts();
-    this.getClientsToBirthday();
-    this.picker.select(this.date)
-  }, 1000);
+      this.showResetDate = false;
+      const date = new Date();
+      this.date = new Date(date.setHours(0, 0, 0, 0));
+      this.getShifts();
+      this.getClientsToBirthday();
+      this.picker.select(this.date);
+    }, 1000);
   }
 
   setDate(event: any) {
@@ -98,12 +104,10 @@ export class HomeComponent implements OnInit {
     this.getShifts();
     this.getClientsToBirthday();
     const date = new Date();
-    const dateNow = new Date(date.setHours(0, 0, 0, 0))
+    const dateNow = new Date(date.setHours(0, 0, 0, 0));
     const datePage = new Date(this.date);
-    if (dateNow.getTime() == datePage.getTime())
-      this.showResetDate = false;
-    else
-      this.showResetDate = true;
+    if (dateNow.getTime() == datePage.getTime()) this.showResetDate = false;
+    else this.showResetDate = true;
   }
   getFormattedDate() {
     const dateFormat = "EEEE, d 'de' MMMM 'del' yyyy";
@@ -114,33 +118,39 @@ export class HomeComponent implements OnInit {
 
   getClientsToBirthday() {
     this.ClientService.getClients({
-      date_birthday: this.DatePipe.transform(this.date, 'yyyy-MM-dd')
-    }).then((client: any) => {
-      this.clients = client?.data?.clients;
-    }).catch(e => {
-
-    });
+      date_birthday: this.DatePipe.transform(this.date, 'yyyy-MM-dd'),
+    })
+      .then((client: any) => {
+        this.clients = client?.data?.clients;
+      })
+      .catch((e) => {});
   }
 
   createUrl() {
     this.submitUrl = true;
     this.UrlService.setUrl({
-      user_id: this.LoginService.getDataUser().data?.id
-    }).then((data: any) => {
-      this.submitUrl = false;
-      this.ClipboardService.copyFromContent(data?.data?.url + '/' + data?.data?.id);
-      this.ToastService.showToastNew(
-        '',
-        "URL copiada en portapapeles",
-        'success'
-      );
-    }).catch(e => {
-      this.submitUrl = false;
-    });
+      user_id: this.LoginService.getDataUser().data?.id,
+    })
+      .then((data: any) => {
+        this.submitUrl = false;
+        this.ClipboardService.copyFromContent(
+          data?.data?.url + '/' + data?.data?.id,
+        );
+        this.ToastService.showToastNew(
+          '',
+          'URL copiada en portapapeles',
+          'success',
+        );
+      })
+      .catch((e) => {
+        this.submitUrl = false;
+      });
   }
 
   addShift() {
-    this.Router.navigate(['in/shifts/create-shift'], { queryParams: { date: this.date } });
+    this.Router.navigate(['in/shifts/create-shift'], {
+      queryParams: { date: this.date },
+    });
   }
 
   selectedShift(data: any) {
@@ -155,7 +165,9 @@ export class HomeComponent implements OnInit {
   }
 
   goToViewShifts() {
-    this.Router.navigate(['/in/shifts/view-shift'], { queryParams: { shifts: btoa(JSON.stringify(this.shiftIdSelected)) } })
+    this.Router.navigate(['/in/shifts/view-shift'], {
+      queryParams: { shifts: btoa(JSON.stringify(this.shiftIdSelected)) },
+    });
   }
 
   onKeyDown(event: KeyboardEvent): void {
@@ -164,8 +176,8 @@ export class HomeComponent implements OnInit {
       // Tu lógica aquí...
     } else if (event.key === 'ArrowRight') {
       this.nextDay();
-    }else if (event.key === 'Delete' || event.key === 'Backspace') {
+    } else if (event.key === 'Delete' || event.key === 'Backspace') {
       this.goDate();
+    }
   }
-}
 }

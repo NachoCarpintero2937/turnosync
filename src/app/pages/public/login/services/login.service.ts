@@ -1,4 +1,4 @@
-import {  Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CryptoService } from 'src/app/common/services/crypto.service';
@@ -13,36 +13,45 @@ export class LoginService {
     private ApiService: ApiService,
     private EnviromentService: EnviromentService,
     private Router: Router,
-    private CryptoService : CryptoService
+    private CryptoService: CryptoService,
   ) {}
-  public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject(this.getDataUser());
+  public dataUserSubject: BehaviorSubject<any> = new BehaviorSubject(
+    this.getDataUser(),
+  );
   login(data: any) {
     return this.ApiService.post(
       this.EnviromentService.getEndpoints().endpoints.login.login,
-      data
+      data,
     );
   }
 
   setUserData(data: any) {
-    localStorage.setItem('notifications', JSON.stringify({notifications: true}));
+    localStorage.setItem(
+      'notifications',
+      JSON.stringify({ notifications: true }),
+    );
     localStorage.setItem('dybelladata', this.CryptoService.encryptData(data));
   }
 
   getDataUser() {
     const local = localStorage.getItem('dybelladata');
-    if (local)
-    return JSON.parse(this.CryptoService.decryptData(local));
-  else
-    return null;
-  
+    if (local) return JSON.parse(this.CryptoService.decryptData(local));
+    else return null;
   }
 
-  logout(path: string = '/login', companyId :string): Promise<object> {
+  logout(path: string = '/login', companyId?: string): Promise<object> {
     return new Promise((resolve, reject) => {
       localStorage.removeItem('dybelladata');
       sessionStorage.clear();
       this.dataUserSubject.next(null);
-      this.Router.navigate([path+'/'+companyId])
+      // Si path ya contiene el companyId (viene completo) lo usamos directo;
+      // si no, y hay companyId, lo anexamos; si no hay ninguno, solo '/login'
+      const fullPath = path.includes('/login/')
+        ? path
+        : companyId
+          ? path + '/' + companyId
+          : path;
+      this.Router.navigate([fullPath])
         .then(() => {
           resolve({
             status: true,
@@ -58,11 +67,10 @@ export class LoginService {
     });
   }
 
-
-  getNotificactions(data?:any){
+  getNotificactions(data?: any) {
     return this.ApiService.post(
       this.EnviromentService.getEndpoints().endpoints.shifts.notifications,
-    data
+      data,
     );
   }
 }

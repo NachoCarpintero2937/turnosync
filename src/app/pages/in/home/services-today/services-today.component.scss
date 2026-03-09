@@ -1,7 +1,18 @@
 @import '../../../../../styles.scss';
 
+mat-card {
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
 .title-service {
-    font-size: 30px;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .list-shifts {
@@ -21,33 +32,46 @@
 
         >span {
             font-size: 15px;
-            margin-left: 5px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-left: 8px;
         }
 
         .bagde-count {
-            background-color: map-get($md-mcgpalette0, 500);
+            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
             color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+            min-width: 24px;
+            height: 24px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 5px;
+            margin-left: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 0 6px;
         }
     }
 
 }
 
 .material-icons {
-    color: map-get($md-mcgpalette0, 500)
+    color: white;
+}
+
+.price {
+    font-weight: 700;
+    color: #10b981;
+    font-size: 16px;
 }
 
 .description-servicetoday {
-    font-size: 17px;
+    font-size: 15px;
+    color: #334155;
 }
 
-mat-card-header{
-    padding: 16px 16px 16px;
-    background-color: map-get($md-mcgpalette0, 500);
+mat-card-header {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+    color: white;
 }

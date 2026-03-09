@@ -58,16 +58,16 @@ export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChang
   filter() {
     const name = this.form.get('name')?.value || ''; // Valor del campo 'name'
     const phone = this.form.get('phone')?.value || ''; // Valor del campo 'phone'
-  
+
     if (!name && !phone) {
       // Si ambos filtros están vacíos, restaurar la lista original
       this.list.data = this.originalObject;
       return;
     }
-  
+
     const nameRegex = new RegExp(name, 'i'); // Expresión regular para el nombre
     const phoneRegex = new RegExp(phone, 'i'); // Expresión regular para la combinación de cod_area y phone
-  
+
     this.list.data = this.originalObject.filter((item: any) => {
       const matchesName = name ? nameRegex.test(item.name) : true; // Coincidencia por nombre
       const fullPhone = `${item.cod_area}${item.phone}`; // Concatenar cod_area y phone
@@ -75,7 +75,7 @@ export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChang
       return matchesName && matchesPhone; // Debe coincidir con ambos criterios
     });
   }
-  
+
 
   reset() {
     this.list.data = this.originalObject;
@@ -83,17 +83,17 @@ export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChang
 
   sendWsp(data: any) {
     const newData = { "data": data };
-    // this.EnviromentService.goToWsp(newData)
+    this.EnviromentService.goToWsp(newData)
   }
 
   destroy(element: any) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
-      data: { text: 'Vas a eliminar el cliente  <b>' + element?.name + '</b>'},
+      data: { text: 'Vas a eliminar el cliente  <b>' + element?.name + '</b>' },
       width: '20%',
     });
-    dialogRef.afterClosed().subscribe((modalData:any) => {
+    dialogRef.afterClosed().subscribe((modalData: any) => {
       if (modalData?.confirm) {
-        this.delete.emit({id: element?.id})
+        this.delete.emit({ id: element?.id })
       }
     });
   }

@@ -3,32 +3,35 @@ import { ApiService } from 'src/app/services/api.service';
 import { EnviromentService } from 'src/app/services/enviroment.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShiftsService {
-
   constructor(
     private ApiService: ApiService,
-    private EnviromentService: EnviromentService
-  ) { }
+    private EnviromentService: EnviromentService,
+  ) {}
 
   getShifts(data?: any) {
     return this.ApiService.get(
       this.EnviromentService.getEndpoints().endpoints.shifts.shifts,
-      data
+      data,
     );
   }
 
   setShift(data: any) {
     return this.ApiService.post(
-      data?.id ? this.EnviromentService.getEndpoints().endpoints.shifts.update :
-        this.EnviromentService.getEndpoints().endpoints.shifts.create,
-      data
+      data?.id
+        ? this.EnviromentService.getEndpoints().endpoints.shifts.update
+        : this.EnviromentService.getEndpoints().endpoints.shifts.create,
+      data,
     );
   }
 
   setShiftSelected(data: any) {
-    return this.ApiService.post(this.EnviromentService.getEndpoints().endpoints.shifts.createToShift, data);
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.shifts.createToShift,
+      data,
+    );
   }
 
   mapToShift(data: any, date: any) {
@@ -37,31 +40,41 @@ export class ShiftsService {
       date_shift: date,
       description: data?.description,
       status: data?.status,
-      price: data?.price.toString().replace('$', '').replace('.', '').replace(',', ''),
+      price: data?.price ? data.price.toString().replace(/\D/g, '') : null,
       service_id: data?.service_id,
       client_id: data?.client_id,
-      user_id: data?.user_id
-    }
+      user_id: data?.user_id,
+      payment_method: data?.payment_method ?? null,
+    };
+  }
+
+  updateStatus(data: any) {
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.shifts.updateStatus,
+      data,
+    );
   }
 
   filterItems(items: any[], search: string): any[] {
     const filterValue = search?.toLowerCase();
-    return items.filter((item) => item.name.toLowerCase().includes(filterValue));
+    return items.filter((item) =>
+      item.name.toLowerCase().includes(filterValue),
+    );
   }
 
   getStatusSfits(shift: any): string {
     switch (shift?.status) {
       case 1:
-        return "Confirmado";
+        return 'Confirmado';
         break;
       case 0:
-        return "Pendiente";
+        return 'Pendiente';
         break;
       case 2:
-        return "Cancelado";
+        return 'Cancelado';
         break;
       default:
-        return "Sin estado";
+        return 'Sin estado';
         break;
     }
   }
@@ -73,20 +86,26 @@ export class ShiftsService {
     // Divide el valor en parte entera y parte decimal
     const [integerPart, decimalPart] = value.split('.');
     // Formatea la parte entera con separadores de miles
-    const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const formattedIntegerPart = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      '.',
+    );
     // Si hay parte decimal, formatearla también
-    const formattedDecimalPart = decimalPart ? `.${decimalPart.slice(0, 2)}` : '';
+    const formattedDecimalPart = decimalPart
+      ? `.${decimalPart.slice(0, 2)}`
+      : '';
     // Vuelve a asignar el valor formateado al control
     return formattedIntegerPart + formattedDecimalPart;
   }
 
-
   sendWspApi(data: any) {
     const dataWsp = {
-      phone: data?.data?.cod_area+data?.data?.phone,
-      message : data?.message
-    }
-    return this.ApiService.post(this.EnviromentService.getEndpoints().endpoints.shifts.sendWsp, dataWsp);
+      phone: data?.data?.cod_area + data?.data?.phone,
+      message: data?.message,
+    };
+    return this.ApiService.post(
+      this.EnviromentService.getEndpoints().endpoints.shifts.sendWsp,
+      dataWsp,
+    );
   }
-
 }

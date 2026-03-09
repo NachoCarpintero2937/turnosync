@@ -37,14 +37,14 @@
     }
 
     .portada {
-        height: 270px;
+        height: 250px;
         background-image: url('/assets/img/portada_2.jpg');
         background-size: cover;
         background-position: center;
-        // border-radius: 10px;
         background-repeat: no-repeat;
         width: 100%;
-
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     .photo_perfil {
@@ -78,7 +78,11 @@
         margin-top: 50px;
 
         span {
-            font-size: 25px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.8);
         }
     }
 
@@ -90,35 +94,49 @@
 
         .muro {
             display: flex;
-            width: 70%;
-            margin: 15px;
+            width: 80%;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            overflow: hidden;
 
             .info {
-                width: 20%;
+                width: 30%;
+                padding: 20px;
+                background: linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(241, 245, 249, 0.5) 100%);
+                border-right: 1px solid rgba(0, 0, 0, 0.05);
 
-                // margin:10px;
                 .descripcion {
-                    font-size: 15px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #64748b;
                 }
 
                 .valor {
-                    font-size: 14px;
-                    color: #979292
+                    font-size: 15px;
+                    color: #1e293b;
+                    font-weight: 500;
                 }
             }
 
             .vertical_hr {
-                border: none;
-                border-left: 1px solid #ccc;
-                width: 1px;
+                display: none;
             }
 
             .history {
-                width: 80%;
+                width: 70%;
+                padding: 20px;
+                
                 .title-activity{
-                    margin:6px 0px 5px 12px;
+                    margin: 10px 0 20px 15px;
                     span {
-                        color:grey;
+                        font-size: 20px;
+                        font-weight: 700;
+                        color: #1e293b;
                     }
                 }
                 mat-list-item {
@@ -131,8 +149,8 @@
                             display: flex;
                             margin: 5px;
                             align-items: center;
-                            // color: #979393;
-                            font-size: 14px;
+                            font-size: 15px;
+                            color: #334155;
                         }
 
                         .nombre_inicial {
@@ -141,17 +159,17 @@
                             .inicial_muro {
                                 display: flex;
                                 align-items: center;
-                                border: 2px solid map-get($md-mcgpalette0,500 );
                                 border-radius: 50%;
+                                overflow: hidden;
+                                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
                             }
                         }
 
                         .descripcion_muro {
-                            font-family: 'CaviarDreams' !important;
                             display: flex;
                             align-items: center;
                             font-size: 14px;
-                            color: #979393;
+                            color: #64748b;
                         }
 
                         .icono_accion {
@@ -165,13 +183,11 @@
 }
 
 .example-viewport {
-    height: 480px;
-    // width: 200px;
-    // border: 1px solid black;
+    height: 400px; /* Reducí la altura para asegurar que entre sin scroll externo */
+    overflow-y: auto;
 }
 
 .fecha_estado {
-    font-family: "CaviarDreams" !important;
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -180,5 +196,37 @@
 
 .valor-profile {
     font-size: 15px !important;
+    font-weight: 500;
+    color: #1e293b;
+}
 
+@media only screen and (max-width: 900px) {
+    .perfil {
+        .photo_perfil {
+            width: 90%;
+            margin-left: 5%;
+            
+            .nombre span {
+                font-size: 22px;
+            }
+        }
+
+        .muro_div_principal {
+            .muro {
+                flex-direction: column;
+                width: 95%;
+
+                .info {
+                    width: 100%;
+                    border-right: none;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                }
+
+                .history {
+                    width: 100%;
+                    padding: 10px;
+                }
+            }
+        }
+    }
 }

@@ -1,13 +1,30 @@
+mat-card {
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    padding: 20px;
+    background: #ffffff;
+}
+
 .phone-number {
     margin-left: 25px;
 }
 
-@media only screen and (max-width: 600px) {
-
+@media only screen and (max-width: 768px) {
     .codArea,
     .phone-number {
         width: 100%;
         margin-left: 0px !important;
+    }
+
+    mat-card {
+        padding: 5px;
+        border-radius: 16px;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
 

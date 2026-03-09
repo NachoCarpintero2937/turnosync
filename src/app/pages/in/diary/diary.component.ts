@@ -40,7 +40,13 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   enumShift!: EnumStatusShift;
   isDateBefore!: boolean;
   submitStatus!: boolean;
+
+  // Optimización: Caché mensual y de renderizado
+  monthShifts: any[] = [];
+  currentMonthKey: string = '';
+
   ngOnInit(): void {
+    this.date = new Date(); // Asignar fecha actual por defecto
     this.getShifts(this.filter_date, false);
   }
 
@@ -48,7 +54,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     this.date = event;
     this.filter_date = new Date(event);
     this.validateDate();
-    this.getShifts(this.filter_date);
+    this.getShifts(this.filter_date, false);
   }
 
   validateDate() {
@@ -59,39 +65,52 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getShifts(date?: any, outDate?: boolean) {
+  getShifts(date: any, outDate?: boolean) {
     this.loading = true;
-    this.shifts = [];
+    const targetDate = date ? new Date(date) : new Date();
+    const monthKey = targetDate.getFullYear() + '-' + targetDate.getMonth();
 
-    var filter = {};
-    const dateRange = !outDate
-      ? this.DateService.getMonthDateRange(date)
-      : this.DateService.getDayRange(date);
-    filter = {
-      start_date: dateRange.startDate,
-      end_date: dateRange.endDate,
-    };
+    if (this.currentMonthKey !== monthKey || this.monthShifts.length === 0) {
+      // Necesitamos fetchear el mes desde la API (Optimizado: solo este mes)
+      const dateRange = this.DateService.getMonthDateRange(targetDate);
+      const filter = {
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate,
+      };
 
-    this.DiaryService.getShifts(filter)
-      .then((data: any) => {
-        this.shifts = this.DiaryService.groupShiftsByDate(data?.data?.shifts);
-        this.AllShifts();
-      })
-      .catch((e) => {
-        console.error('Error fetching shifts:', e);
-      });
+      this.DiaryService.getShifts(filter)
+        .then((data: any) => {
+          this.monthShifts = data?.data?.shifts || [];
+          this.shiftsCalendar = this.monthShifts; // Para que el calendario lila pinte los puntos de este mes
+          this.currentMonthKey = monthKey;
+
+          this.processDisplayShifts(targetDate, outDate);
+
+          if (this.calendar) {
+            this.calendar.updateTodaysDate();
+          }
+        })
+        .catch((e) => {
+          console.error('Error fetching shifts:', e);
+          this.loading = false;
+        });
+    } else {
+      // Ya tenemos los turnos de este mes en memoria, filtrar localmente sin demoras (Instantáneo)
+      this.processDisplayShifts(targetDate, outDate);
+    }
   }
 
-  AllShifts() {
-    this.DiaryService.getShifts()
-      .then((data: any) => {
-        this.shiftsCalendar = data?.data?.shifts;
-        this.calendar.updateTodaysDate();
-        this.loading = false;
-      })
-      .catch((e) => {
-        console.error('Error fetching shifts:', e);
+  processDisplayShifts(date: Date, isDayFilter: boolean = false) {
+    let shiftsToDisplay = this.monthShifts;
+    if (isDayFilter) {
+      shiftsToDisplay = this.monthShifts.filter((shift: any) => {
+        const shiftDate = new Date(shift.date_shift);
+        return this.isSameDay(shiftDate, date);
       });
+    }
+
+    this.shifts = this.DiaryService.groupShiftsByDate(shiftsToDisplay);
+    this.loading = false;
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
@@ -106,7 +125,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   };
 
   getEventContent(date: Date): string {
-    const event = this.shifts.find((event: any) =>
+    const event = this.monthShifts.find((event: any) =>
       this.isSameDay(new Date(event?.date_shift), date),
     );
     return event
@@ -168,9 +187,13 @@ export class DiaryComponent implements OnInit, AfterViewInit {
               ' correctamente',
             'success',
           );
+          // Forzar refresh desde API para este mes
+          this.currentMonthKey = '';
           this.getShifts(this.filter_date);
         })
-        .catch((e: any) => {});
+        .catch((e: any) => {
+          this.submitStatus = false;
+        });
     }
   }
 

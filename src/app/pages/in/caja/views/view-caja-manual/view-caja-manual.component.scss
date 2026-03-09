@@ -99,6 +99,13 @@
         background: #334155;
     }
   }
+
+  @media (max-width: 768px) {
+    .field-concepto, .field-monto, .field-fecha, .btn-add, .tipo-toggle {
+      width: 100%;
+      flex: 1 1 100%;
+    }
+  }
 }
 
 .entries-grid {
