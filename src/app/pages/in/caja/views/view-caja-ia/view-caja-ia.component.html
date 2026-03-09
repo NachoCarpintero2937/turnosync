@@ -1,0 +1,28 @@
+<div class="ia-card">
+  <div class="ia-title">🤖 Análisis de IA</div>
+
+  <div class="ia-intro">
+    Obtené un análisis personalizado de tu caja con inteligencia artificial
+    basado en los datos de este mes.
+  </div>
+
+  <button
+    mat-flat-button
+    class="ia-btn"
+    (click)="analyze()"
+    [disabled]="loading"
+  >
+    <span *ngIf="!loading">✨ Analizar con IA</span>
+    <span *ngIf="loading" class="ia-loading-text">
+      <mat-spinner diameter="18" class="ia-spinner"></mat-spinner>
+      Analizando...
+    </span>
+  </button>
+
+  <div class="ia-result" *ngIf="analysis">
+    <div class="ia-result__header">
+      <span>🤖 Análisis de tu caja — {{ mesNombre }}</span>
+    </div>
+    <div class="ia-result__body">{{ analysis }}</div>
+  </div>
+</div>

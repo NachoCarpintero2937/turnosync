@@ -1,0 +1,99 @@
+<div class="manual-card">
+  <div class="manual-title">📋 Ingresos y Egresos Manuales</div>
+
+  <!-- Formulario nuevo movimiento -->
+  <form [formGroup]="form" (ngSubmit)="submit()" class="manual-form">
+    <div class="form-row">
+      <!-- Tipo -->
+      <div class="tipo-toggle">
+        <button
+          type="button"
+          class="tipo-btn"
+          [class.active-ingreso]="form.get('tipo')?.value === 'ingreso'"
+          (click)="form.get('tipo')?.setValue('ingreso')"
+        >
+          📥 Ingreso
+        </button>
+        <button
+          type="button"
+          class="tipo-btn"
+          [class.active-egreso]="form.get('tipo')?.value === 'egreso'"
+          (click)="form.get('tipo')?.setValue('egreso')"
+        >
+          📤 Egreso
+        </button>
+      </div>
+
+      <!-- Concepto -->
+      <mat-form-field appearance="outline" class="field-concepto">
+        <mat-label>Concepto</mat-label>
+        <input
+          matInput
+          formControlName="concepto"
+          placeholder="Ej: Alquiler del local"
+        />
+      </mat-form-field>
+
+      <!-- Monto -->
+      <mat-form-field appearance="outline" class="field-monto">
+        <mat-label>Monto ($)</mat-label>
+        <span matPrefix>$ &nbsp;</span>
+        <input
+          matInput
+          formControlName="monto"
+          placeholder="0"
+          (input)="formatMonto($event)"
+          inputmode="numeric"
+        />
+      </mat-form-field>
+
+      <!-- Fecha -->
+      <mat-form-field appearance="outline" class="field-fecha">
+        <mat-label>Fecha</mat-label>
+        <input matInput type="date" formControlName="fecha" />
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="form.invalid || submitting"
+        type="submit"
+        class="btn-add"
+      >
+        {{ submitting ? "..." : "+ Agregar" }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Listas -->
+  <div class="entries-grid">
+    <div class="entries-col">
+      <div class="col-title col-title--ingreso">📥 Ingresos</div>
+      <div *ngFor="let e of ingresos" class="entry-row entry-row--ingreso">
+        <span class="e-fecha">{{ e.fecha | date: "dd/MM" }}</span>
+        <span class="e-concepto">{{ e.concepto }}</span>
+        <span class="e-monto">${{ CajaService.formatARS(+e.monto) }}</span>
+        <button class="e-delete" (click)="deleteEntry(e.id)" title="Eliminar">
+          ×
+        </button>
+      </div>
+      <div *ngIf="ingresos.length === 0" class="entries-empty">
+        Sin ingresos registrados
+      </div>
+    </div>
+    <div class="entries-col">
+      <div class="col-title col-title--egreso">📤 Egresos</div>
+      <div *ngFor="let e of egresos" class="entry-row entry-row--egreso">
+        <span class="e-fecha">{{ e.fecha | date: "dd/MM" }}</span>
+        <span class="e-concepto">{{ e.concepto }}</span>
+        <span class="e-monto">${{ CajaService.formatARS(+e.monto) }}</span>
+        <button class="e-delete" (click)="deleteEntry(e.id)" title="Eliminar">
+          ×
+        </button>
+      </div>
+      <div *ngIf="egresos.length === 0" class="entries-empty">
+        Sin egresos registrados
+      </div>
+    </div>
+  </div>
+</div>

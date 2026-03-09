@@ -1,0 +1,69 @@
+<div class="caja-container">
+  <!-- Header -->
+  <div class="caja-header">
+    <div class="caja-header__title">
+      <span class="caja-icon">💰</span>
+      <div>
+        <h1>Sistema de Caja</h1>
+        <p>Resumen financiero del mes</p>
+      </div>
+    </div>
+    <!-- Selector de mes -->
+    <div class="caja-header__mes">
+      <button
+        class="mes-nav"
+        (click)="onMesChange(selectedMes > 1 ? selectedMes - 1 : 12)"
+      >
+        ‹
+      </button>
+      <span class="mes-label">{{ mesNombre }} {{ selectedAnio }}</span>
+      <button
+        class="mes-nav"
+        (click)="onMesChange(selectedMes < 12 ? selectedMes + 1 : 1)"
+      >
+        ›
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="caja-loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando caja...</p>
+  </div>
+
+  <div *ngIf="!loading && report" class="caja-content">
+    <!-- Resumen tarjetas -->
+    <app-view-caja-resumen
+      [report]="report"
+      [totalIngresos]="totalIngresos"
+      [totalEgresos]="totalEgresos"
+      [sueldoEstimado]="sueldoEstimado"
+    >
+    </app-view-caja-resumen>
+
+    <!-- Semanas -->
+    <app-view-caja-semanas
+      [semanas]="report?.semanas ?? []"
+    ></app-view-caja-semanas>
+
+    <!-- Ingresos y egresos -->
+    <app-view-caja-manual
+      [entries]="entries"
+      [userId]="userId"
+      [mes]="selectedMes"
+      [anio]="selectedAnio"
+      (entryAdded)="onEntryAdded()"
+    >
+    </app-view-caja-manual>
+
+    <!-- Análisis IA -->
+    <app-view-caja-ia
+      [report]="report"
+      [totalIngresos]="totalIngresos"
+      [totalEgresos]="totalEgresos"
+      [sueldoEstimado]="sueldoEstimado"
+      [mesNombre]="mesNombre"
+    >
+    </app-view-caja-ia>
+  </div>
+</div>

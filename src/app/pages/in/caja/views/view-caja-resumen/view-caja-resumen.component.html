@@ -1,0 +1,61 @@
+<div class="resumen-grid">
+  <div class="kpi-card kpi-card--primary">
+    <div class="kpi-icon">💰</div>
+    <div class="kpi-body">
+      <span class="kpi-label">Recaudado por turnos</span>
+      <span class="kpi-value"
+        >${{ CajaService.formatARS(report?.total_mes ?? 0) }}</span
+      >
+      <span class="kpi-sub"
+        >{{ report?.total_turnos ?? 0 }} turnos confirmados</span
+      >
+    </div>
+  </div>
+
+  <div class="kpi-card kpi-card--cash">
+    <div class="kpi-icon">💵</div>
+    <div class="kpi-body">
+      <span class="kpi-label">Efectivo</span>
+      <span class="kpi-value"
+        >${{ CajaService.formatARS(report?.total_efectivo ?? 0) }}</span
+      >
+    </div>
+  </div>
+
+  <div class="kpi-card kpi-card--transfer">
+    <div class="kpi-icon">📲</div>
+    <div class="kpi-body">
+      <span class="kpi-label">Transferencia</span>
+      <span class="kpi-value"
+        >${{ CajaService.formatARS(report?.total_transferencia ?? 0) }}</span
+      >
+    </div>
+  </div>
+
+  <div class="kpi-card kpi-card--income">
+    <div class="kpi-icon">📥</div>
+    <div class="kpi-body">
+      <span class="kpi-label">Ingresos extras</span>
+      <span class="kpi-value">${{ CajaService.formatARS(totalIngresos) }}</span>
+    </div>
+  </div>
+
+  <div class="kpi-card kpi-card--expense">
+    <div class="kpi-icon">📤</div>
+    <div class="kpi-body">
+      <span class="kpi-label">Egresos / Gastos</span>
+      <span class="kpi-value">${{ CajaService.formatARS(totalEgresos) }}</span>
+    </div>
+  </div>
+
+  <div class="kpi-card kpi-card--salary">
+    <div class="kpi-icon">🏠</div>
+    <div class="kpi-body">
+      <span class="kpi-label">Sueldo estimado</span>
+      <span class="kpi-value"
+        >${{ CajaService.formatARS(sueldoEstimado) }}</span
+      >
+      <span class="kpi-sub">Turnos + ingresos − egresos</span>
+    </div>
+  </div>
+</div>

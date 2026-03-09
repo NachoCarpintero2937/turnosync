@@ -1,0 +1,54 @@
+<div class="semanas-card">
+  <div class="semanas-title">📅 Detalle por semana</div>
+
+  <div *ngIf="semanas.length === 0" class="semanas-empty">
+    No hay turnos confirmados este mes.
+  </div>
+
+  <div *ngFor="let sem of semanas" class="semana-row">
+    <div class="semana-header" (click)="toggle(sem.semana)">
+      <div class="semana-name">Semana {{ sem.semana }}</div>
+      <div class="semana-stats">
+        <span class="tag-turnos">{{ sem.turnos }} turnos</span>
+        <span class="tag-total">${{ CajaService.formatARS(sem.total) }}</span>
+        <span class="tag-efe" *ngIf="sem.total_efectivo > 0"
+          >💵 ${{ CajaService.formatARS(sem.total_efectivo) }}</span
+        >
+        <span class="tag-tra" *ngIf="sem.total_transferencia > 0"
+          >📲 ${{ CajaService.formatARS(sem.total_transferencia) }}</span
+        >
+      </div>
+      <span class="chevron">{{
+        expandedSemana === sem.semana ? "▲" : "▼"
+      }}</span>
+    </div>
+
+    <!-- Detalle de esa semana -->
+    <div class="semana-items" *ngIf="expandedSemana === sem.semana">
+      <div *ngFor="let item of sem.items" class="shift-item">
+        <span class="shift-date">{{
+          item.date_shift | date: "dd/MM HH:mm"
+        }}</span>
+        <span class="shift-client">{{ item.client }}</span>
+        <span class="shift-service">{{ item.service }}</span>
+        <span class="shift-price"
+          >${{ CajaService.formatARS(item.price) }}</span
+        >
+        <span
+          class="shift-method"
+          [class.method-efe]="item.payment_method === 'efectivo'"
+          [class.method-tra]="item.payment_method === 'transferencia'"
+          [class.method-none]="!item.payment_method"
+        >
+          {{
+            item.payment_method === "efectivo"
+              ? "💵 Efectivo"
+              : item.payment_method === "transferencia"
+                ? "📲 Transf."
+                : "—"
+          }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
