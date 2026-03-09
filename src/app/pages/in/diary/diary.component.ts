@@ -25,8 +25,8 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     private DiaryService: DiaryService,
     private Router: Router,
     private DatePipe: DatePipe,
-    private DateService : DateService,
-    private ToastService : ToastService,
+    private DateService: DateService,
+    private ToastService: ToastService,
     private dialog: MatDialog,
   ) {
     this.dateAdapter.setLocale('es-AR');
@@ -35,13 +35,13 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   shifts: any;
   dateNow = new Date();
   filter_date = new Date();
-  loading!:Boolean;
-  shiftsCalendar: any[]= [];
+  loading!: Boolean;
+  shiftsCalendar: any[] = [];
   enumShift!: EnumStatusShift;
-  isDateBefore! :boolean;
+  isDateBefore!: boolean;
   submitStatus!: boolean;
   ngOnInit(): void {
-    this.getShifts(this.filter_date,false);
+    this.getShifts(this.filter_date, false);
   }
 
   onDateSelect(event: any): void {
@@ -59,16 +59,18 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getShifts(date?: any,outDate? :boolean) {
+  getShifts(date?: any, outDate?: boolean) {
     this.loading = true;
     this.shifts = [];
-    
+
     var filter = {};
-      const dateRange = !outDate ? this.DateService.getMonthDateRange(date) : this.DateService.getDayRange(date)
-      filter = {
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
-      };
+    const dateRange = !outDate
+      ? this.DateService.getMonthDateRange(date)
+      : this.DateService.getDayRange(date);
+    filter = {
+      start_date: dateRange.startDate,
+      end_date: dateRange.endDate,
+    };
 
     this.DiaryService.getShifts(filter)
       .then((data: any) => {
@@ -76,20 +78,20 @@ export class DiaryComponent implements OnInit, AfterViewInit {
         this.AllShifts();
       })
       .catch((e) => {
-        console.error("Error fetching shifts:", e);
+        console.error('Error fetching shifts:', e);
       });
-  }        
+  }
 
-  AllShifts(){
+  AllShifts() {
     this.DiaryService.getShifts()
-    .then((data: any) => {
-      this.shiftsCalendar = data?.data?.shifts;
-      this.calendar.updateTodaysDate();
-      this.loading = false;
-    })
-    .catch((e) => {
-      console.error("Error fetching shifts:", e);
-    });
+      .then((data: any) => {
+        this.shiftsCalendar = data?.data?.shifts;
+        this.calendar.updateTodaysDate();
+        this.loading = false;
+      })
+      .catch((e) => {
+        console.error('Error fetching shifts:', e);
+      });
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
@@ -98,13 +100,18 @@ export class DiaryComponent implements OnInit, AfterViewInit {
       return this.isSameDay(dateShift, date);
     });
 
-    return highlightDate ? { 'highlight-event': true, 'event-content': this.getEventContent(date) } : '';
-  }
-
+    return highlightDate
+      ? { 'highlight-event': true, 'event-content': this.getEventContent(date) }
+      : '';
+  };
 
   getEventContent(date: Date): string {
-    const event = this.shifts.find((event: any) => this.isSameDay(new Date(event?.date_shift), date));
-    return event ? `${event.client.name} ${this.DatePipe.transform(event.date_shift, 'HH:mm')}` : '';
+    const event = this.shifts.find((event: any) =>
+      this.isSameDay(new Date(event?.date_shift), date),
+    );
+    return event
+      ? `${event.client.name} ${this.DatePipe.transform(event.date_shift, 'HH:mm')}`
+      : '';
   }
 
   private isSameDay(date1: Date, date2: Date): boolean {
@@ -116,50 +123,56 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   }
 
   addShift() {
-    this.Router.navigate(['in/shifts/create-shift'], { queryParams: { date: this.date } });
+    this.Router.navigate(['in/shifts/create-shift'], {
+      queryParams: { date: this.date },
+    });
   }
 
-  getDate(date:Date){
-  this.getShifts(date,true);
+  getDate(date: Date) {
+    this.getShifts(date, true);
   }
 
-  changeStatus(data:any) {
+  changeStatus(data: any) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       data: { shift: data?.shift, status: data?.status },
       width: '20%',
     });
     dialogRef.afterClosed().subscribe((modalData) => {
       if (modalData?.confirm) {
-        this.goChangeStatus(data?.shift, data?.status, modalData?.price);
+        this.goChangeStatus(
+          data?.shift,
+          data?.status,
+          modalData?.price,
+          modalData?.payment_method,
+        );
       }
     });
   }
 
-  goChangeStatus(data: any, status: any, price: any) {
+  goChangeStatus(data: any, status: any, price: any, payment_method?: any) {
     if (!this.submitStatus) {
       this.submitStatus = true;
       const dataStatus = {
         id: data?.id,
         status: status,
-        price: price
-      }
-      this.DiaryService.setStatus(dataStatus).then((shift) =>{
-        this.submitStatus = false;
-        this.ToastService.showToastNew(
-          '',
-          "Turno " + (status== 1 ? 'confirmado' : 'cancelado') + ' correctamente',
-          'success'
-        );
-        this.getShifts(this.filter_date);
-      }).catch((e:any) =>{
-
-      })
+        price: price,
+        payment_method: payment_method,
+      };
+      this.DiaryService.setStatus(dataStatus)
+        .then((shift) => {
+          this.submitStatus = false;
+          this.ToastService.showToastNew(
+            '',
+            'Turno ' +
+              (status == 1 ? 'confirmado' : 'cancelado') +
+              ' correctamente',
+            'success',
+          );
+          this.getShifts(this.filter_date);
+        })
+        .catch((e: any) => {});
     }
   }
 
-
-  ngAfterViewInit() {
-
-  }
-
+  ngAfterViewInit() {}
 }

@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'dy-shift',
   templateUrl: './shift.component.html',
-  styleUrls: ['./shift.component.scss']
+  styleUrls: ['./shift.component.scss'],
 })
 export class ShiftComponent {
   @Input() employe: any;
@@ -19,7 +19,8 @@ export class ShiftComponent {
     private dialog: MatDialog,
     private DatePipe: DatePipe,
     private DiaryService: DiaryService,
-    private ToastService: ToastService) { }
+    private ToastService: ToastService,
+  ) {}
 
   submitStatus!: boolean;
   @Output() shiftEvent = new EventEmitter();
@@ -30,8 +31,8 @@ export class ShiftComponent {
       phone: shift?.client?.phone,
       name: shift?.client?.name,
       date_shift: shift?.date_shift,
-      service: shift?.service?.name
-    }
+      service: shift?.service?.name,
+    };
     this.ModalService.getModalWsp(dataWsp);
   }
 
@@ -42,31 +43,50 @@ export class ShiftComponent {
     });
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data?.confirm) {
-        this.goChangeStatus(shift, status, data?.price, data?.description);
+        this.goChangeStatus(
+          shift,
+          status,
+          data?.price,
+          data?.description,
+          data?.payment_method,
+        );
       }
     });
   }
 
-  goChangeStatus(data: any, status: any, price: any, description: any) {
+  goChangeStatus(
+    data: any,
+    status: any,
+    price: any,
+    description: any,
+    payment_method?: any,
+  ) {
     if (!this.submitStatus) {
       this.submitStatus = true;
       const dataStatus = {
         id: data?.id,
         status: status,
-        price: price?.toString().replace('$', '').replace('.', '').replace(',', ''),
-        description: description
-      }
-      this.DiaryService.setStatus(dataStatus).then((shift) => {
-        this.submitStatus = false;
-        this.ToastService.showToastNew(
-          '',
-          "Turno " + (status == 1 ? 'confirmado' : 'cancelado') + ' correctamente',
-          'success'
-        );
-        this.shiftEvent.emit(true);
-      }).catch((e: any) => {
-
-      })
+        price: price
+          ?.toString()
+          .replace('$', '')
+          .replace('.', '')
+          .replace(',', ''),
+        description: description,
+        payment_method: payment_method,
+      };
+      this.DiaryService.setStatus(dataStatus)
+        .then((shift) => {
+          this.submitStatus = false;
+          this.ToastService.showToastNew(
+            '',
+            'Turno ' +
+              (status == 1 ? 'confirmado' : 'cancelado') +
+              ' correctamente',
+            'success',
+          );
+          this.shiftEvent.emit(true);
+        })
+        .catch((e: any) => {});
     }
   }
 
@@ -83,6 +103,6 @@ export class ShiftComponent {
   }
 
   checkbokShift(checked: boolean, shift: any) {
-    this.checked.emit({ checked: checked, shifts: shift })
+    this.checked.emit({ checked: checked, shifts: shift });
   }
 }
