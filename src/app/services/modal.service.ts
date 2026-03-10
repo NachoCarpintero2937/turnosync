@@ -5,40 +5,43 @@ import { ShiftsService } from '../pages/in/shifts/services/shifts.service';
 import { DialogWspComponent } from '../shared/dialog-wsp/dialog-wsp.component';
 import { ToastService } from './toast.service';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ModalService {
-
   constructor(
-    private ShiftService : ShiftsService,
+    private ShiftService: ShiftsService,
     private dialog: MatDialog,
-    private ToastService: ToastService
-    ) { }
-  
-  getModalWsp(data:any){
+    private ToastService: ToastService,
+  ) {}
+
+  getModalWsp(data: any) {
     const dialogRef = this.dialog.open(DialogWspComponent, {
-      data:  { 
+      data: {
         cod_area: data?.cod_area,
-         phone: data?.phone,
-         name: data?.name,
-         date_shift : data?.date_shift,
-         service: data?.service
-         } as IntModalWsp,
+        phone: data?.phone,
+        name: data?.name,
+        date_shift: data?.date_shift,
+        service: data?.service,
+      } as IntModalWsp,
       width: '50%',
     });
     dialogRef.afterClosed().subscribe((data: any) => {
-      if(data)
-        this.sendWsp(data);
-     
+      if (data) this.sendWsp(data);
     });
   }
 
-  sendWsp(data:any){
-    this.ShiftService.sendWspApi(data).then((data : any) => {
-      this.ToastService.showToastNew('',  data?.message, 'success');
-    }).catch(error => {
-      this.ToastService.showToastNew('ERROR',  error?.error?.message, 'error');
-    })
+  sendWsp(data: any) {
+    const phone = (data?.data?.cod_area || '') + (data?.data?.phone || '');
+    const message = encodeURIComponent(data?.message || '');
+    if (phone && message) {
+      const url = `https://web.whatsapp.com/send?phone=${phone}&text=${message}`;
+      window.open(url, '_blank');
+    } else {
+      this.ToastService.showToastNew(
+        'ERROR',
+        'Datos de contacto insuficientes',
+        'error',
+      );
+    }
   }
 }

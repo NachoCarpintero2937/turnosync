@@ -47,6 +47,7 @@ export class DiaryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.date = new Date(); // Asignar fecha actual por defecto
+    this.getCalendarDates(this.date);
     this.getShifts(this.filter_date, false);
   }
 
@@ -54,7 +55,30 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     this.date = event;
     this.filter_date = new Date(event);
     this.validateDate();
-    this.getShifts(this.filter_date, false);
+    this.getShifts(this.filter_date, true);
+  }
+
+  onMonthSelected(event: any): void {
+    const selectedDate = new Date(event);
+    this.getCalendarDates(selectedDate);
+  }
+
+  getCalendarDates(date: Date) {
+    const filter = {
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
+    };
+    this.DiaryService.getCalendar(filter)
+      .then((data: any) => {
+        // Mapear las fechas a objetos que el calendario entienda
+        this.shiftsCalendar = (data?.data?.dates || []).map((d: string) => ({
+          date_shift: d,
+        }));
+        if (this.calendar) {
+          this.calendar.updateTodaysDate();
+        }
+      })
+      .catch((e) => console.error('Error loading calendar dates:', e));
   }
 
   validateDate() {
@@ -65,13 +89,12 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getShifts(date: any, outDate?: boolean) {
+  getShifts(date: any, isDayFilter: boolean = false) {
     this.loading = true;
     const targetDate = date ? new Date(date) : new Date();
     const monthKey = targetDate.getFullYear() + '-' + targetDate.getMonth();
 
     if (this.currentMonthKey !== monthKey || this.monthShifts.length === 0) {
-      // Necesitamos fetchear el mes desde la API (Optimizado: solo este mes)
       const dateRange = this.DateService.getMonthDateRange(targetDate);
       const filter = {
         start_date: dateRange.startDate,
@@ -81,22 +104,15 @@ export class DiaryComponent implements OnInit, AfterViewInit {
       this.DiaryService.getShifts(filter)
         .then((data: any) => {
           this.monthShifts = data?.data?.shifts || [];
-          this.shiftsCalendar = this.monthShifts; // Para que el calendario lila pinte los puntos de este mes
           this.currentMonthKey = monthKey;
-
-          this.processDisplayShifts(targetDate, outDate);
-
-          if (this.calendar) {
-            this.calendar.updateTodaysDate();
-          }
+          this.processDisplayShifts(targetDate, isDayFilter);
         })
         .catch((e) => {
           console.error('Error fetching shifts:', e);
           this.loading = false;
         });
     } else {
-      // Ya tenemos los turnos de este mes en memoria, filtrar localmente sin demoras (Instantáneo)
-      this.processDisplayShifts(targetDate, outDate);
+      this.processDisplayShifts(targetDate, isDayFilter);
     }
   }
 

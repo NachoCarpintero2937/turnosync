@@ -9,43 +9,57 @@ import { EnviromentService } from 'src/app/services/enviroment.service';
 export class DiaryService {
   constructor(
     private ApiService: ApiService,
-    private EnviromentService: EnviromentService
+    private EnviromentService: EnviromentService,
   ) {}
 
   getShifts(data?: any) {
     return this.ApiService.get(
       this.EnviromentService.getEndpoints().endpoints.shifts.shifts,
-      data
+      data,
+    );
+  }
+
+  getCalendar(data?: any) {
+    return this.ApiService.get(
+      this.EnviromentService.getEndpoints().endpoints.shifts.shifts +
+        '/calendar',
+      data,
     );
   }
 
   setStatus(data?: any) {
     return this.ApiService.post(
       this.EnviromentService.getEndpoints().endpoints.shifts.updateStatus,
-      data
+      data,
     );
   }
 
-groupShiftsByDate(shifts: IntShift[]): { date: string, shifts: IntShift[] }[] {
-  const groupedShifts: { [date: string]: IntShift[] } = {};
+  groupShiftsByDate(
+    shifts: IntShift[],
+  ): { date: string; shifts: IntShift[] }[] {
+    const groupedShifts: { [date: string]: IntShift[] } = {};
 
-  shifts.forEach(shift => {
-    const date = shift.date_shift.split(' ')[0]; // Obtener solo la parte de la fecha
-    if (!groupedShifts[date]) {
-      groupedShifts[date] = [];
-    }
-    groupedShifts[date].push(shift);
-  });
+    shifts.forEach((shift) => {
+      const date = shift.date_shift.split(' ')[0]; // Obtener solo la parte de la fecha
+      if (!groupedShifts[date]) {
+        groupedShifts[date] = [];
+      }
+      groupedShifts[date].push(shift);
+    });
 
-  // Convertir el objeto a un array de objetos
-  const result: { date: string, shifts: IntShift[] }[] = Object.keys(groupedShifts).map(date => ({
-    date: date,
-    shifts: groupedShifts[date]
-  }));
+    // Convertir el objeto a un array de objetos
+    const result: { date: string; shifts: IntShift[] }[] = Object.keys(
+      groupedShifts,
+    ).map((date) => ({
+      date: date,
+      shifts: groupedShifts[date],
+    }));
 
-  // Ordenar el array por fecha de forma ascendente
-  result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    // Ordenar el array por fecha de forma ascendente
+    result.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
 
-  return result;
-}
+    return result;
+  }
 }
