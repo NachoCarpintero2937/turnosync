@@ -3,9 +3,10 @@ import { FormBuilder,  Validators } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-view-form-campaigns',
-  templateUrl: './view-form-campaigns.component.html',
-  styleUrls: ['./view-form-campaigns.component.scss']
+    selector: 'app-view-form-campaigns',
+    templateUrl: './view-form-campaigns.component.html',
+    styleUrls: ['./view-form-campaigns.component.scss'],
+    standalone: false
 })
 export class ViewFormCampaignsComponent implements OnInit{
 

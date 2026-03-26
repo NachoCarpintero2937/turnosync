@@ -24,6 +24,7 @@ import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
   selector: 'app-view-form-shifts',
   templateUrl: './view-form-shifts.component.html',
   styleUrls: ['./view-form-shifts.component.scss'],
+  standalone: false,
 })
 export class ViewFormShiftsComponent implements OnInit, OnChanges {
   @Input() date!: any;
@@ -104,12 +105,10 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.form.get('price')?.valueChanges.subscribe((value: any) => {
       if (value !== null && value !== undefined) {
         const strVal = value.toString();
-        if (strVal === '$' || strVal === '$ ') return;
 
         const rawValue = strVal.replace(/\D/g, '');
         if (rawValue) {
-          const formatted =
-            '$' + rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          const formatted = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
           if (strVal !== formatted) {
             this.form.get('price')?.setValue(formatted, { emitEvent: false });
           }
@@ -149,6 +148,9 @@ export class ViewFormShiftsComponent implements OnInit, OnChanges {
     this.form.get('service_id')?.setValue(this.shift?.service_id);
     this.form.get('client_id')?.setValue(this.shift?.client_id);
     this.form.get('user_id')?.setValue(this.shift?.user_id);
+    this.form
+      .get('payment_method')
+      ?.setValue(this.shift?.payment_method || null);
     this.form.get('status')?.setValue(this.shift?.status);
   }
 

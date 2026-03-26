@@ -3,9 +3,10 @@ import { UsersService } from '../../services/users.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-view-role',
-  templateUrl: './view-role.component.html',
-  styleUrls: ['./view-role.component.scss']
+    selector: 'app-view-role',
+    templateUrl: './view-role.component.html',
+    styleUrls: ['./view-role.component.scss'],
+    standalone: false
 })
 export class ViewRoleComponent implements OnInit {
   constructor(

@@ -2,7 +2,9 @@
   mat-dialog-title
   class="d-flex justify-content-center align-items-center title-dialog"
 >
-  <div class="pd-3">¿Estás seguro?</div>
+  <div class="pd-3">
+    {{ data?.isSummary ? "Detalle del Turno" : "¿Estás seguro?" }}
+  </div>
 </div>
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
@@ -44,6 +46,14 @@
   </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <a mat-button (click)="onClose(false)">Cancelar</a>
-  <a mat-button class="confirm-dialog" (click)="onClose(true)">Confirmar</a>
+  <a mat-button (click)="onClose(false)">{{
+    data?.isSummary ? "Cerrar" : "Cancelar"
+  }}</a>
+  <a
+    mat-button
+    class="confirm-dialog"
+    (click)="onClose(true)"
+    *ngIf="!data?.isSummary"
+    >Confirmar</a
+  >
 </mat-dialog-actions>

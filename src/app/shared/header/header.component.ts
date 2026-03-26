@@ -12,9 +12,10 @@ import { IntTasks } from 'src/app/interfaces/IntTasks.interface';
 import { HeaderService } from './services/header.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   constructor(

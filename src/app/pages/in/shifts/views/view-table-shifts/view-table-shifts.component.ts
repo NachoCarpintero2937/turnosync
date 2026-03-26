@@ -4,9 +4,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder } from '@angular/forms';
 @Component({
-  selector: 'app-view-table-shifts',
-  templateUrl: './view-table-shifts.component.html',
-  styleUrls: ['./view-table-shifts.component.scss']
+    selector: 'app-view-table-shifts',
+    templateUrl: './view-table-shifts.component.html',
+    styleUrls: ['./view-table-shifts.component.scss'],
+    standalone: false
 })
 export class ViewTableShiftsComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() columns: any;

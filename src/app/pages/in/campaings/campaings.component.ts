@@ -4,9 +4,10 @@ import { ClientsService } from '../clients/services/clients.service';
 import { CapmaignsService } from './services/capmaigns.service';
 
 @Component({
-  selector: 'app-campaings',
-  templateUrl: './campaings.component.html',
-  styleUrls: ['./campaings.component.scss']
+    selector: 'app-campaings',
+    templateUrl: './campaings.component.html',
+    styleUrls: ['./campaings.component.scss'],
+    standalone: false
 })
 export class CampaingsComponent {
 

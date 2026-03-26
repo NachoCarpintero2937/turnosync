@@ -6,9 +6,10 @@ import { ToastService } from 'src/app/services/toast.service';
 import { SettingsService } from '../../in/settings/services/settings.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   constructor(

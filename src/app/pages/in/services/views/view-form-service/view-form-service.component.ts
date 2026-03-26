@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
-  selector: 'app-view-form-service',
-  templateUrl: './view-form-service.component.html',
-  styleUrls: ['./view-form-service.component.scss']
+    selector: 'app-view-form-service',
+    templateUrl: './view-form-service.component.html',
+    styleUrls: ['./view-form-service.component.scss'],
+    standalone: false
 })
 export class ViewFormServiceComponent implements OnChanges{
   constructor(

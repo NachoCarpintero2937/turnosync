@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { CajaService } from '../../services/caja.service';
 
 @Component({
-  selector: 'app-view-caja-resumen',
-  templateUrl: './view-caja-resumen.component.html',
-  styleUrls: ['./view-caja-resumen.component.scss'],
+    selector: 'app-view-caja-resumen',
+    templateUrl: './view-caja-resumen.component.html',
+    styleUrls: ['./view-caja-resumen.component.scss'],
+    standalone: false
 })
 export class ViewCajaResumenComponent {
   @Input() report: any;

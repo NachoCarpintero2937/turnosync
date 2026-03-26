@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { CajaService } from '../../services/caja.service';
 
 @Component({
-  selector: 'app-view-caja-semanas',
-  templateUrl: './view-caja-semanas.component.html',
-  styleUrls: ['./view-caja-semanas.component.scss'],
+    selector: 'app-view-caja-semanas',
+    templateUrl: './view-caja-semanas.component.html',
+    styleUrls: ['./view-caja-semanas.component.scss'],
+    standalone: false
 })
 export class ViewCajaSemanasComponent {
   @Input() semanas: any[] = [];

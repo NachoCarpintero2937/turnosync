@@ -1,66 +1,76 @@
-@import '../../../../styles.scss';
+@import "../../../../styles.scss";
 
 .div-father {
-  padding: 20px;
-  gap: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
 }
 
-.mat-calendar {
-  width: 45%;
-  background: rgba(255, 255, 255, 0.7) !important;
+.calendar-container {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 10px;
-}
-
-.list-shifts {
-  width: 55%;
-  height: 800px;
+  padding: 15px;
   overflow: auto;
-  border-radius: 20px;
-  padding-right: 10px;
-  
-  /* Styling scrollbar */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(165, 129, 113, 0.5); /* $dyblleaColor base */
-    border-radius: 4px;
-  }
-}
 
-:host ::ng-deep mat-calendar .highlight-event {
-  border: 2px solid $dyblleaColor;
-  border-radius: 50%;
-  background: rgba(165, 129, 113, 0.1);
-  z-index: 99 !important;
-  font-weight: 600;
-
-  span {
-    color: $dyblleaColor !important;
-    border: 0px !important;
+  ::ng-deep {
+    .fc {
+      font-family: inherit;
+    }
+    .fc-toolbar-title {
+      font-size: 1.5rem !important;
+      color: $dyblleaColor;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .fc-button-primary {
+      background-color: $dyblleaColor !important;
+      border-color: $dyblleaColor !important;
+      &:hover {
+        background-color: darken($dyblleaColor, 10%) !important;
+        border-color: darken($dyblleaColor, 10%) !important;
+      }
+      &:focus,
+      &:active {
+        box-shadow: none !important;
+      }
+    }
+    .fc-event {
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px 4px;
+      margin-bottom: 2px;
+      font-weight: 500;
+      font-size: 0.85em;
+      transition: opacity 0.2s ease;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
-}
-
-:host ::ng-deep mat-calendar .event-content {
-  z-index: 99999;
 }
 
 .add_work {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
   button {
-    background: linear-gradient(135deg, $dyblleaColor 0%, darken($dyblleaColor, 10%) 100%) !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    background: linear-gradient(
+      135deg,
+      $dyblleaColor 0%,
+      darken($dyblleaColor, 10%) 100%
+    ) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease;
-    
+
     &:hover:not([disabled]) {
       transform: scale(1.05);
     }
@@ -69,19 +79,10 @@
 
 @media only screen and (max-width: 992px) {
   .div-father {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-  }
-
-  .mat-calendar {
-    width: 100%;
-  }
-
-  .list-shifts {
-    width: 100%;
+    padding: 10px;
     height: auto;
-    max-height: 600px;
-    margin-top: 10px;
+  }
+  .calendar-container {
+    padding: 10px;
   }
 }

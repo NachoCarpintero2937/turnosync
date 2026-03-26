@@ -57,6 +57,15 @@
     <button mat-fab (click)="createUrl()" [disabled]="submitUrl">
       <span class="material-icons text-white">share</span>
     </button>
+    <button
+      mat-fab
+      (click)="goToDiary()"
+      *ngIf="date"
+      matTooltip="Ver agenda calendar"
+      style="background-color: #6c757d"
+    >
+      <span class="material-icons text-white">calendar_month</span>
+    </button>
     <button mat-fab (click)="addShift()" *ngIf="date">
       <span class="material-icons text-white">add</span>
     </button>

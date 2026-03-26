@@ -4,9 +4,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-view-table-services',
-  templateUrl: './view-table-services.component.html',
-  styleUrls: ['./view-table-services.component.scss']
+    selector: 'app-view-table-services',
+    templateUrl: './view-table-services.component.html',
+    styleUrls: ['./view-table-services.component.scss'],
+    standalone: false
 })
 export class ViewTableServicesComponent {
   @Input() columns: any;

@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpErrorResponse,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { ToastService } from '../services/toast.service';
 import { LoginService } from '../pages/public/login/services/login.service';

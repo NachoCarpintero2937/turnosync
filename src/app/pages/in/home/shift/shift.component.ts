@@ -6,9 +6,10 @@ import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-con
 import { DiaryService } from '../../diary/services/diary.service';
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'dy-shift',
-  templateUrl: './shift.component.html',
-  styleUrls: ['./shift.component.scss'],
+    selector: 'dy-shift',
+    templateUrl: './shift.component.html',
+    styleUrls: ['./shift.component.scss'],
+    standalone: false
 })
 export class ShiftComponent {
   @Input() employe: any;

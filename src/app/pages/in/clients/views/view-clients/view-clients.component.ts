@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ClientsService } from '../../services/clients.service';
 
 @Component({
-  selector: 'app-view-clients',
-  templateUrl: './view-clients.component.html',
-  styleUrls: ['./view-clients.component.scss']
+    selector: 'app-view-clients',
+    templateUrl: './view-clients.component.html',
+    styleUrls: ['./view-clients.component.scss'],
+    standalone: false
 })
 export class ViewClientsComponent implements OnInit{
 constructor(

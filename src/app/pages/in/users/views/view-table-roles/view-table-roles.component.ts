@@ -5,9 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-view-table-roles',
-  templateUrl: './view-table-roles.component.html',
-  styleUrls: ['./view-table-roles.component.scss']
+    selector: 'app-view-table-roles',
+    templateUrl: './view-table-roles.component.html',
+    styleUrls: ['./view-table-roles.component.scss'],
+    standalone: false
 })
 export class ViewTableRolesComponent implements OnChanges,OnInit{
   @Input() columns: any;

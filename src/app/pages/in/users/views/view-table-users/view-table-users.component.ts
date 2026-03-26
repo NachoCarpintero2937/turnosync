@@ -8,9 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
 
 @Component({
-  selector: 'app-view-table-users',
-  templateUrl: './view-table-users.component.html',
-  styleUrls: ['./view-table-users.component.scss']
+    selector: 'app-view-table-users',
+    templateUrl: './view-table-users.component.html',
+    styleUrls: ['./view-table-users.component.scss'],
+    standalone: false
 })
 export class ViewTableUsersComponent implements AfterViewInit, OnChanges,OnInit{
   @Input() columns: any;

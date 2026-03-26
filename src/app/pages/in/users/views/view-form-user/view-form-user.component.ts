@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-view-form-user',
-  templateUrl: './view-form-user.component.html',
-  styleUrls: ['./view-form-user.component.scss']
+    selector: 'app-view-form-user',
+    templateUrl: './view-form-user.component.html',
+    styleUrls: ['./view-form-user.component.scss'],
+    standalone: false
 })
 export class ViewFormUserComponent implements OnChanges {
   @Input() roles: any;

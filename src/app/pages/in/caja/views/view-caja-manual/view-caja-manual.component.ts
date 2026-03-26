@@ -10,9 +10,10 @@ import { CajaService } from '../../services/caja.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-view-caja-manual',
-  templateUrl: './view-caja-manual.component.html',
-  styleUrls: ['./view-caja-manual.component.scss'],
+    selector: 'app-view-caja-manual',
+    templateUrl: './view-caja-manual.component.html',
+    styleUrls: ['./view-caja-manual.component.scss'],
+    standalone: false
 })
 export class ViewCajaManualComponent implements OnChanges {
   @Input() entries: any[] = [];

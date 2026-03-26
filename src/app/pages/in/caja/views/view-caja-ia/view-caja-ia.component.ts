@@ -3,9 +3,10 @@ import { CajaService } from '../../services/caja.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-view-caja-ia',
-  templateUrl: './view-caja-ia.component.html',
-  styleUrls: ['./view-caja-ia.component.scss'],
+    selector: 'app-view-caja-ia',
+    templateUrl: './view-caja-ia.component.html',
+    styleUrls: ['./view-caja-ia.component.scss'],
+    standalone: false
 })
 export class ViewCajaIaComponent {
   @Input() report: any;

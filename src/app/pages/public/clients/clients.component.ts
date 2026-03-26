@@ -5,9 +5,10 @@ import { SettingsService } from '../../in/settings/services/settings.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss']
+    selector: 'app-clients',
+    templateUrl: './clients.component.html',
+    styleUrls: ['./clients.component.scss'],
+    standalone: false
 })
 export class ClientsComponent implements OnInit {
   constructor(

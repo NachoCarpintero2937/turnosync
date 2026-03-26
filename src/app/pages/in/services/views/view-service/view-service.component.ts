@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../services/services.service';
 
 @Component({
-  selector: 'app-view-service',
-  templateUrl: './view-service.component.html',
-  styleUrls: ['./view-service.component.scss']
+    selector: 'app-view-service',
+    templateUrl: './view-service.component.html',
+    styleUrls: ['./view-service.component.scss'],
+    standalone: false
 })
 export class ViewServiceComponent implements OnInit {
   constructor(

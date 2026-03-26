@@ -8,9 +8,10 @@ import { EnviromentService } from 'src/app/services/enviroment.service';
 import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
 
 @Component({
-  selector: 'app-view-table-clients',
-  templateUrl: './view-table-clients.component.html',
-  styleUrls: ['./view-table-clients.component.scss']
+    selector: 'app-view-table-clients',
+    templateUrl: './view-table-clients.component.html',
+    styleUrls: ['./view-table-clients.component.scss'],
+    standalone: false
 })
 export class ViewTableClientsComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() columns: any;

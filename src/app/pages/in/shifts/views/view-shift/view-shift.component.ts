@@ -5,9 +5,10 @@ import { ShiftsService } from '../../services/shifts.service';
 import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 import { ToastService } from 'src/app/services/toast.service';
 @Component({
-  selector: 'app-view-shift',
-  templateUrl: './view-shift.component.html',
-  styleUrls: ['./view-shift.component.scss']
+    selector: 'app-view-shift',
+    templateUrl: './view-shift.component.html',
+    styleUrls: ['./view-shift.component.scss'],
+    standalone: false
 })
 export class ViewShiftComponent implements OnInit, OnDestroy {
   id: any;

@@ -4,9 +4,10 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-view-user',
-  templateUrl: './view-user.component.html',
-  styleUrls: ['./view-user.component.scss']
+    selector: 'app-view-user',
+    templateUrl: './view-user.component.html',
+    styleUrls: ['./view-user.component.scss'],
+    standalone: false
 })
 export class ViewUserComponent implements OnInit{
   roles : any[] = [];

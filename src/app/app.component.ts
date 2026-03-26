@@ -7,17 +7,17 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   title = 'dybella-front';
 
-
   constructor(
     private LoginService: LoginService,
     private NgxPermissionsService: NgxPermissionsService,
-    private SettingsService : SettingsService,
-    private Title: Title
+    private SettingsService: SettingsService,
+    private Title: Title,
   ) {}
   userData: any;
 
@@ -26,23 +26,24 @@ export class AppComponent implements OnInit {
   }
 
   initComponent() {
-    this.LoginService.dataUserSubject.subscribe(() =>{
+    this.LoginService.dataUserSubject.subscribe(() => {
       this.userData = this.LoginService.getDataUser()?.data;
       this.initPermiss();
     });
   }
 
-initPermiss(){
-  if(this.userData){
-    const permissToStorage = this.userData?.role?.permissions;
-    const permissionNames: string[] =permissToStorage.map((permission:any) => permission.name);
-    this.NgxPermissionsService.loadPermissions(permissionNames);
-    this.SettingsService.fetchSettings({company_id : this.userData?.data?.company_id}).subscribe(data =>{
-      this.Title.setTitle(data?.data?.companies?.name + " - TurnosSync"); 
+  initPermiss() {
+    if (this.userData) {
+      const permissToStorage = this.userData?.role?.permissions;
+      const permissionNames: string[] = permissToStorage.map(
+        (permission: any) => permission.name,
+      );
+      this.NgxPermissionsService.loadPermissions(permissionNames);
+      this.SettingsService.fetchSettings({
+        company_id: this.userData?.company_id,
+      }).subscribe((data) => {
+        this.Title.setTitle(data?.data?.companies?.name + ' - TurnosSync');
       });
-
+    }
   }
-}
-
-
 }

@@ -4,9 +4,10 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
-  selector: 'app-view-form-settings',
-  templateUrl: './view-form-settings.component.html',
-  styleUrls: ['./view-form-settings.component.scss']
+    selector: 'app-view-form-settings',
+    templateUrl: './view-form-settings.component.html',
+    styleUrls: ['./view-form-settings.component.scss'],
+    standalone: false
 })
 export class ViewFormSettingsComponent implements OnChanges , OnInit{
   toolbar: string = '';

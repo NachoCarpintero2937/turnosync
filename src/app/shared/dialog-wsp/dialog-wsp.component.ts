@@ -3,9 +3,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-dialog-wsp',
-  templateUrl: './dialog-wsp.component.html',
-  styleUrls: ['./dialog-wsp.component.scss'],
+    selector: 'app-dialog-wsp',
+    templateUrl: './dialog-wsp.component.html',
+    styleUrls: ['./dialog-wsp.component.scss'],
+    standalone: false
 })
 export class DialogWspComponent implements OnInit {
   constructor(

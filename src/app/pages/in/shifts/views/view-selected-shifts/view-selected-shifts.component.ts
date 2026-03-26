@@ -9,9 +9,10 @@ import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-view-selected-shifts',
-  templateUrl: './view-selected-shifts.component.html',
-  styleUrls: ['./view-selected-shifts.component.scss']
+    selector: 'app-view-selected-shifts',
+    templateUrl: './view-selected-shifts.component.html',
+    styleUrls: ['./view-selected-shifts.component.scss'],
+    standalone: false
 })
 export class ViewSelectedShiftsComponent implements OnInit {
   @Input() shifts: any

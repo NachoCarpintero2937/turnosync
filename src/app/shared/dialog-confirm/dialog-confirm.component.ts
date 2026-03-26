@@ -6,6 +6,7 @@ import { ShiftsService } from '../../pages/in/shifts/services/shifts.service';
   selector: 'app-dialog-confirm',
   templateUrl: './dialog-confirm.component.html',
   styleUrls: ['./dialog-confirm.component.scss'],
+  standalone: false,
 })
 export class DialogConfirmComponent implements OnInit {
   constructor(
@@ -31,9 +32,14 @@ export class DialogConfirmComponent implements OnInit {
   }
 
   onClose(confirm: Boolean) {
+    let rawPrice = this.price;
+    if (rawPrice && typeof rawPrice === 'string') {
+      rawPrice = rawPrice.replace(/\./g, '');
+    }
+
     this.dialogRef.close({
       confirm: confirm,
-      price: this.price,
+      price: rawPrice,
       description: this.description,
       payment_method: this.payment_method,
     });

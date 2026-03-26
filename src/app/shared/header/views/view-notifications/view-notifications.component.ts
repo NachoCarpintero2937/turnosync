@@ -5,9 +5,10 @@ import { DiaryService } from 'src/app/pages/in/diary/services/diary.service';
 import { HeaderService } from '../../services/header.service';
 
 @Component({
-  selector: 'app-view-notifications',
-  templateUrl: './view-notifications.component.html',
-  styleUrls: ['./view-notifications.component.scss']
+    selector: 'app-view-notifications',
+    templateUrl: './view-notifications.component.html',
+    styleUrls: ['./view-notifications.component.scss'],
+    standalone: false
 })
 export class ViewNotificationsComponent implements OnInit{
   constructor(

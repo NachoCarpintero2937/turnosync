@@ -2,9 +2,10 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
-  selector: 'app-clients-birthday',
-  templateUrl: './clients-birthday.component.html',
-  styleUrls: ['./clients-birthday.component.scss']
+    selector: 'app-clients-birthday',
+    templateUrl: './clients-birthday.component.html',
+    styleUrls: ['./clients-birthday.component.scss'],
+    standalone: false
 })
 export class ClientsBirthdayComponent  implements OnChanges{
   @Input() clients!: any;

@@ -6,9 +6,10 @@ import { UrlService } from 'src/app/services/url.service';
 import { LoginService } from 'src/app/pages/public/login/services/login.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
-  selector: 'app-view-form-clients',
-  templateUrl: './view-form-clients.component.html',
-  styleUrls: ['./view-form-clients.component.scss']
+    selector: 'app-view-form-clients',
+    templateUrl: './view-form-clients.component.html',
+    styleUrls: ['./view-form-clients.component.scss'],
+    standalone: false
 })
 export class ViewFormClientsComponent implements OnChanges, OnInit {
   constructor(

@@ -3,9 +3,10 @@ import { ShiftsService } from './services/shifts.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-shifts',
-  templateUrl: './shifts.component.html',
-  styleUrls: ['./shifts.component.scss']
+    selector: 'app-shifts',
+    templateUrl: './shifts.component.html',
+    styleUrls: ['./shifts.component.scss'],
+    standalone: false
 })
 export class ShiftsComponent implements OnInit{
   columns = [

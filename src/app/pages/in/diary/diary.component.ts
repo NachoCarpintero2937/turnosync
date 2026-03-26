@@ -11,11 +11,18 @@ import { ToastService } from 'src/app/services/toast.service';
 import { isBefore } from 'date-fns';
 import { DialogConfirmComponent } from 'src/app/shared/dialog-confirm/dialog-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import esLocale from '@fullcalendar/core/locales/es';
+
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.scss'],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-AR' }],
+  standalone: false,
 })
 export class DiaryComponent implements OnInit, AfterViewInit {
   @ViewChild('matcalendar') calendar!: MatCalendar<any>;
@@ -40,6 +47,76 @@ export class DiaryComponent implements OnInit, AfterViewInit {
   enumShift!: EnumStatusShift;
   isDateBefore!: boolean;
   submitStatus!: boolean;
+
+  calendarEvents: any[] = [];
+
+  calendarOptions: CalendarOptions = {
+    initialView: 'timeGridWeek',
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    locales: [esLocale],
+    locale: 'es',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay',
+    },
+    selectable: true,
+    dateClick: this.handleDateClick.bind(this),
+    eventClick: this.handleEventClick.bind(this),
+    slotMinTime: '08:00:00',
+    slotMaxTime: '22:00:00',
+    allDaySlot: false,
+    height: 'auto',
+    expandRows: true,
+    nowIndicator: true,
+  };
+
+  handleDateClick(arg: any) {
+    this.date = arg.date;
+    this.addShift();
+  }
+
+  handleEventClick(arg: any) {
+    const shift = arg.event.extendedProps.shift;
+    if (shift) {
+      if (shift.status == 0) {
+        // Si está PENDIENTE, abrir el modal para CONFIRMAR (status 1)
+        this.changeStatus({
+          shift: shift,
+          status: 1, // Nuevo estado: Confirmado
+        });
+      } else if (shift.status == 1) {
+        // Si ya está CONFIRMADO, mostrar solo un resumen
+        this.showShiftSummary(shift);
+      } else if (shift.status == 2) {
+        // Si está CANCELADO, mostrar solo un resumen
+        this.showShiftSummary(shift);
+      }
+    }
+  }
+
+  showShiftSummary(shift: any) {
+    // Reutilizar el componente DialogConfirm u otro material dialog
+    // para mostrar un resumen. Generando texto HTML para 'data.text'
+    const summaryHtml = `
+      <h3 style="margin-bottom:15px; color:#a58171; font-weight:600;">Resumen del Turno</h3>
+      <div style="text-align: left; font-size: 16px; line-height: 1.5;">
+        <p><b>Cliente:</b> ${shift.client?.name} ${shift.client?.last_name || ''}</p>
+        <p><b>Servicio:</b> ${shift.service?.name}</p>
+        <p><b>Profesional:</b> ${shift.employee?.name || 'No asignado'}</p>
+        <p><b>Fecha y Hora:</b> ${this.DatePipe.transform(shift.date_shift, 'dd/MM/yyyy HH:mm')}</p>
+        <p><b>Estado:</b> ${shift.status == 1 ? '<span style="color:#28a745">Confirmado</span>' : '<span style="color:#dc3545">Cancelado</span>'}</p>
+        ${shift.price ? `<p><b>Precio:</b> $${shift.price}</p>` : ''}
+        ${shift.payment_method ? `<p><b>Método de pago:</b> ${shift.payment_method}</p>` : ''}
+        ${shift.description ? `<p><b>Observaciones:</b> ${shift.description}</p>` : ''}
+      </div>
+    `;
+
+    this.dialog.open(DialogConfirmComponent, {
+      data: { shift: shift, status: null, text: summaryHtml, isSummary: true },
+      width: '400px',
+    });
+  }
 
   // Optimización: Caché mensual y de renderizado
   monthShifts: any[] = [];
@@ -126,6 +203,27 @@ export class DiaryComponent implements OnInit, AfterViewInit {
     }
 
     this.shifts = this.DiaryService.groupShiftsByDate(shiftsToDisplay);
+
+    const fullCalendarEvents = this.monthShifts.map((shift: any) => {
+      let backgroundColor = '#808080'; // PENDING, gris
+      if (shift.status == 1)
+        backgroundColor = '#28a745'; // SHOW, verde
+      else if (shift.status == 2) backgroundColor = '#dc3545'; // CANCELLED, rojo
+
+      return {
+        id: shift.id,
+        title: `${shift.client?.name || 'Cliente'} - ${shift.service?.name || 'Servicio'}`,
+        start: shift.date_shift,
+        backgroundColor: backgroundColor,
+        borderColor: backgroundColor,
+        extendedProps: {
+          shiftId: shift.id,
+          shift: shift,
+        },
+      };
+    });
+
+    this.calendarEvents = fullCalendarEvents;
     this.loading = false;
   }
 

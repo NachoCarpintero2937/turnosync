@@ -80,22 +80,12 @@ export class ShiftsService {
   }
 
   formatInput(data: any) {
-    let value = data;
-    // Remueve cualquier carácter que no sea un dígito o un punto decimal
-    value = value.replace(/[^\d.]/g, '');
-    // Divide el valor en parte entera y parte decimal
-    const [integerPart, decimalPart] = value.split('.');
-    // Formatea la parte entera con separadores de miles
-    const formattedIntegerPart = integerPart.replace(
-      /\B(?=(\d{3})+(?!\d))/g,
-      '.',
-    );
-    // Si hay parte decimal, formatearla también
-    const formattedDecimalPart = decimalPart
-      ? `.${decimalPart.slice(0, 2)}`
-      : '';
-    // Vuelve a asignar el valor formateado al control
-    return formattedIntegerPart + formattedDecimalPart;
+    if (!data) return '';
+    let value = data.toString();
+    // Remove all non-digit characters (including previously typed dots)
+    value = value.replace(/\D/g, '');
+    // Format with dots for thousands
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
   sendWspApi(data: any) {

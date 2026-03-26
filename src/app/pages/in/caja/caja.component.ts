@@ -3,9 +3,10 @@ import { CajaService } from './services/caja.service';
 import { LoginService } from '../../public/login/services/login.service';
 
 @Component({
-  selector: 'app-caja',
-  templateUrl: './caja.component.html',
-  styleUrls: ['./caja.component.scss'],
+    selector: 'app-caja',
+    templateUrl: './caja.component.html',
+    styleUrls: ['./caja.component.scss'],
+    standalone: false
 })
 export class CajaComponent implements OnInit {
   report: any = null;

@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-view-form-role',
-  templateUrl: './view-form-role.component.html',
-  styleUrls: ['./view-form-role.component.scss']
+    selector: 'app-view-form-role',
+    templateUrl: './view-form-role.component.html',
+    styleUrls: ['./view-form-role.component.scss'],
+    standalone: false
 })
 export class ViewFormRoleComponent implements OnChanges {
   @Input() permissions : any;

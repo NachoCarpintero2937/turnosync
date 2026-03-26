@@ -3,9 +3,10 @@ import { Chart } from 'chart.js/auto';
 import { ReportsService } from './services/reports.service';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.scss'],
+    selector: 'app-reports',
+    templateUrl: './reports.component.html',
+    styleUrls: ['./reports.component.scss'],
+    standalone: false
 })
 export class ReportsComponent implements OnInit {
   @ViewChild('barChartPrices', { static: false }) barChartPrices: any;

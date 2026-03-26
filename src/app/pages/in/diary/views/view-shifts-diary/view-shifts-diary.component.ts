@@ -4,9 +4,10 @@ import { EnumStatusShift } from 'src/app/enums/shiftStatus.enum';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
-  selector: 'app-view-shifts-diary',
-  templateUrl: './view-shifts-diary.component.html',
-  styleUrls: ['./view-shifts-diary.component.scss']
+    selector: 'app-view-shifts-diary',
+    templateUrl: './view-shifts-diary.component.html',
+    styleUrls: ['./view-shifts-diary.component.scss'],
+    standalone: false
 })
 export class ViewShiftsDiaryComponent  {
 @Input() shifts: any;

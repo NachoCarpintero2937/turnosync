@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-iniciales',
-  templateUrl: './iniciales.component.html',
-  styleUrls: ['./iniciales.component.scss'],
+    selector: 'app-iniciales',
+    templateUrl: './iniciales.component.html',
+    styleUrls: ['./iniciales.component.scss'],
+    standalone: false
 })
 export class InicialesComponent implements OnInit {
   @Input() text!: string;

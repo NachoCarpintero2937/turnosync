@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ClientsService } from '../clients/services/clients.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    standalone: false
 })
 export class ProfileComponent implements OnInit {
   shifts: any[] = [];

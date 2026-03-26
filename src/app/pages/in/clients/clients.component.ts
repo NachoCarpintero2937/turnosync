@@ -3,9 +3,10 @@ import { ClientsService } from './services/clients.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss']
+    selector: 'app-clients',
+    templateUrl: './clients.component.html',
+    styleUrls: ['./clients.component.scss'],
+    standalone: false
 })
 export class ClientsComponent implements OnInit{
 
